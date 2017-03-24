@@ -50,7 +50,6 @@ public class ReceiveThread extends Thread {
     @Override
     public void run(){
         while(running){
-            OnlinePlayers onlinePlayers = new OnlinePlayers();
             try {
                 System.out.println("ID"+id);
 
@@ -76,25 +75,28 @@ public class ReceiveThread extends Thread {
                     try{
                         JSONObject json = new JSONObject(message);
                         name = json.getString("nick");
-                        ArrayList<Player> op = onlinePlayers.getPlayers();
+                        String value = "1";
+                        ArrayList<Player> op = OnlinePlayers.getPlayers();
                         for (int i = 0; op.size() < i ; i++) {
-                            if (!op.get(i).equals(name)){
-                                player = new Player(name, id, 0, inputSocket);
-                                onlinePlayers.newPlayer(player);
-                            }
-                            else{
-                                JSONObject retur = new JSONObject();
-                                try {
-                                    retur.put("userValid", "0");
-                                    retur.put("pId", json.getString("playerID"));
-                                    retur.put("nick", name);
-                                }catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                                DataOutputStream out = new DataOutputStream(inputSocket.getOutputStream());
-                                out.writeUTF(retur.toString());
+                            if (op.get(i).getNick().equals(name)) {
+                                value = "0";
                             }
                         }
+
+                        JSONObject retur = new JSONObject();
+                        retur.put("userValid", value);
+                        retur.put("pId", id);
+                        retur.put("nick", name);
+
+                        if(value.equals("1")){
+
+                            player = new Player(name,id,0,inputSocket);
+
+                            OnlinePlayers.newPlayer(player);
+                        }
+
+                        DataOutputStream out = new DataOutputStream(inputSocket.getOutputStream());
+                        out.writeUTF(retur.toString());
 
                     }catch(JSONException e){
                         e.printStackTrace();
