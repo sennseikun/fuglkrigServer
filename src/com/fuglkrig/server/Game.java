@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+import org.json.*;
 
 /**
  * Created by Magnus on 03.03.2017.
@@ -17,6 +18,9 @@ public class Game extends Thread{
     Date lastTimeUpdatePlayers;
     String textOnPlayerScreen;
     int secoundsUntilStart = 6;
+
+    //powerups on map
+    ArrayList<Powerup> powerupsOnMap;
 
 
     //this is a count down used to
@@ -55,6 +59,33 @@ public class Game extends Thread{
     public void UpdateGame() {
         //builds the data that is going to be pushed
 
+        //initial json document
+        JSONObject dataToPlayers = new JSONObject();
+
+        //liste over powerups på kart
+
+
+        //list over players
+        JSONArray playersData = new JSONArray();
+        for (Player player : players) {
+            //playerdocument
+            JSONObject playerData = new JSONObject();
+            playerData.put("Name", player.getNick());
+            playerData.put("Hp", player.getHp());
+            playerData.put("Skin", player.getSkin());
+            playerData.put("coordX", player.getCoordX());
+            playerData.put("coordY", player.getCoordY());
+            playerData.put("Direction", player.getDirection());
+            playerData.put("Speed", player.getSpeed());
+            playerData.put("Alive", player.getAlive());
+            playerData.put("powerups", player.getPowerups());
+
+            //put playerdocument to list over players.
+            playersData.put(playerData);
+        }
+        //puts all players in the initial json document
+        dataToPlayers.put("players", playersData);
+
         //pushes the data to the clients.
         for (Player player : players) {
             player.UpdateClient();
@@ -63,6 +94,10 @@ public class Game extends Thread{
 
     //sleeps a game for tick time. Used to avoid a billion try/catch in the code.
     public void runTick() {
+        for (Player player : players) {
+            player.nextTick();
+        }
+
         try {
             game.sleep(sleepTime);
         } catch (InterruptedException e) {

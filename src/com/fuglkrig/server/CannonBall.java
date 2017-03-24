@@ -1,21 +1,23 @@
 package com.fuglkrig.server;
 
-import com.fuglkrig.server.classes.EntityPowerUp;
+import com.fuglkrig.server.classes.EntityCanonBall;
 
 import java.awt.*;
 
 /**
- * Created by Tore on 20.03.2017.
+ * Created by Tore on 24.03.2017.
  */
-public class Powerup extends GameObject implements EntityPowerUp {
+public class CannonBall extends GameObject implements EntityCanonBall {
 
-    public Powerup(double x, double y, double height, double width){
+    public CannonBall(double x, double y, double height, double width){
         super(x, y, width, height);
-
     }
 
     public void tick() {
-        x -= 5;
+        x += 10;
+        /*if(CollisionDetection.collision(this,e)){
+            //Todo destroy wall
+        }*/
     }
 
     //todo fix witdh and height

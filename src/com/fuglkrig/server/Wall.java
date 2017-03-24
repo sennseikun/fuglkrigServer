@@ -1,21 +1,23 @@
 package com.fuglkrig.server;
 
-import com.fuglkrig.server.classes.EntityPowerUp;
+import com.fuglkrig.server.classes.EntityWall;
 
 import java.awt.*;
 
 /**
- * Created by Tore on 20.03.2017.
+ * Created by Tore on 24.03.2017.
  */
-public class Powerup extends GameObject implements EntityPowerUp {
+public class Wall extends GameObject implements EntityWall {
 
-    public Powerup(double x, double y, double height, double width){
+    public Wall(double x, double y, double height, double width){
         super(x, y, width, height);
-
     }
 
     public void tick() {
         x -= 5;
+        /*if(CollisionDetection.collision(this,walls)){
+            //Todo destroy walls perhaps?
+        }*/
     }
 
     //todo fix witdh and height
