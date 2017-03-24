@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -110,14 +111,40 @@ public class ReceiveThread extends Thread {
                         DataOutputStream out = new DataOutputStream(inputSocket.getOutputStream());
                         out.writeUTF(retur.toString());
 
-                        System.out.println("Output is written");
+                        System.out.println("Player output sent");
 
                     }catch(JSONException e){
                         e.printStackTrace();
                         break;
                     }
                 }
+
+                //Asking for list of lobbys
+
                 else if(datatype == 1){
+
+                    //Lobby logic here
+                    JSONObject json = new JSONObject();
+                    json.put("Datatype","1");
+
+                    List<Lobby> lobbys = LobbyList.getLobbys();
+
+                    json.put("Count",lobbys.size());
+
+                    for(int i = 1; i < lobbys.size() + 1; i ++){
+
+                        Lobby l = lobbys.get(i - 1);
+
+                        json.put("PlayerCount"+i,l.getPlayerCount());
+                        json.put("MaxPlayers"+i,l.getMax_player_count());
+                        json.put("Password"+i,l.getPassword());
+                    }
+
+                    DataOutputStream out = new DataOutputStream(inputSocket.getOutputStream());
+                    out.writeUTF(json.toString());
+
+                    System.out.println("Lobbyslist sent");
+
 
                 }
                 else if(datatype == 2){
