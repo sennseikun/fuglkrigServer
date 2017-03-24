@@ -79,6 +79,10 @@ public class Player {
         return powerups;
     }
 
+    public void addPowerUp(int powerUp){
+        this.powerups.add(powerUp);
+    }
+
     public void setAlive(boolean alive) {
         this.alive = alive;
     }

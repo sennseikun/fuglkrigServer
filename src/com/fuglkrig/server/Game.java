@@ -1,10 +1,10 @@
 package com.fuglkrig.server;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
+
 import org.json.*;
+
+import static java.util.Random.*;
 
 /**
  * Created by Magnus on 03.03.2017.
@@ -16,14 +16,20 @@ public class Game extends Thread{
     Map currentMap;
     Thread game;
     Date lastTimeUpdatePlayers;
+    double timeStart = System.currentTimeMillis();
+    double timeSinceLastPowerUp;
+    double timeForNewPowerUp = 500;
     String textOnPlayerScreen;
     int secoundsUntilStart = 6;
+    int numberOfPowerUps = 10;
+    Random rand = new Random();
+    Powerup powerup;
 
     //powerups on map
     ArrayList<Powerup> powerupsOnMap;
 
 
-    //this is a count down used to
+    //this is a count down used to(Start?)
     Timer timer;
     TimerTask countDown = new TimerTask() {
         @Override
@@ -98,6 +104,13 @@ public class Game extends Thread{
             player.nextTick();
         }
 
+        timeSinceLastPowerUp = System.currentTimeMillis()-timeStart;
+        if(timeSinceLastPowerUp > timeForNewPowerUp){
+            powerup.setId(rand.nextInt(numberOfPowerUps)+1);
+            this.powerupsOnMap.add(powerup);
+            timeStart = System.currentTimeMillis();
+        }
+
         try {
             game.sleep(sleepTime);
         } catch (InterruptedException e) {
@@ -114,12 +127,14 @@ public class Game extends Thread{
         textOnPlayerScreen = "Waiting for players";
     	boolean readyToStart = false;
     	while (readyToStart == false) {
-    		boolean everyoneReady = true;
-            for (Player player : players) {
-                if (player.readyToStart() == false) {
-                	everyoneReady = false;
-                }
-            }
+    		/*
+                    boolean everyoneReady = true;
+                    for (Player player : players) {
+                        if (player.readyToStart() == false) {
+                            everyoneReady = false;
+                        }
+                    }
+            */
             //updates the players of the current state.
             UpdateGame();
             //reduces the amount of time this runs.

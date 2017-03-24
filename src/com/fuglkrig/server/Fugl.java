@@ -23,7 +23,7 @@ public class Fugl extends GameObject implements EntityBird {
             //Todo move the birds
         }
         if(CollisionDetection.collision(this,walls)){
-            //Todo kill bird
+            player.alive=false;
         }
         if(CollisionDetection.collisionPowerup(this, powerUps)){
             //Todo add powerup
