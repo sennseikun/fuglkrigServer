@@ -27,6 +27,11 @@ public class Player {
     ArrayList<Integer> powerups;
     Game currentGame;
 
+    @Override
+    public String toString(){
+        return nick;
+    }
+
     public Player(String nick, int playerID, int skin, Socket connection) {
         this.nick = nick;
         this.playerID = playerID;

@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 
 public class OnlinePlayers {
-    private static ArrayList<Player>  players;
+    private static ArrayList<Player>  players = new ArrayList<>();
 
     public static ArrayList<Player> getPlayers() {
         return players;
@@ -19,5 +19,12 @@ public class OnlinePlayers {
 
     public static void newPlayer(Player player){
         players.add(player);
+        System.out.println("Added player");
+    }
+
+    public static void removePlayer(Player player){
+        if(players.contains(player)){
+            players.remove(player);
+        }
     }
 }
