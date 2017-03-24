@@ -5,6 +5,7 @@ import java.util.ArrayList;
 /**
  * Created by Tore on 24.03.2017.
  */
+
 public class OnlinePlayers {
     private static ArrayList<Player>  players;
 
