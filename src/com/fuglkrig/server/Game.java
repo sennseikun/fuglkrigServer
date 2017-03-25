@@ -76,6 +76,7 @@ public class Game extends Thread{
         for (Player player : players) {
             //playerdocument
             JSONObject playerData = new JSONObject();
+            playerData.put("playerID", player.getPlayerID());
             playerData.put("Name", player.getNick());
             playerData.put("Hp", player.getHp());
             playerData.put("Skin", player.getSkin());
@@ -98,24 +99,33 @@ public class Game extends Thread{
         }
     }
 
-    //sleeps a game for tick time. Used to avoid a billion try/catch in the code.
-    public void runTick() {
-        for (Player player : players) {
-            player.nextTick();
-        }
-
+    public void SpawnPowerups() {
+        //Used to spawn powerups
         timeSinceLastPowerUp = System.currentTimeMillis()-timeStart;
         if(timeSinceLastPowerUp > timeForNewPowerUp){
             powerup.setId(rand.nextInt(numberOfPowerUps)+1);
             this.powerupsOnMap.add(powerup);
             timeStart = System.currentTimeMillis();
         }
+    }
 
+    public void MovePowerups() {
+        
+    }
+
+    //sleeps a game for tick time. Used to avoid a billion try/catch in the code.
+    public void sleepTick() {
         try {
             game.sleep(sleepTime);
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        }
+    }
+
+    public void playerTick() {
+        for (Player player : players) {
+            player.nextTick();
         }
     }
 
@@ -127,18 +137,18 @@ public class Game extends Thread{
         textOnPlayerScreen = "Waiting for players";
     	boolean readyToStart = false;
     	while (readyToStart == false) {
-    		/*
-                    boolean everyoneReady = true;
-                    for (Player player : players) {
-                        if (player.readyToStart() == false) {
-                            everyoneReady = false;
-                        }
-                    }
-            */
+
+            boolean everyoneReady = true;
+            for (Player player : players) {
+                if (player.readyToStart() == false) {
+                    everyoneReady = false;
+                }
+            }
+
             //updates the players of the current state.
             UpdateGame();
             //reduces the amount of time this runs.
-            runTick();
+            sleepTick();
     	}
 
         //counts down the game before its starts
@@ -147,8 +157,10 @@ public class Game extends Thread{
 
     	//start updating players
     	while(!paused) {
+            SpawnPowerups();
+            playerTick();
     		UpdateGame();
-    		runTick();
+    		sleepTick();
     	}
     }
 
