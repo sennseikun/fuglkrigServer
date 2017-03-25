@@ -1,6 +1,7 @@
 package com.fuglkrig.server;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -23,6 +24,15 @@ public class LobbyList {
     }
     public void onChange(Game game) {
 
+    }
+    public static  void remove_empty_lists() {
+        Iterator<Lobby> l =  lobbys.iterator();
+        while(l.hasNext()){
+            Lobby lobby = l.next();
+            if(lobby.isEmpty()){
+                l.remove();
+            }
+        }
     }
 
 

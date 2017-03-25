@@ -22,6 +22,15 @@ public class OnlinePlayers {
         System.out.println("Added player");
     }
 
+    public static Player getPlayer(String name){
+        for(Player p: players){
+            if(p.getNick().equals(name)){
+                return p;
+            }
+        }
+        return null;
+    }
+
     public static void removePlayer(Player player){
         if(players.contains(player)){
             players.remove(player);
