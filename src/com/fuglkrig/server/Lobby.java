@@ -1,5 +1,7 @@
 package com.fuglkrig.server;
 
+import org.json.*;
+
 import java.util.List;
 
 /**
@@ -10,6 +12,7 @@ public class Lobby {
     private List<Player> players;
     private int max_player_count;
     private String password;
+
 
     public Lobby(List<Player> players, int max_player_count, String password){
         this.players = players;
@@ -40,4 +43,17 @@ public class Lobby {
     public String getPassword(){
         return password;
     }
+
+    //make json of lobby
+    public JSONObject makeData() {
+        JSONObject lobbyData = new JSONObject();
+
+        lobbyData.put("maxPlayers", max_player_count);
+        JSONArray playerList = new JSONArray(players);
+        lobbyData.put("players", playerList);
+
+        //returns the lobby
+        return lobbyData;
+    }
+
 }
