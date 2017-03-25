@@ -15,9 +15,10 @@ public class LobbyList {
         lobbys.add(lobby);
     }
 
-    public static  List<Lobby> getLobbys(){
+    public static List<Lobby> getLobbys(){
         return lobbys;
     }
+
     public void onChange(Game game) {
 
     }

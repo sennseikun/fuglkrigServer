@@ -110,7 +110,14 @@ public class Game extends Thread{
     }
 
     public void MovePowerups() {
-        
+        for (Powerup powerup : powerupsOnMap) {
+            if (powerup.getX() < 0 ) {
+                powerupsOnMap.remove(powerup);
+            }
+            else {
+                powerup.tick();
+            }
+        }
     }
 
     //sleeps a game for tick time. Used to avoid a billion try/catch in the code.
