@@ -21,7 +21,7 @@ public class Game extends Thread{
     double timeForNewPowerUp = 500;
     String textOnPlayerScreen;
     int secoundsUntilStart = 6;
-    int numberOfPowerUps = 10;
+    int numberOfPowerUps = 8;
     Random rand = new Random();
     Powerup powerup;
 
@@ -76,6 +76,7 @@ public class Game extends Thread{
         for (Player player : players) {
             //playerdocument
             JSONObject playerData = new JSONObject();
+            playerData.put("playerID", player.getPlayerID());
             playerData.put("Name", player.getNick());
             playerData.put("Hp", player.getHp());
             playerData.put("Skin", player.getSkin());
@@ -98,19 +99,29 @@ public class Game extends Thread{
         }
     }
 
-    //sleeps a game for tick time. Used to avoid a billion try/catch in the code.
-    public void runTick() {
-        for (Player player : players) {
-            player.nextTick();
-        }
-
+    public void SpawnPowerups() {
+        //Used to spawn powerups
         timeSinceLastPowerUp = System.currentTimeMillis()-timeStart;
         if(timeSinceLastPowerUp > timeForNewPowerUp){
             powerup.setId(rand.nextInt(numberOfPowerUps)+1);
             this.powerupsOnMap.add(powerup);
             timeStart = System.currentTimeMillis();
         }
+    }
 
+    public void MovePowerups() {
+        for (Powerup powerup : powerupsOnMap) {
+            if (powerup.getX() < 0 ) {
+                powerupsOnMap.remove(powerup);
+            }
+            else {
+                powerup.tick();
+            }
+        }
+    }
+
+    //sleeps a game for tick time. Used to avoid a billion try/catch in the code.
+    public void sleepTick() {
         try {
             game.sleep(sleepTime);
         } catch (InterruptedException e) {
@@ -119,7 +130,13 @@ public class Game extends Thread{
         }
     }
 
-    //logic for the game thread
+    public void playerTick() {
+        for (Player player : players) {
+            player.nextTick();
+        }
+    }
+
+    //logic for the game thread. Do not run this method. run the start() even tho it is not specified here
     public void run() {
         //Should probably make a timeout when we stop waiting for players to connect. todo
 
@@ -127,18 +144,18 @@ public class Game extends Thread{
         textOnPlayerScreen = "Waiting for players";
     	boolean readyToStart = false;
     	while (readyToStart == false) {
-    		/*
-                    boolean everyoneReady = true;
-                    for (Player player : players) {
-                        if (player.readyToStart() == false) {
-                            everyoneReady = false;
-                        }
-                    }
-            */
+
+            boolean everyoneReady = true;
+            for (Player player : players) {
+                if (player.readyToStart() == false) {
+                    everyoneReady = false;
+                }
+            }
+
             //updates the players of the current state.
             UpdateGame();
             //reduces the amount of time this runs.
-            runTick();
+            sleepTick();
     	}
 
         //counts down the game before its starts
@@ -147,13 +164,11 @@ public class Game extends Thread{
 
     	//start updating players
     	while(!paused) {
+            SpawnPowerups();
+            playerTick();
     		UpdateGame();
-    		runTick();
+    		sleepTick();
     	}
     }
 
-    //starts the thread by invoking the run() method
-    public void start() {
-        game.start();
-    }
 }
