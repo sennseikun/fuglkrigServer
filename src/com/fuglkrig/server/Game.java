@@ -136,7 +136,7 @@ public class Game extends Thread{
         }
     }
 
-    //logic for the game thread
+    //logic for the game thread. Do not run this method. run the start() even tho it is not specified here
     public void run() {
         //Should probably make a timeout when we stop waiting for players to connect. todo
 
@@ -171,8 +171,4 @@ public class Game extends Thread{
     	}
     }
 
-    //starts the thread by invoking the run() method
-    public void start() {
-        game.start();
-    }
 }
