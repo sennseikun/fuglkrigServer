@@ -8,11 +8,14 @@ import java.util.List;
  */
 public class LobbyList {
 
-
     private static List<Lobby> lobbys = new ArrayList<>();
 
     public static void addLobby(Lobby lobby){
         lobbys.add(lobby);
+    }
+
+    public static void removeLobby(Lobby lobby){
+        lobbys.remove(lobby);
     }
 
     public static  List<Lobby> getLobbys(){

@@ -10,11 +10,24 @@ public class Lobby {
     private List<Player> players;
     private int max_player_count;
     private String password;
+    private String name;
 
-    public Lobby(List<Player> players, int max_player_count, String password){
+    public Lobby(String name,List<Player> players, int max_player_count, String password){
         this.players = players;
         this.max_player_count = max_player_count;
         this.password = password;
+        this.name = name;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+    public String getName(){
+        return name;
+    }
+
+    public boolean isEmpty(){
+        return players.isEmpty();
     }
 
     public void addPlayer(Player player){

@@ -34,7 +34,20 @@ public class ReceiveThread extends Thread {
     public void stopConnection(){
         try {
             inputSocket.close();
+            Lobby removeLobby = null;
             OnlinePlayers.removePlayer(player);
+            for(Lobby l: LobbyList.getLobbys()){
+                if(l.containsPlayer(player)){
+                    l.removePlayer(player);
+                    if(l.isEmpty()){
+                        removeLobby = l;
+                    }
+                }
+            }
+            if(removeLobby != null){
+                LobbyList.removeLobby(removeLobby);
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -121,20 +134,44 @@ public class ReceiveThread extends Thread {
 
                 //Asking for list of lobbys
 
-                else if(datatype == 1){
+                else if(datatype == 1 || datatype == 10){
 
                     //Lobby logic here
                     JSONObject json = new JSONObject();
                     json.put("Datatype","1");
 
+                    int size = LobbyList.getLobbys().size();
                     List<Lobby> lobbys = LobbyList.getLobbys();
 
-                    json.put("Count",lobbys.size());
+                    System.out.println(size+"");
+
+                    for(int i = 0; i < size; i++){
+                        if(lobbys.get(i).isEmpty()){
+
+                            System.out.printf("Found empty lobby");
+                            lobbys.remove(lobbys.get(i));
+                        }
+                    }
+
+
+                    System.out.println("Number of lobbies: " + lobbys.size());
+
+                    if(lobbys.size() == 0){
+                        json.put("Count", 1);
+                        json.put("Name1","Test");
+                        json.put("PlayerCount1","1");
+                        json.put("MaxPlayers1","3");
+                        json.put("Password1","");
+                    }
+                    else{
+                        json.put("Count",lobbys.size());
+                    }
 
                     for(int i = 1; i < lobbys.size() + 1; i ++){
 
                         Lobby l = lobbys.get(i - 1);
 
+                        json.put("Name"+i,l.getName());
                         json.put("PlayerCount"+i,l.getPlayerCount());
                         json.put("MaxPlayers"+i,l.getMax_player_count());
                         json.put("Password"+i,l.getPassword());
@@ -147,7 +184,32 @@ public class ReceiveThread extends Thread {
 
 
                 }
+
+                //Create lobby
                 else if(datatype == 2){
+                    JSONObject jsonObject = new JSONObject(message);
+                    String name = jsonObject.getString("Name");
+                    int max_players = jsonObject.getInt("Players");
+                    String password = jsonObject.getString("Password");
+
+                    List<Player> playerList = new ArrayList<>();
+                    Player player = new Player(name,id,0,inputSocket);
+
+                    playerList.add(player);
+
+                    Lobby lobby = new Lobby(name,playerList,max_players,password);
+
+                    System.out.println("Adding lobby");
+                    LobbyList.addLobby(lobby);
+
+                    JSONObject sendJson = new JSONObject();
+
+                    sendJson.put("Datatype","2");
+                    sendJson.put("Valid","1");
+
+                    DataOutputStream out = new DataOutputStream(inputSocket.getOutputStream());
+                    out.writeUTF(sendJson.toString());
+
 
                 }
                 else{
