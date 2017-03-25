@@ -8,7 +8,7 @@ import java.awt.*;
  * Created by Magnus on 03.03.2017.
  */
 public class GameObject {
-    String name;
+    String nick;
     int id;
     int code;
 
