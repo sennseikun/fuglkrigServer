@@ -43,6 +43,10 @@ public class Player {
         return this.nick;
     }
 
+    public int getPlayerID() {
+        return this.playerID;
+    }
+
     public int getHp() {
         return this.hp;
     }
