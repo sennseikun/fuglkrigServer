@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,12 +22,14 @@ public class ReceiveThread extends Thread {
     int id;
     Player player;
     boolean running;
+    ExecutorService executor;
 
 
     public ReceiveThread(Socket inputSocket, int id){
         this.inputSocket = inputSocket;
         this.id = id;
         this.running = true;
+        executor = Executors.newFixedThreadPool(5);
     }
 
     public void stopThread(){
@@ -33,6 +38,15 @@ public class ReceiveThread extends Thread {
 
     public void stopConnection(){
         try {
+
+            executor.shutdown();
+
+            while (!executor.isTerminated()) {
+                System.out.println("Terminating worker threads");
+            }
+
+            System.out.println("Terminated worker thread");
+
             inputSocket.close();
             Lobby removeLobby = null;
             OnlinePlayers.removePlayer(player);
@@ -53,6 +67,10 @@ public class ReceiveThread extends Thread {
         }
     }
 
+    public void setPlayer(Player player){
+        this.player = player;
+    }
+
 
 
     /*
@@ -68,7 +86,6 @@ public class ReceiveThread extends Thread {
             try {
 
                 System.out.println("Players: " + OnlinePlayers.getPlayers());
-
 
                 DataInputStream in;
                 in = new DataInputStream(inputSocket.getInputStream());
@@ -91,226 +108,48 @@ public class ReceiveThread extends Thread {
                 //Check if username is taken, register this user on this username
 
                 if(datatype == 0){
-                    String name;
-                    try{
-                        JSONObject json = new JSONObject(message);
-                        name = json.getString("nick");
-                        String value = "1";
-                        ArrayList<Player> op = OnlinePlayers.getPlayers();
-
-                        //Checks if name is empty
-
-                        if(name.equals("")){
-                            value = "0";
-                        }
-
-                        //Checks if other users already has this username
-
-                        else if(op != null){
-                            for (int i = 0; op.size() < i ; i++) {
-                                if (op.get(i).getNick().equals(name)) {
-                                    value = "0";
-                                }
-                            }
-                        }
-
-                        //Create and send answer to send back to client
-
-                        JSONObject retur = new JSONObject();
-                        retur.put("Datatype","0");
-                        retur.put("userValid", value);
-                        retur.put("pId", id);
-                        retur.put("nick", name);
-
-                        if(value.equals("1")){
-
-                            player = new Player(name,id,0,inputSocket);
-                            OnlinePlayers.newPlayer(player);
-                        }
-
-                        DataOutputStream out = new DataOutputStream(inputSocket.getOutputStream());
-                        out.writeUTF(retur.toString());
-
-                        System.out.println("ReceiveThread: Sent user verification");
-
-                    }catch(JSONException e){
-                        e.printStackTrace();
-                        break;
-                    }
+                    Runnable worker = new WorkerThread(this,id,"1",inputSocket,message);
+                    System.out.println("Executing worker thread 1");
+                    executor.execute(worker);
                 }
 
                 //Asking for list of lobbys
 
                 else if(datatype == 1 || datatype == 10){
 
-                    //Lobby logic here
-                    JSONObject json = new JSONObject();
-                    json.put("Datatype","1");
-
-                    //Remove the lobbies without users in it
-
-                    LobbyList.remove_empty_lists();
-
-                    List<Lobby> lobbys = LobbyList.getLobbys();
-
-                    json.put("Count",lobbys.size());
-
-                    //Return all the lobbies with lobby name, player count, max player count and password
-
-                    for(int i = 1; i < lobbys.size() + 1; i ++){
-
-                        Lobby l = lobbys.get(i - 1);
-
-                        json.put("Name"+i,l.getName());
-                        json.put("PlayerCount"+i,l.getPlayerCount());
-                        json.put("MaxPlayers"+i,l.getMax_player_count());
-                        json.put("Password"+i,l.getPassword());
-                    }
-
-                    DataOutputStream out = new DataOutputStream(inputSocket.getOutputStream());
-                    out.writeUTF(json.toString());
-
-                    System.out.println("ReceiveThread: Sent lobbylist");
-
-
+                    System.out.println("Executing worker thread 2");
+                    Runnable worker = new WorkerThread(this,id,"2",inputSocket,message);
+                    executor.execute(worker);
                 }
 
                 //Create lobby
                 else if(datatype == 2){
-
-                    //Setup a new lobby and put the creating player in it
-
-                    JSONObject jsonObject = new JSONObject(message);
-                    String name = jsonObject.getString("Name");
-                    String playerName = jsonObject.getString("PlayerName");
-                    int max_players = jsonObject.getInt("Players");
-                    String password = jsonObject.getString("Password");
-
-                    List<Player> playerList = new ArrayList<>();
-                    Player player = new Player(playerName,id,0,inputSocket);
-
-                    playerList.add(player);
-
-                    Lobby lobby = new Lobby(name,playerList,max_players,password);
-
-                    System.out.println("ReceiveThread: Creating a lobby and putting it in the list");
-                    LobbyList.addLobby(lobby);
-
-                    JSONObject sendJson = new JSONObject();
-
-                    sendJson.put("Datatype","2");
-                    sendJson.put("Valid","1");
-
-                    DataOutputStream out = new DataOutputStream(inputSocket.getOutputStream());
-                    out.writeUTF(sendJson.toString());
-
-
+                    System.out.println("Executing worker thread 3");
+                    Runnable worker = new WorkerThread(this,id,"3",inputSocket,message);
+                    executor.execute(worker);
                 }
 
 
                 //Remove player from lobby
 
                 else if(datatype == 3){
-                    JSONObject jsonObject = new JSONObject(message);
-                    String name = jsonObject.getString("Name");
-                    String lobbyID = jsonObject.getString("Lobby");
-
-                    List<Lobby> lobbys = LobbyList.getLobbys();
-                    Lobby currLobby = null;
-
-                    for(Lobby l: lobbys){
-                        if(l.getName().equals(lobbyID)){
-                            l.removeByPlayerName(name);
-                            currLobby = l;
-                            break;
-                        }
-                    }
-
-                    String playerCount = "0";
-                    JSONObject sendJson = new JSONObject();
-
-                    if(currLobby != null){
-                        playerCount = Integer.toString(currLobby.getPlayers().size());
-                        System.out.println("ReceiveThread: Removed player: "+name);
-
-                        System.out.println("ReceiveThread: Player count: "+playerCount);
-
-                        sendJson.put("Datatype","3");
-                        sendJson.put("LobbyID",lobbyID);
-                        sendJson.put("Error","0");
-                        sendJson.put("PlayerCount",playerCount);
-                    }
-                    else{
-                        sendJson.put("Datatype","3");
-                        sendJson.put("Error","1");
-                    }
-
-
-                    DataOutputStream out = new DataOutputStream(inputSocket.getOutputStream());
-                    out.writeUTF(sendJson.toString());
-
+                    System.out.println("Executing worker thread 4");
+                    Runnable worker = new WorkerThread(this,id,"4",inputSocket,message);
+                    executor.execute(worker);
                 }
 
                 //New player joining a game
 
                 else if(datatype == 4){
-                    JSONObject jsonObject = new JSONObject(message);
-                    String name = jsonObject.getString("Name");
-                    String lobbyID = jsonObject.getString("Lobby");
-
-                    List<Lobby> lobbys = LobbyList.getLobbys();
-                    Lobby currLobby = null;
-
-                    //Add player to the lobby being joined
-
-                    for(Lobby l: lobbys){
-                        if(l.getName().equals(lobbyID)){
-
-                            Player p = new Player(name,id,0,inputSocket);
-                            l.addPlayer(p);
-                            currLobby = l;
-                            break;
-                        }
-                    }
-
-                    String playerCount;
-
-                    JSONObject sendJson = new JSONObject();
-
-                    if(currLobby != null){
-                        playerCount = Integer.toString(currLobby.getPlayers().size());
-                        System.out.println("Added player: "+name);
-
-                        sendJson.put("Datatype","4");
-                        sendJson.put("LobbyID",lobbyID);
-                        sendJson.put("Error","0");
-                        sendJson.put("PlayerCount",playerCount);
-
-                    }
-                    else{
-                        sendJson.put("Datatype","4");
-                        sendJson.put("Error","1");
-                    }
-
-                    DataOutputStream out = new DataOutputStream(inputSocket.getOutputStream());
-                    out.writeUTF(sendJson.toString());
+                    System.out.println("Executing worker thread 5");
+                    Runnable worker = new WorkerThread(this,id,"5",inputSocket,message);
+                    executor.execute(worker);
 
                 }
-
-                else{
-                    break;
-                }
-
-                System.out.println(message);
-
-
             } catch (IOException e) {
                 e.printStackTrace();
-                stopConnection();
-                stopThread();
             }
         }
-
         stopConnection();
         stopThread();
     }
