@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by Simon on 16.03.2017.
@@ -23,6 +26,12 @@ public class RequestHandler extends Thread {
     public void run() {
         while (true) {
             try {
+
+                ExecutorService executor = Executors.newFixedThreadPool(5);
+
+                Runnable worker = new WorkerThread("7");
+                System.out.println("Executing worker thread 7");
+                executor.execute(worker);
 
                 System.out.println("Waiting for client on port " + serverSocket.getLocalPort() + "...");
                 server = serverSocket.accept();

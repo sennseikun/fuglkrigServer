@@ -31,10 +31,56 @@ public class WorkerThread implements Runnable {
         this.ReceiveThread = ReceiveThread;
     }
 
+    public WorkerThread(String command){
+        this.command = command;
+    }
+
+    public void sendLobbys(){
+
+        try {
+
+            //Lobby logic here
+            JSONObject json = new JSONObject();
+            json.put("Datatype", "1");
+
+            //Remove the lobbies without users in it
+
+            //LobbyList.remove_empty_lists();
+
+            List<Lobby> lobbys = LobbyList.getLobbys();
+
+            json.put("Count", lobbys.size());
+
+            //Return all the lobbies with lobby name, player count, max player count and password
+
+            for (int i = 1; i < lobbys.size() + 1; i++) {
+
+                Lobby l = lobbys.get(i - 1);
+
+                System.out.println("Packing lobby: " + l.getName());
+
+                json.put("Name" + i, l.getName());
+                json.put("PlayerCount" + i, l.getPlayerCount());
+                json.put("MaxPlayers" + i, l.getMax_player_count());
+                json.put("Password" + i, l.getPassword());
+            }
+
+            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+            out.writeUTF(json.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("ReceiveThread: Sent lobbylist");
+    }
+
     @Override
     public void run() {
 
         try {
+
+            //CHECK if player can be made
+
             if (command.equals("1")) {
                 String name;
                 JSONObject json = new JSONObject(message);
@@ -71,6 +117,8 @@ public class WorkerThread implements Runnable {
                     Player player = new Player(name, id, 0, socket);
                     ReceiveThread.setPlayer(player);
                     OnlinePlayers.newPlayer(player);
+
+                    System.out.println("Players online: " + OnlinePlayers.getPlayers());
                 }
 
                 DataOutputStream out = new DataOutputStream(socket.getOutputStream());
@@ -80,36 +128,14 @@ public class WorkerThread implements Runnable {
 
             }
 
+            //Return all lobbies
+
             else if (command.equals("2")) {
-                //Lobby logic here
-                JSONObject json = new JSONObject();
-                json.put("Datatype", "1");
-
-                //Remove the lobbies without users in it
-
-                LobbyList.remove_empty_lists();
-
-                List<Lobby> lobbys = LobbyList.getLobbys();
-
-                json.put("Count", lobbys.size());
-
-                //Return all the lobbies with lobby name, player count, max player count and password
-
-                for (int i = 1; i < lobbys.size() + 1; i++) {
-
-                    Lobby l = lobbys.get(i - 1);
-
-                    json.put("Name" + i, l.getName());
-                    json.put("PlayerCount" + i, l.getPlayerCount());
-                    json.put("MaxPlayers" + i, l.getMax_player_count());
-                    json.put("Password" + i, l.getPassword());
-                }
-
-                DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-                out.writeUTF(json.toString());
-
-                System.out.println("ReceiveThread: Sent lobbylist");
+                sendLobbys();
             }
+
+            //Create new lobby
+
             else if (command.equals("3")) {
 
                 //Setup a new lobby and put the creating player in it
@@ -139,6 +165,9 @@ public class WorkerThread implements Runnable {
                 out.writeUTF(sendJson.toString());
 
             }
+
+            //Withdraw from lobby
+
             else if (command.equals("4")) {
 
                 JSONObject jsonObject = new JSONObject(message);
@@ -156,10 +185,15 @@ public class WorkerThread implements Runnable {
                     }
                 }
 
-                String playerCount = "0";
+                LobbyList.remove_empty_lists();
+
+                String playerCount;
                 JSONObject sendJson = new JSONObject();
 
                 if(currLobby != null){
+
+                    //WRITE
+
                     playerCount = Integer.toString(currLobby.getPlayers().size());
                     System.out.println("ReceiveThread: Removed player: "+name);
 
@@ -169,17 +203,22 @@ public class WorkerThread implements Runnable {
                     sendJson.put("LobbyID",lobbyID);
                     sendJson.put("Error","0");
                     sendJson.put("PlayerCount",playerCount);
+                    sendJson.put("PlayerName",name);
                 }
                 else{
                     sendJson.put("Datatype","3");
                     sendJson.put("Error","1");
                 }
 
+                LobbyList.remove_empty_lists();
+
 
                 DataOutputStream out = new DataOutputStream(socket.getOutputStream());
                 out.writeUTF(sendJson.toString());
 
             }
+
+            //Join a new lobby
 
             else if(command.equals("5")){
                 JSONObject jsonObject = new JSONObject(message);
@@ -196,7 +235,7 @@ public class WorkerThread implements Runnable {
                 for(Lobby l: lobbys){
                     if(l.getName().equals(lobbyID)){
 
-                        Player p = new Player(name,id,0,socket);
+                        Player p = OnlinePlayers.getPlayer(name);
                         currPlayer = p;
 
                         players = l.getPlayers();
@@ -217,7 +256,11 @@ public class WorkerThread implements Runnable {
                             sendJson.put("Datatype","4");
                             sendJson.put("LobbyID",lobbyID);
                             sendJson.put("Error","0");
+                            sendJson.put("PlayerName",name);
                             sendJson.put("PlayerCount",Integer.toString(players.size()));
+
+                            //
+
                         }
                     }
                 }
@@ -234,6 +277,7 @@ public class WorkerThread implements Runnable {
                     sendJson.put("Datatype","4");
                     sendJson.put("LobbyID",lobbyID);
                     sendJson.put("Error","0");
+                    sendJson.put("PlayerName",name);
                     sendJson.put("PlayerCount",playerCount);
 
                 }
@@ -247,13 +291,62 @@ public class WorkerThread implements Runnable {
 
             }
 
+            //Remove player
+
+            else if(command.equals("6")){
+                JSONObject json = new JSONObject(message);
+                String name = json.getString("nick");
+                String status = "0";
+
+                if(OnlinePlayers.hasPlayer(name)){
+
+                    Player p = OnlinePlayers.getPlayer(name);
+
+                    OnlinePlayers.removePlayer(OnlinePlayers.getPlayer(name));
+                    System.out.println("Removed from OnlinePlayers: "+name);
+                    status = "1";
+
+                    for(Lobby l: LobbyList.getLobbys()){
+                        if(l.containsPlayer(p)){
+                            l.removePlayer(p);
+                            System.out.println("Player: " + name + " removed");
+                        }
+                    }
+
+                }
+
+                JSONObject sendJson = new JSONObject();
+                sendJson.put("Datatype","5");
+                sendJson.put("Status",status);
+
+                DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+                out.writeUTF(sendJson.toString());
+            }
+            else if(command.equals("7")){
+                List<Player> players = OnlinePlayers.getPlayers();
+
+                if(!players.isEmpty()){
+                    for(Player p: players){
+                        if(p.getPlayerSocket().isClosed()){
+                            OnlinePlayers.removePlayer(p);
+                        }
+                    }
+                }
+                LobbyList.remove_empty_lists();
+
+                System.out.println("Current lobbies: " + LobbyList.getLobbys().size());
+
+            }
+
             else{
-                //ReceiveThread.stopConnection();
-                //ReceiveThread.stopThread();
+                ReceiveThread.stopConnection();
+                ReceiveThread.stopThread();
             }
 
         } catch (IOException e) {
             e.printStackTrace();
+            ReceiveThread.stopConnection();
+            ReceiveThread.stopThread();
         }
     }
     private void processCommand() {

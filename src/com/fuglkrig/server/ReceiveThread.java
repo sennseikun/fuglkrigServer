@@ -50,6 +50,7 @@ public class ReceiveThread extends Thread {
             inputSocket.close();
             Lobby removeLobby = null;
             OnlinePlayers.removePlayer(player);
+            System.out.println("Removed player: " + player.getNick());
             for(Lobby l: LobbyList.getLobbys()){
                 if(l.containsPlayer(player)){
                     l.removePlayer(player);
@@ -60,10 +61,12 @@ public class ReceiveThread extends Thread {
             }
             if(removeLobby != null){
                 LobbyList.removeLobby(removeLobby);
+                System.out.println("Removed lobby from list");
             }
 
         } catch (IOException e) {
             e.printStackTrace();
+
         }
     }
 
@@ -85,13 +88,11 @@ public class ReceiveThread extends Thread {
         while(running){
             try {
 
-                System.out.println("Players: " + OnlinePlayers.getPlayers());
-
                 DataInputStream in;
                 in = new DataInputStream(inputSocket.getInputStream());
                 String message = in.readUTF();
 
-                System.out.println(message);
+                System.out.println("Message received: " +message);
 
                 int datatype = -1;
 
@@ -146,8 +147,20 @@ public class ReceiveThread extends Thread {
                     executor.execute(worker);
 
                 }
+
+                else if(datatype == 5){
+
+                    break;
+                }
+                else{
+                    stopConnection();
+                    break;
+                }
+
             } catch (IOException e) {
                 e.printStackTrace();
+                stopConnection();
+                break;
             }
         }
         stopConnection();
