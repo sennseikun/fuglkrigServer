@@ -1,0 +1,8 @@
+cd Server
+rm -rf fuglkrigServer
+git clone git@github.com:fomox/fuglkrigServer.git
+cd
+cd Server/fuglkrigServer/src/com/fuglkrig/server
+javac -classpath ".:/Server/fuglkrigServer/src/com/fuglkrig/server/packages/json.jar" *.java
+echo Main-Class: main >manifest.txt
+jar cvfm fuglkrigServer.jar manifest.txt *.class 
