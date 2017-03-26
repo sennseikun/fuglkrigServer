@@ -2,6 +2,7 @@ package com.fuglkrig.server;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Iterator;
 import org.json.*;
@@ -13,7 +14,7 @@ import java.util.List;
  */
 public class Lobby {
 
-    private List<Player> players;
+    private List<Player> players = new ArrayList<>();
     private int max_player_count;
     private String password;
     private String name;
