@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -29,18 +30,18 @@ public class RequestHandler extends Thread {
 
                 ExecutorService executor = Executors.newFixedThreadPool(5);
 
-                Runnable worker = new WorkerThread("7");
-                System.out.println("Executing worker thread 7");
-                executor.execute(worker);
-
                 System.out.println("Waiting for client on port " + serverSocket.getLocalPort() + "...");
                 server = serverSocket.accept();
                 System.out.println("Just connected to " + server.getRemoteSocketAddress());
 
+                Runnable worker = new WorkerThread("7");
+                System.out.println("Executing worker thread 7");
+                executor.execute(worker);
+
                 ReceiveThread receiveThread = new ReceiveThread(server,id);
                 receiveThread.start();
-
                 id++;
+
 
             } catch (SocketTimeoutException s) {
                 System.out.println("Socket timed out!");

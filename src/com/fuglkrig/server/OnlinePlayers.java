@@ -1,6 +1,7 @@
 package com.fuglkrig.server;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Tore on 24.03.2017.
@@ -44,5 +45,8 @@ public class OnlinePlayers {
         if(players.contains(player)){
             players.remove(player);
         }
+    }
+    public static void removeAllPlayers(List<Player> list){
+        players.removeAll(list);
     }
 }
