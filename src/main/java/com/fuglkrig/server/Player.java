@@ -1,9 +1,13 @@
 package com.fuglkrig.server;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Magnus on 03.03.2017.
@@ -37,6 +41,66 @@ public class Player {
         this.playerID = playerID;
         this.skin = skin;
         this.playerSocket = connection;
+    }
+
+    public void addToGameLobby(String lobbyID,String name, List<Player> players){
+
+        try{
+            JSONObject sendJson = new JSONObject();
+
+            if(name.equals(getNick())){
+                sendJson.put("Datatype","4");
+                sendJson.put("LobbyID",lobbyID);
+                sendJson.put("Error","0");
+                sendJson.put("PlayerCount",Integer.toString(players.size()));
+
+                for(int i = 0; i < players.size(); i++){
+                    sendJson.put("PlayerName"+i,players.get(i));
+                }
+            }
+
+            else{
+                sendJson.put("Datatype","4");
+                sendJson.put("LobbyID",lobbyID);
+                sendJson.put("Error","0");
+                sendJson.put("PlayerName",name);
+                sendJson.put("PlayerCount",Integer.toString(players.size()));
+            }
+
+
+            DataOutputStream out = new DataOutputStream(playerSocket.getOutputStream());
+            out.writeUTF(sendJson.toString());
+
+            System.out.println("Sent adding update to player: "+getNick());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public void removeFromGameLobby(String name, String lobbyID,List<Player> players){
+        try{
+            JSONObject sendJson = new JSONObject();
+
+            sendJson.put("Datatype","3");
+            sendJson.put("LobbyID",lobbyID);
+            sendJson.put("Error","0");
+
+            sendJson.put("PlayerCount",Integer.toString(players.size()-1));
+            sendJson.put("PlayerCount",Integer.toString(players.size()));
+
+
+            sendJson.put("PlayerName",name);
+
+            DataOutputStream out = new DataOutputStream(playerSocket.getOutputStream());
+            out.writeUTF(sendJson.toString());
+
+            System.out.println("Sent removing update to player: "+getNick());
+        }catch (IOException e) {
+                e.printStackTrace();
+            }
     }
 
     public Socket getPlayerSocket(){

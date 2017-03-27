@@ -39,6 +39,12 @@ public class ReceiveThread extends Thread {
     public void stopConnection(){
         try {
 
+            Lobby removeLobby = null;
+            OnlinePlayers.removePlayer(player);
+            System.out.println("Removed player: " + player.getNick());
+            LobbyList.updateLobbies();
+            LobbyList.remove_empty_lists();
+
             executor.shutdown();
 
             while (!executor.isTerminated()) {
@@ -48,21 +54,6 @@ public class ReceiveThread extends Thread {
             System.out.println("Terminated worker thread");
 
             inputSocket.close();
-            Lobby removeLobby = null;
-            OnlinePlayers.removePlayer(player);
-            System.out.println("Removed player: " + player.getNick());
-            for(Lobby l: LobbyList.getLobbys()){
-                if(l.containsPlayer(player)){
-                    l.removePlayer(player);
-                    if(l.isEmpty()){
-                        removeLobby = l;
-                    }
-                }
-            }
-            if(removeLobby != null){
-                LobbyList.removeLobby(removeLobby);
-                System.out.println("Removed lobby from list");
-            }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -92,7 +83,7 @@ public class ReceiveThread extends Thread {
                 in = new DataInputStream(inputSocket.getInputStream());
                 String message = in.readUTF();
 
-                System.out.println("Message received: " +message);
+                System.out.println("ReceiveThread: Message received: " +message);
 
                 int datatype = -1;
 
@@ -149,9 +140,15 @@ public class ReceiveThread extends Thread {
                 }
 
                 else if(datatype == 5){
-
                     break;
                 }
+
+                else if(datatype == 8){
+                    System.out.println("Executing worker thread 6");
+                    Runnable worker = new WorkerThread(this,id,"8",inputSocket,message);
+                    executor.execute(worker);
+                }
+
                 else{
                     stopConnection();
                     break;
