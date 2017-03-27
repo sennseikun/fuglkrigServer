@@ -39,6 +39,10 @@ public class Player {
         this.playerSocket = connection;
     }
 
+    public Socket getPlayerSocket(){
+        return playerSocket;
+    }
+
     public String getNick() {
         return this.nick;
     }

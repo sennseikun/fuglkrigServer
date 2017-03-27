@@ -21,7 +21,7 @@ public class Game extends Thread{
     double timeForNewPowerUp = 500;
     String textOnPlayerScreen;
     int secoundsUntilStart = 6;
-    int numberOfPowerUps = 10;
+    int numberOfPowerUps = 8;
     Random rand = new Random();
     Powerup powerup;
 

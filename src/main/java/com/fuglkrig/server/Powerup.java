@@ -32,7 +32,7 @@ public class Powerup extends GameObject implements EntityPowerUp {
                 break;
             case 7: powerUpName = "SpeedDown";
                 break;
-            case 8: powerUpName = "";
+            case 8: powerUpName = "Fake powerup";
                 break;
         }
     }
