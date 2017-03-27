@@ -1,5 +1,4 @@
 package com.fuglkrig.server;
-
 import com.fuglkrig.server.classes.EntityCanonBall;
 
 import java.awt.*;
