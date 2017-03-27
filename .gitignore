@@ -160,3 +160,5 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 /bin/
+target/fuglkrigServer-1-jar-with-dependencies.jar
+target/fuglkrigServer-1-jar-with-dependencies.jar
