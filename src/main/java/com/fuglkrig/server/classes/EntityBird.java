@@ -1,4 +1,4 @@
-package com.fuglkrig.server.classes;
+package main.java.com.fuglkrig.server.classes;
 
 
 import java.awt.*;

@@ -1,4 +1,4 @@
-package com.fuglkrig.server;
+package main.java.com.fuglkrig.server;
 
 import jdk.nashorn.api.scripting.JSObject;
 import org.json.JSONException;
@@ -198,6 +198,18 @@ public class WorkerThread implements Runnable {
                 JSONObject jsonObject = new JSONObject(message);
                 String name = jsonObject.getString("Name");
                 String lobbyID = jsonObject.getString("Lobby");
+                int playerCount = jsonObject.getInt("PlayerCount");
+                int maxPlayerCount = jsonObject.getInt("MaxPlayerCount");
+
+
+                if(playerCount >= maxPlayerCount){
+
+                    JSONObject fullJson = new JSONObject();
+                    fullJson.put("Datatype",9);
+
+                    DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+                    out.writeUTF(fullJson.toString());
+                }
 
                 List<Lobby> lobbys = LobbyList.getLobbys();
                 Lobby currLobby = null;
@@ -280,7 +292,7 @@ public class WorkerThread implements Runnable {
                 out.writeUTF(sendJson.toString());
             }
             else if(command.equals("7")){
-                List<Player> players = OnlinePlayers.getPlayers();
+                /*List<Player> players = OnlinePlayers.getPlayers();
 
                 if(!players.isEmpty()){
                     for(Player p: players){
@@ -290,7 +302,7 @@ public class WorkerThread implements Runnable {
                     }
                 }
                 LobbyList.updateLobbies();
-                LobbyList.remove_empty_lists();
+                LobbyList.remove_empty_lists();*/
 
                 System.out.println("WorkerThread 6: Current lobbies: " + LobbyList.getLobbys().size());
 
@@ -321,13 +333,11 @@ public class WorkerThread implements Runnable {
             }
 
             else{
-                ReceiveThread.stopConnection();
                 ReceiveThread.stopThread();
             }
 
         } catch (IOException e) {
             e.printStackTrace();
-            ReceiveThread.stopConnection();
             ReceiveThread.stopThread();
         }
     }

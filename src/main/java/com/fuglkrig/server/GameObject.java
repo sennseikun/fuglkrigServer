@@ -1,4 +1,4 @@
-package com.fuglkrig.server;
+package main.java.com.fuglkrig.server;
 
 import javafx.scene.shape.Circle;
 

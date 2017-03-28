@@ -1,4 +1,4 @@
-package com.fuglkrig.server;
+package main.java.com.fuglkrig.server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -28,7 +28,7 @@ public class RequestHandler extends Thread {
         while (true) {
             try {
 
-                ExecutorService executor = Executors.newFixedThreadPool(5);
+                ExecutorService executor = Executors.newFixedThreadPool(1);
 
                 System.out.println("Waiting for client on port " + serverSocket.getLocalPort() + "...");
                 server = serverSocket.accept();

@@ -1,7 +1,8 @@
-package com.fuglkrig.server.classes;
+package main.java.com.fuglkrig.server.classes;
 
 
-import java.awt.*;
+
+        import java.awt.*;
 
 /**
  * Created by Tore on 24.03.2017.

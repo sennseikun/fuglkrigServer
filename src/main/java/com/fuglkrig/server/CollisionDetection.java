@@ -1,9 +1,9 @@
-package com.fuglkrig.server;
+package main.java.com.fuglkrig.server;
 
-import com.fuglkrig.server.classes.EntityBird;
-import com.fuglkrig.server.classes.EntityCanonBall;
-import com.fuglkrig.server.classes.EntityPowerUp;
-import com.fuglkrig.server.classes.EntityWall;
+import main.java.com.fuglkrig.server.classes.EntityBird;
+import main.java.com.fuglkrig.server.classes.EntityCanonBall;
+import main.java.com.fuglkrig.server.classes.EntityPowerUp;
+import main.java.com.fuglkrig.server.classes.EntityWall;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
