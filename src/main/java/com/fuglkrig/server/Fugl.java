@@ -1,6 +1,7 @@
-package com.fuglkrig.server;
+package main.java.com.fuglkrig.server;
 
-import com.fuglkrig.server.classes.EntityBird;
+
+import main.java.com.fuglkrig.server.classes.EntityBird;
 
 import java.awt.*;
 

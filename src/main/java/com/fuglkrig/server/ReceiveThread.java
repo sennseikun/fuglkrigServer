@@ -1,4 +1,4 @@
-package com.fuglkrig.server;
+package main.java.com.fuglkrig.server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -29,7 +29,7 @@ public class ReceiveThread extends Thread {
         this.inputSocket = inputSocket;
         this.id = id;
         this.running = true;
-        executor = Executors.newFixedThreadPool(5);
+        executor = Executors.newFixedThreadPool(3);
     }
 
     public void stopThread(){
@@ -39,7 +39,23 @@ public class ReceiveThread extends Thread {
     public void stopConnection(){
         try {
 
-            Lobby removeLobby = null;
+            System.out.println("Moves past here");
+
+            Lobby removeLobby = LobbyList.getLobbyWithPlayer(player);
+
+
+            if(removeLobby != null){
+
+                System.out.println("Found removelobby" + removeLobby.getName());
+
+                for(Player p : removeLobby.getPlayers()){
+                    if(!p.getNick().equals(player.getNick())){
+                        System.out.println("Sending remove request to " + p.getNick());
+                        p.removeFromGameLobby(player.getNick(),removeLobby.getName(),removeLobby.getPlayers());
+                    }
+                }
+            }
+
             OnlinePlayers.removePlayer(player);
             System.out.println("Removed player: " + player.getNick());
             LobbyList.updateLobbies();
@@ -150,13 +166,11 @@ public class ReceiveThread extends Thread {
                 }
 
                 else{
-                    stopConnection();
                     break;
                 }
 
             } catch (IOException e) {
                 e.printStackTrace();
-                stopConnection();
                 break;
             }
         }

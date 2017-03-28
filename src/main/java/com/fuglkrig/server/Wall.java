@@ -1,6 +1,6 @@
-package com.fuglkrig.server;
+package main.java.com.fuglkrig.server;
 
-import com.fuglkrig.server.classes.EntityWall;
+import main.java.com.fuglkrig.server.classes.EntityWall;
 
 import java.awt.*;
 

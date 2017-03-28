@@ -1,4 +1,4 @@
-package com.fuglkrig.server;
+package main.java.com.fuglkrig.server;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by Magnus on 03.03.2017.
  */
-public class Player {
+public class Player implements Comparable {
     String nick;
     int playerID;
     int hp;
@@ -41,6 +41,14 @@ public class Player {
         this.playerID = playerID;
         this.skin = skin;
         this.playerSocket = connection;
+    }
+
+    @Override
+    public int compareTo(Object o){
+
+        Player p = (Player)o;
+
+        return getNick().compareTo(p.getNick());
     }
 
     public void addToGameLobby(String lobbyID,String name, List<Player> players){
@@ -89,8 +97,6 @@ public class Player {
             sendJson.put("Error","0");
 
             sendJson.put("PlayerCount",Integer.toString(players.size()-1));
-            sendJson.put("PlayerCount",Integer.toString(players.size()));
-
 
             sendJson.put("PlayerName",name);
 

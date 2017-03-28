@@ -1,4 +1,4 @@
-package com.fuglkrig.server;
+package main.java.com.fuglkrig.server;
 
 import sun.rmi.runtime.Log;
 
@@ -44,6 +44,23 @@ public class LobbyList {
                 return l;
             }
         }
+        return null;
+    }
+
+    public static Lobby getLobbyWithPlayer(Player p){
+
+        System.out.println("GetLobbyWithPlayer launched");
+
+        for(Lobby l: lobbys){
+            for(Player t1: l.getPlayers()){
+                System.out.println("Player p "+p.getNick());
+                System.out.println("Player t1 "+t1.getNick());
+                if(t1.getNick().equals(p.getNick())){
+                    return l;
+                }
+            }
+        }
+        System.out.println("Could not find player");
         return null;
     }
 

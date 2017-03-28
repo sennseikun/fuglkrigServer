@@ -1,4 +1,5 @@
-package com.fuglkrig.server;
+package main.java.com.fuglkrig.server;
+
 
 import java.util.*;
 

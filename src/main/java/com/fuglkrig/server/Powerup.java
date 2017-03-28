@@ -1,8 +1,8 @@
-package com.fuglkrig.server;
+package main.java.com.fuglkrig.server;
 
-import com.fuglkrig.server.classes.EntityPowerUp;
 
 import java.awt.*;
+import main.java.com.fuglkrig.server.classes.EntityPowerUp;
 
 /**
  * Created by Tore on 20.03.2017.
