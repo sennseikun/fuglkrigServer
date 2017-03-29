@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by Magnus on 03.03.2017.
  */
-public class Player implements Comparable {
+public class Player {
     String nick;
     int playerID;
     int hp;
@@ -44,11 +44,11 @@ public class Player implements Comparable {
     }
 
     @Override
-    public int compareTo(Object o){
+    public boolean equals(Object o){
 
         Player p = (Player)o;
 
-        return getNick().compareTo(p.getNick());
+        return getNick().equals(p.getNick());
     }
 
     public void addToGameLobby(String lobbyID,String name, List<Player> players){
