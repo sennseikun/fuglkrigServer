@@ -144,7 +144,7 @@ public class Game extends Thread{
 
     	//Checks if all users are ready to start before moving on to other tasks.
         textOnPlayerScreen = "Waiting for players";
-    	boolean readyToStart = false;
+    	boolean readyToStart = true;
     	while (readyToStart == false) {
 
             boolean everyoneReady = true;
