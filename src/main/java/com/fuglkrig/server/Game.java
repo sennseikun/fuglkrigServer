@@ -137,7 +137,9 @@ public class Game extends Thread{
     }
 
     //logic for the game thread. Do not run this method. run the start() even tho it is not specified here
+    @Override
     public void run() {
+        System.out.println("gameloop started");
         //Should probably make a timeout when we stop waiting for players to connect. todo
 
     	//Checks if all users are ready to start before moving on to other tasks.
