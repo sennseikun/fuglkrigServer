@@ -188,6 +188,7 @@ public class WorkerThread implements Runnable {
                     p.removeFromGameLobby(name,lobbyID,players);
                 }
                 currLobby.removeByPlayerName(name);
+                LobbyList.updateLobbies();
                 LobbyList.remove_empty_lists();
 
             }
@@ -235,6 +236,7 @@ public class WorkerThread implements Runnable {
                             p.addToGameLobby(lobbyID,name,players);
                         }
                     }
+                    LobbyList.updateLobbies();
                 }
 
 
