@@ -64,7 +64,7 @@ public class ReceiveThread extends Thread {
             executor.shutdown();
 
             while (!executor.isTerminated()) {
-                System.out.println("Terminating worker threads");
+                //System.out.println("Terminating worker threads");
             }
 
             System.out.println("Terminated worker thread");
@@ -164,6 +164,8 @@ public class ReceiveThread extends Thread {
                     Runnable worker = new WorkerThread(this,id,"8",inputSocket,message);
                     executor.execute(worker);
                 }
+
+
 
                 else{
                     break;
