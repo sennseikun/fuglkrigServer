@@ -116,7 +116,7 @@ public class ReceiveThread extends Thread {
                 //Check if username is taken, register this user on this username
 
                 if(datatype == 0){
-                    Runnable worker = new WorkerThread(this,id,"1",inputSocket,message);
+                    Runnable worker = new WorkerThread(this,id,"0",inputSocket,message);
                     System.out.println("Executing worker thread 0");
                     executor.execute(worker);
                 }
@@ -126,14 +126,14 @@ public class ReceiveThread extends Thread {
                 else if(datatype == 1 || datatype == 10){
 
                     System.out.println("Executing worker thread 1");
-                    Runnable worker = new WorkerThread(this,id,"2",inputSocket,message);
+                    Runnable worker = new WorkerThread(this,id,"1",inputSocket,message);
                     executor.execute(worker);
                 }
 
                 //Create lobby
                 else if(datatype == 2){
                     System.out.println("Executing worker thread 2");
-                    Runnable worker = new WorkerThread(this,id,"3",inputSocket,message);
+                    Runnable worker = new WorkerThread(this,id,"2",inputSocket,message);
                     executor.execute(worker);
                 }
 
@@ -142,7 +142,7 @@ public class ReceiveThread extends Thread {
 
                 else if(datatype == 3){
                     System.out.println("Executing worker thread 3");
-                    Runnable worker = new WorkerThread(this,id,"4",inputSocket,message);
+                    Runnable worker = new WorkerThread(this,id,"3",inputSocket,message);
                     executor.execute(worker);
                 }
 
@@ -150,7 +150,7 @@ public class ReceiveThread extends Thread {
 
                 else if(datatype == 4){
                     System.out.println("Executing worker thread 4");
-                    Runnable worker = new WorkerThread(this,id,"5",inputSocket,message);
+                    Runnable worker = new WorkerThread(this,id,"4",inputSocket,message);
                     executor.execute(worker);
 
                 }
@@ -160,7 +160,7 @@ public class ReceiveThread extends Thread {
                 }
 
                 else if(datatype == 8){
-                    System.out.println("Executing worker thread 5");
+                    System.out.println("Executing worker thread 8");
                     Runnable worker = new WorkerThread(this,id,"8",inputSocket,message);
                     executor.execute(worker);
                 }
