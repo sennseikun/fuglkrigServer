@@ -165,6 +165,12 @@ public class ReceiveThread extends Thread {
                     executor.execute(worker);
                 }
 
+                //this starts the gameloop
+                else if(datatype == 11) {
+                    System.out.println("Executing worker thread 11");
+                    Runnable worker = new WorkerThread(this,id,"11",inputSocket,message);
+                    executor.execute(worker);
+                }
 
                 else{
                     break;
