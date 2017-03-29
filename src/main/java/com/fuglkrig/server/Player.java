@@ -58,31 +58,23 @@ public class Player implements Comparable {
 
             if(name.equals(getNick())){
 
-                System.out.println("If runs");
-
                 sendJson.put("Datatype","4");
-
-                System.out.println("Datatype put");
 
                 sendJson.put("LobbyID",lobbyID);
 
-                System.out.println("LobbyID put");
-
                 sendJson.put("Error","0");
-
-                System.out.println("Error bit put");
 
                 sendJson.put("PlayerCount",Integer.toString(players.size()));
 
-                System.out.println("PlayerCount put");
 
-                System.out.println("Before: " + sendJson);
 
                 for(int i = 0; i < players.size(); i++){
+                    System.out.println(sendJson);
+                    System.out.println(players.get(i));
                     sendJson.put("PlayerName"+i,players.get(i));
+                    System.out.println(sendJson);
                 }
 
-                System.out.println("After: " + sendJson);
 
 
             }
