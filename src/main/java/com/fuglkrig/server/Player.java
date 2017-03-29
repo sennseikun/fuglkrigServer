@@ -76,9 +76,15 @@ public class Player {
 
                 System.out.println("PlayerCount put");
 
+                System.out.println("Before: " + sendJson);
+
                 for(int i = 0; i < players.size(); i++){
                     sendJson.put("PlayerName"+i,players.get(i));
                 }
+
+                System.out.println("After: " + sendJson);
+
+
             }
 
             else{
