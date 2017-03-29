@@ -18,6 +18,9 @@ import java.util.HashSet;
  */
 public class CollisionDetection {
 
+    /**
+     *  Checking if the birds are colliding
+     **/
     public static boolean collisionBird(EntityBird b, ArrayList<EntityBird> birds){
         for (EntityBird bird: birds) {
             if(b.getBounds().intersects(bird.getBounds())){
@@ -26,6 +29,10 @@ public class CollisionDetection {
         }
         return false;
     }
+
+    /**
+     *  Checking if a bird collides with a powerUp
+     **/
     public static boolean collisionPowerup(EntityBird b, ArrayList<EntityPowerUp> powerUps){
         for (EntityPowerUp powerUp: powerUps) {
             if(b.getBounds().intersects(powerUp.getBounds())){
@@ -34,6 +41,10 @@ public class CollisionDetection {
         }
         return false;
     }
+
+    /**
+     *  Checking if a bird collides with a wall #deadBird
+     **/
     public static boolean collision(EntityBird bird, ArrayList<EntityWall> walls){
         for (EntityWall wall: walls) {
             if(bird.getBounds().intersects(wall.getBounds())){
@@ -42,6 +53,10 @@ public class CollisionDetection {
         }
         return false;
     }
+
+    /**
+     *  Checking if 2 walls collides
+     **/
     public static boolean collision(EntityWall w, ArrayList<EntityWall> walls){
         for (EntityWall wall: walls) {
             if(w.getBounds().intersects(wall.getBounds())){
@@ -50,6 +65,10 @@ public class CollisionDetection {
         }
         return false;
     }
+
+    /**
+     *  Checking if a cannonBall collides with a wall
+     **/
     public static boolean collision(EntityCanonBall canonBall, ArrayList<EntityWall> walls){
         for (EntityWall wall: walls) {
             if(canonBall.getBounds().intersects(wall.getBounds())){
@@ -59,10 +78,14 @@ public class CollisionDetection {
         return false;
     }
 
-    // Returns true if there is a collision between object a and object b
+    /**
+     *  Returns true if there is a collision between object a and object b
+     **/
     public static boolean checkCollision(GameObject a, GameObject b){
 
-        // This meth,od detects to see if the images overlap at all. If they do, collision is possible
+        /**
+         *  This method detects to see if the images overlap at all. If they do, collision is possible
+         **/
         int ax1 = (int)a.getX();
         int ay1 = (int)a.getY();
         int ax2 = ax1 + (int)a.getWidth();
