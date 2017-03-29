@@ -58,30 +58,13 @@ public class Player {
 
             if(name.equals(getNick())){
 
-                sendJson.put("Datatype","4");
-
-                sendJson.put("LobbyID",lobbyID);
-
-                sendJson.put("Error","0");
-
-                sendJson.put("PlayerCount",Integer.toString(players.size()));
-
-
-
                 for(int i = 0; i < players.size(); i++){
-                    System.out.println(sendJson);
-                    System.out.println(players.get(i));
                     sendJson.put("PlayerName"+i,players.get(i).getNick());
-                    System.out.println(sendJson);
                 }
-
-
-
             }
 
             else{
 
-                System.out.println("Else runs");
 
                 sendJson.put("Datatype","4");
                 sendJson.put("LobbyID",lobbyID);
