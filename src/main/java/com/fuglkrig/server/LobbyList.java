@@ -71,9 +71,6 @@ public class LobbyList {
             if (l.getPlayers().get(0).equals(player)) {
                 return l.getPlayers();
             }
-            else {
-                return null;
-            }
         }
         return null;
     }
