@@ -75,6 +75,8 @@ public class Player implements Comparable {
                 sendJson.put("PlayerCount",Integer.toString(players.size()));
             }
 
+            System.out.println(playerSocket);
+
 
             DataOutputStream out = new DataOutputStream(playerSocket.getOutputStream());
             out.writeUTF(sendJson.toString());
