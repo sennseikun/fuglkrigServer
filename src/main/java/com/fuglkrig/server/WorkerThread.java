@@ -238,6 +238,9 @@ public class WorkerThread implements Runnable {
                     }
 
                     if(players != null && currLobby != null){
+
+                        System.out.println("Players: " + players.toString());
+
                         System.out.println("WorkerThread 4: Players" + players);
                         for(Player p: players){
                             p.addToGameLobby(lobbyID,name,players);
