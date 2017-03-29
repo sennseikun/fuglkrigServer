@@ -1,16 +1,2 @@
-cd
-eval ssh-agent $SHELL
-ssh-add fuglkrig
-cd Server
-rm -rf fuglkrigServer
-git clone -b powerupGameLoop git@github.com:fomox/fuglkrigServer.git
-cd fuglkrigServer
-mvn package
-cd target
-java -jar fuglkrigServer-1-jar-with-dependencies.jar
-
-
-#run once
-sudo add-apt-repository ppa:webupd8team/java
-sudo apt-get update
-sudo apt-get install oracle-java8-installer
+sudo su /opt/testing/
+kjør debug.sh

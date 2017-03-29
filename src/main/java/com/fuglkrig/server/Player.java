@@ -1,4 +1,4 @@
-package main.java.com.fuglkrig.server;
+package com.fuglkrig.server;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

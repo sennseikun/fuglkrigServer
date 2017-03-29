@@ -1,6 +1,6 @@
-package main.java.com.fuglkrig.server;
+package com.fuglkrig.server;
 
-import main.java.com.fuglkrig.server.classes.EntityCanonBall;
+import com.fuglkrig.server.classes.EntityCanonBall;
 
 import java.awt.*;
 
