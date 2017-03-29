@@ -334,7 +334,7 @@ public class WorkerThread implements Runnable {
                 DataOutputStream out = new DataOutputStream(socket.getOutputStream());
                 out.writeUTF(sendJson.toString());
             }
-            else if(command.equals("10")) {
+            else if(command.equals("11")) {
                 /*
                     Sjekk om spilleren er først i lobby sin spiller liste, hvis ja, start spill
                     hvis nei, break.
