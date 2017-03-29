@@ -243,34 +243,12 @@ public class WorkerThread implements Runnable {
 
                         System.out.println("WorkerThread 4: Players" + players);
                         for(Player p: players){
+                            System.out.println("Player notified: " +p.getNick());
                             p.addToGameLobby(lobbyID,name,players);
                         }
                     }
                     LobbyList.updateLobbies();
                 }
-
-
-                //JSONObject sendJson = new JSONObject();
-
-                /*if(currLobby != null){
-                    playerCount = Integer.toString(currLobby.getPlayers().size());
-                    System.out.println("Added player: "+name);
-
-                    sendJson.put("Datatype","4");
-                    sendJson.put("LobbyID",lobbyID);
-                    sendJson.put("Error","0");
-                    sendJson.put("PlayerName",name);
-                    sendJson.put("PlayerCount",playerCount);
-
-                }
-                else{
-                    sendJson.put("Datatype","4");
-                    sendJson.put("Error","1");
-                }
-
-                DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-                out.writeUTF(sendJson.toString());*/
-
             }
 
             //Remove player
