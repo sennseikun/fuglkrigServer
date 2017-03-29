@@ -144,7 +144,7 @@ public class WorkerThread implements Runnable {
                 String password = jsonObject.getString("Password");
 
                 List<Player> playerList = new ArrayList<>();
-                Player player = new Player(playerName,id,0,socket);
+                Player player = OnlinePlayers.getPlayer(playerName);
 
                 playerList.add(player);
 
