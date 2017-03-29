@@ -66,6 +66,7 @@ public class LobbyList {
 
     public static List<Player> getPlayersFromLobby(Player player) {
         for (Lobby l: lobbys) {
+            System.out.println(l.getPlayers().get(0).getNick());
             if (l.getPlayers().get(0).equals(player)) {
                 return l.getPlayers();
             }
