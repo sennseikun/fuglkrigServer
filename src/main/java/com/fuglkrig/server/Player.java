@@ -57,10 +57,24 @@ public class Player implements Comparable {
             JSONObject sendJson = new JSONObject();
 
             if(name.equals(getNick())){
+
+                System.out.println("If runs");
+
                 sendJson.put("Datatype","4");
+
+                System.out.println("Datatype put");
+
                 sendJson.put("LobbyID",lobbyID);
+
+                System.out.println("LobbyID put");
+
                 sendJson.put("Error","0");
+
+                System.out.println("Error bit put");
+
                 sendJson.put("PlayerCount",Integer.toString(players.size()));
+
+                System.out.println("PlayerCount put");
 
                 for(int i = 0; i < players.size(); i++){
                     sendJson.put("PlayerName"+i,players.get(i));
@@ -68,6 +82,9 @@ public class Player implements Comparable {
             }
 
             else{
+
+                System.out.println("Else runs");
+
                 sendJson.put("Datatype","4");
                 sendJson.put("LobbyID",lobbyID);
                 sendJson.put("Error","0");
