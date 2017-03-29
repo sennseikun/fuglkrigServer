@@ -210,29 +210,30 @@ public class WorkerThread implements Runnable {
                     DataOutputStream out = new DataOutputStream(socket.getOutputStream());
                     out.writeUTF(fullJson.toString());
                 }
+                else{
+                    List<Lobby> lobbys = LobbyList.getLobbys();
+                    Lobby currLobby = null;
+                    List<Player> players = null;
 
-                List<Lobby> lobbys = LobbyList.getLobbys();
-                Lobby currLobby = null;
-                List<Player> players = null;
+                    //Add player to the lobby being joined
 
-                //Add player to the lobby being joined
+                    for(Lobby l: lobbys){
+                        if(l.getName().equals(lobbyID)){
 
-                for(Lobby l: lobbys){
-                    if(l.getName().equals(lobbyID)){
+                            Player p = OnlinePlayers.getPlayer(name);
+                            l.addPlayer(p);
+                            currLobby = l;
+                            players = l.getPlayers();
 
-                        Player p = OnlinePlayers.getPlayer(name);
-                        l.addPlayer(p);
-                        currLobby = l;
-                        players = l.getPlayers();
-
-                        break;
+                            break;
+                        }
                     }
-                }
 
-                if(players != null && currLobby != null){
-                    System.out.println("WorkerThread 4: Players" + players);
-                    for(Player p: players){
-                        p.addToGameLobby(lobbyID,name,players);
+                    if(players != null && currLobby != null){
+                        System.out.println("WorkerThread 4: Players" + players);
+                        for(Player p: players){
+                            p.addToGameLobby(lobbyID,name,players);
+                        }
                     }
                 }
 
