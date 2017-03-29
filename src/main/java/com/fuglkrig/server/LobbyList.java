@@ -66,7 +66,7 @@ public class LobbyList {
 
     public static List<Player> getPlayersFromLobby(Player player) {
         for (Lobby l: lobbys) {
-            if (l.getPlayers().get(0) == player) {
+            if (l.getPlayers().get(0).equals(player)) {
                 return l.getPlayers();
             }
             else {
