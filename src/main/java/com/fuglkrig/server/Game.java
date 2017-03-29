@@ -31,7 +31,8 @@ public class Game extends Thread{
 
 
     //this is a count down used to(Start?)
-    Timer timer;
+    Timer timer = new Timer();
+
     TimerTask countDown = new TimerTask() {
         @Override
         public void run() {
