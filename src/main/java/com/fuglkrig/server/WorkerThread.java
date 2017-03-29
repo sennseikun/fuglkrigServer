@@ -200,7 +200,7 @@ public class WorkerThread implements Runnable {
                 String name = jsonObject.getString("Name");
                 String lobbyID = jsonObject.getString("Lobby");
 
-                System.out.println(LobbyList.getLobby(lobbyID));
+                System.out.println("Someone joining: " + LobbyList.getLobby(lobbyID).getName());
 
                 int playerCount = LobbyList.getLobby(lobbyID).getPlayerCount();
                 int maxPlayerCount = LobbyList.getLobby(lobbyID).getMax_player_count();
