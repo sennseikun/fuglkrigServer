@@ -160,8 +160,15 @@ public class ReceiveThread extends Thread {
                 }
 
                 else if(datatype == 8){
-                    System.out.println("Executing worker thread 6");
+                    System.out.println("Executing worker thread 8");
                     Runnable worker = new WorkerThread(this,id,"8",inputSocket,message);
+                    executor.execute(worker);
+                }
+
+                //this starts the gameloop
+                else if(datatype == 10) {
+                    System.out.println("Executing worker thread 10");
+                    Runnable worker = new WorkerThread(this,id,"10",inputSocket,message);
                     executor.execute(worker);
                 }
 

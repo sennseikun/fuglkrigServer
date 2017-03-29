@@ -13,7 +13,7 @@ import static java.util.Random.*;
 
 
 public class Game extends Thread{
-    ArrayList<Player> players;
+    List<Player> players;
     Map currentMap;
     Thread game;
     Date lastTimeUpdatePlayers;
@@ -53,10 +53,9 @@ public class Game extends Thread{
     //used to make sure everyone has loaded the game and is ready to start
     boolean paused;
 
-    public Game(ArrayList<Player> players, Map map, int tick) {
+    public Game(List<Player> players) {
         this.players = players;
-        this.currentMap = map;
-        this.sleepTime = 1000 / tick;
+        this.sleepTime = 1000 / 30;
         this.paused = true;
         this.game = new Thread(this);
         this.textOnPlayerScreen = "";

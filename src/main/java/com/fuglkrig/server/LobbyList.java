@@ -64,6 +64,18 @@ public class LobbyList {
         return null;
     }
 
+    public static List<Player> getPlayersFromLobby(Player player) {
+        for (Lobby l: lobbys) {
+            if (l.getPlayers().get(0) == player) {
+                return l.getPlayers();
+            }
+            else {
+                return null;
+            }
+        }
+        return null;
+    }
+
     public static void addLobby(Lobby lobby){
         lobbys.add(lobby);
     }

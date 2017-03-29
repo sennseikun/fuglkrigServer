@@ -331,6 +331,19 @@ public class WorkerThread implements Runnable {
                 DataOutputStream out = new DataOutputStream(socket.getOutputStream());
                 out.writeUTF(sendJson.toString());
             }
+            else if(command.equals("10")) {
+                /*
+                    Sjekk om spilleren er først i lobby sin spiller liste, hvis ja, start spill
+                    hvis nei, break.
+                */
+                List playerList = LobbyList.getPlayersFromLobby(this.ReceiveThread.player);
+                System.out.println("list of players from start button");
+                System.out.println(playerList);
+                if (playerList != null) {
+                    Game game = new Game(playerList);
+                    game.start();
+                }
+            }
 
             else{
                 ReceiveThread.stopThread();
@@ -339,13 +352,6 @@ public class WorkerThread implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
             ReceiveThread.stopThread();
-        }
-    }
-    private void processCommand() {
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 
