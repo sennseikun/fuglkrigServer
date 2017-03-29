@@ -42,7 +42,7 @@ public class WorkerThread implements Runnable {
 
             //CHECK if player can be made
 
-            if (command.equals("1")) {
+            if (command.equals("0")) {
                 String name;
                 JSONObject json = new JSONObject(message);
                 name = json.getString("nick");
@@ -79,19 +79,19 @@ public class WorkerThread implements Runnable {
                     ReceiveThread.setPlayer(player);
                     OnlinePlayers.newPlayer(player);
 
-                    System.out.println("WorkerThread 1: Players online: " + OnlinePlayers.getPlayers());
+                    System.out.println("WorkerThread 0: Players online: " + OnlinePlayers.getPlayers());
                 }
 
                 DataOutputStream out = new DataOutputStream(socket.getOutputStream());
                 out.writeUTF(retur.toString());
 
-                System.out.println("WorkerThread 1: ReceiveThread: Sent user verification");
+                System.out.println("WorkerThread 0: ReceiveThread: Sent user verification");
 
             }
 
             //Return all lobbies
 
-            else if (command.equals("2")) {
+            else if (command.equals("1")) {
                 try {
 
                     //Lobby logic here
@@ -133,7 +133,7 @@ public class WorkerThread implements Runnable {
 
             //Create new lobby
 
-            else if (command.equals("3")) {
+            else if (command.equals("2")) {
 
                 //Setup a new lobby and put the creating player in it
 
@@ -150,7 +150,7 @@ public class WorkerThread implements Runnable {
 
                 Lobby lobby = new Lobby(name,playerList,max_players,password);
 
-                System.out.println("WorkerThread 3: ReceiveThread: Creating a lobby and putting it in the list");
+                System.out.println("WorkerThread 2: ReceiveThread: Creating a lobby and putting it in the list");
                 LobbyList.addLobby(lobby);
 
                 JSONObject sendJson = new JSONObject();
@@ -165,7 +165,7 @@ public class WorkerThread implements Runnable {
 
             //Withdraw from lobby
 
-            else if (command.equals("4")) {
+            else if (command.equals("3")) {
 
                 JSONObject jsonObject = new JSONObject(message);
                 String name = jsonObject.getString("Name");
@@ -188,13 +188,14 @@ public class WorkerThread implements Runnable {
                     p.removeFromGameLobby(name,lobbyID,players);
                 }
                 currLobby.removeByPlayerName(name);
+                LobbyList.updateLobbies();
                 LobbyList.remove_empty_lists();
 
             }
 
             //Join a new lobby
 
-            else if(command.equals("5")){
+            else if(command.equals("4")){
                 JSONObject jsonObject = new JSONObject(message);
                 String name = jsonObject.getString("Name");
                 String lobbyID = jsonObject.getString("Lobby");
@@ -210,30 +211,32 @@ public class WorkerThread implements Runnable {
                     DataOutputStream out = new DataOutputStream(socket.getOutputStream());
                     out.writeUTF(fullJson.toString());
                 }
+                else{
+                    List<Lobby> lobbys = LobbyList.getLobbys();
+                    Lobby currLobby = null;
+                    List<Player> players = null;
 
-                List<Lobby> lobbys = LobbyList.getLobbys();
-                Lobby currLobby = null;
-                List<Player> players = null;
+                    //Add player to the lobby being joined
 
-                //Add player to the lobby being joined
+                    for(Lobby l: lobbys){
+                        if(l.getName().equals(lobbyID)){
 
-                for(Lobby l: lobbys){
-                    if(l.getName().equals(lobbyID)){
+                            Player p = OnlinePlayers.getPlayer(name);
+                            l.addPlayer(p);
+                            currLobby = l;
+                            players = l.getPlayers();
 
-                        Player p = OnlinePlayers.getPlayer(name);
-                        l.addPlayer(p);
-                        currLobby = l;
-                        players = l.getPlayers();
-
-                        break;
+                            break;
+                        }
                     }
-                }
 
-                if(players != null && currLobby != null){
-                    System.out.println("WorkerThread 5: Players" + players);
-                    for(Player p: players){
-                        p.addToGameLobby(lobbyID,name,players);
+                    if(players != null && currLobby != null){
+                        System.out.println("WorkerThread 4: Players" + players);
+                        for(Player p: players){
+                            p.addToGameLobby(lobbyID,name,players);
+                        }
                     }
+                    LobbyList.updateLobbies();
                 }
 
 
@@ -262,7 +265,7 @@ public class WorkerThread implements Runnable {
 
             //Remove player
 
-            else if(command.equals("6")){
+            else if(command.equals("5")){
                 JSONObject json = new JSONObject(message);
                 String name = json.getString("nick");
                 String status = "0";
@@ -272,13 +275,13 @@ public class WorkerThread implements Runnable {
                     Player p = OnlinePlayers.getPlayer(name);
 
                     OnlinePlayers.removePlayer(OnlinePlayers.getPlayer(name));
-                    System.out.println("WorkerThread 6: Removed from OnlinePlayers: "+name);
+                    System.out.println("WorkerThread 5: Removed from OnlinePlayers: "+name);
                     status = "1";
 
                     for(Lobby l: LobbyList.getLobbys()){
                         if(l.containsPlayer(p)){
                             l.removePlayer(p);
-                            System.out.println("WorkerThread 6: Player: " + name + " removed");
+                            System.out.println("WorkerThread 5: Player: " + name + " removed");
                         }
                     }
 
@@ -291,7 +294,7 @@ public class WorkerThread implements Runnable {
                 DataOutputStream out = new DataOutputStream(socket.getOutputStream());
                 out.writeUTF(sendJson.toString());
             }
-            else if(command.equals("7")){
+            else if(command.equals("6")){
                 /*List<Player> players = OnlinePlayers.getPlayers();
 
                 if(!players.isEmpty()){
@@ -310,7 +313,7 @@ public class WorkerThread implements Runnable {
 
             //Password check
 
-            else if(command.equals("8")){
+            else if(command.equals("7")){
 
                 JSONObject receivedJson = new JSONObject(message);
 

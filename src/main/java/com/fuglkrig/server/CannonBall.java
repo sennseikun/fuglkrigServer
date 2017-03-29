@@ -13,6 +13,9 @@ public class CannonBall extends GameObject implements EntityCanonBall {
         super(x, y, width, height);
     }
 
+    /**
+     *  Updateing the movement of the CannonBall
+     **/
     public void tick() {
         x += 10;
         /*if(CollisionDetection.collision(this,e)){
@@ -20,15 +23,23 @@ public class CannonBall extends GameObject implements EntityCanonBall {
         }*/
     }
 
-    //todo fix witdh and height
+    /**
+     *  Using the rectangle size to get collision detect done easier
+     **/
     public Rectangle getBounds() {
         return super.getBounds();
     }
 
+    /**
+     *  Returns the x coordinate of the object
+     **/
     public double getX() {
         return x;
     }
 
+    /**
+     *  Returns the y coordinate of the object
+     **/
     public double getY() {
         return y;
     }

@@ -28,15 +28,15 @@ public class RequestHandler extends Thread {
         while (true) {
             try {
 
-                ExecutorService executor = Executors.newFixedThreadPool(1);
+                //ExecutorService executor = Executors.newFixedThreadPool(1);
 
                 System.out.println("Waiting for client on port " + serverSocket.getLocalPort() + "...");
                 server = serverSocket.accept();
                 System.out.println("Just connected to " + server.getRemoteSocketAddress());
 
-                Runnable worker = new WorkerThread("7");
-                System.out.println("Executing worker thread 7");
-                executor.execute(worker);
+                //Runnable worker = new WorkerThread("7");
+                //System.out.println("Executing worker thread 7");
+                //executor.execute(worker);
 
                 ReceiveThread receiveThread = new ReceiveThread(server,id);
                 receiveThread.start();
