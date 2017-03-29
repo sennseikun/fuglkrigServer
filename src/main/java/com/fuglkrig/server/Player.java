@@ -76,7 +76,7 @@ public class Player {
             }
 
             System.out.println(playerSocket);
-
+            System.out.println(sendJson);
 
             DataOutputStream out = new DataOutputStream(playerSocket.getOutputStream());
             out.writeUTF(sendJson.toString());
