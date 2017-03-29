@@ -164,6 +164,7 @@ public class Game extends Thread{
 
     	//start updating players
     	while(!paused) {
+            System.out.println("running tick");
             SpawnPowerups();
             playerTick();
     		UpdateGame();
