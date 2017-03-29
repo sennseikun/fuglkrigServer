@@ -166,7 +166,6 @@ public class ReceiveThread extends Thread {
                 }
 
 
-
                 else{
                     break;
                 }
