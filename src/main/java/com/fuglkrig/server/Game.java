@@ -36,7 +36,7 @@ public class Game extends Thread{
     int gameSizeY = 1080;
 
     //powerups on map
-    ArrayList<Powerup> powerupsOnMap;
+    List<Powerup> powerupsOnMap;
 
 
     //this is a count down used to(Start?)
@@ -143,7 +143,9 @@ public class Game extends Thread{
     }
 
     public void MovePowerups() {
+        System.out.println(powerupsOnMap);
         for (Powerup powerup : powerupsOnMap) {
+            System.out.println(powerup.type);
             if (powerup.getX() < 0 ) {
                 powerupsOnMap.remove(powerup);
             }
