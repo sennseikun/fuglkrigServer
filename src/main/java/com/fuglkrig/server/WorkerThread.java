@@ -218,43 +218,53 @@ public class WorkerThread implements Runnable {
                     DataOutputStream out = new DataOutputStream(socket.getOutputStream());
                     out.writeUTF(fullJson.toString());
                 }
-                else{
-                    List<Lobby> lobbys = LobbyList.getLobbys();
-                    Lobby currLobby = null;
-                    List<Player> players = null;
+                else {
 
-                    //Add player to the lobby being joined
+                    if (LobbyList.getLobbys() != null) {
+                        List<Lobby> lobbys = LobbyList.getLobbys();
+                        Lobby currLobby = null;
+                        List<Player> players = null;
 
-                    for(Lobby l: lobbys){
-                        if(l.getName().equals(lobbyID)){
+                        //Add player to the lobby being joined
 
-                            Player p = OnlinePlayers.getPlayer(name);
-                            l.addPlayer(p);
-                            currLobby = l;
-                            players = l.getPlayers();
+                        for (Lobby l : lobbys) {
+                            if (l.getName().equals(lobbyID)) {
 
-                            break;
+                                Player p = OnlinePlayers.getPlayer(name);
+                                l.addPlayer(p);
+                                currLobby = l;
+                                players = l.getPlayers();
+
+                                break;
+                            }
                         }
-                    }
 
-                    if(players != null && currLobby != null){
+                        if (players != null && currLobby != null) {
 
-                        System.out.println("Players: " + players.toString());
+                            System.out.println("Players: " + players.toString());
 
-                        System.out.println("WorkerThread 4: Players" + players);
-                        for(Player p: players){
-                            System.out.println("Player notified: " +p.getNick());
-                            p.addToGameLobby(lobbyID,name,players);
+                            System.out.println("WorkerThread 4: Players" + players);
+                            for (Player p : players) {
+                                System.out.println("Player notified: " + p.getNick());
+                                p.addToGameLobby(lobbyID, name, players);
+                            }
+                        } else {
+                            JSONObject fullJson = new JSONObject();
+                            fullJson.put("Datatype", 9);
+
+                            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+                            out.writeUTF(fullJson.toString());
                         }
+                        LobbyList.updateLobbies();
                     }
-                    else{
+                    else {
+
                         JSONObject fullJson = new JSONObject();
-                        fullJson.put("Datatype",9);
+                        fullJson.put("Datatype", 9);
 
                         DataOutputStream out = new DataOutputStream(socket.getOutputStream());
                         out.writeUTF(fullJson.toString());
                     }
-                    LobbyList.updateLobbies();
                 }
             }
 
