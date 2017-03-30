@@ -232,6 +232,7 @@ public class Game extends Thread{
     	}
 
         //counts down the game before its starts
+        startGame();
         timer.schedule(countDown, 1000,1000);
         paused = false;
 
