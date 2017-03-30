@@ -62,12 +62,12 @@ public class Game extends Thread{
     int sleepTime;
 
     //used to make sure everyone has loaded the game and is ready to start
-    boolean paused;
+    boolean lastManStanding;
 
     public Game(List<Player> players) {
         this.players = players;
         this.sleepTime = 1000 / 30;
-        this.paused = true;
+        this.lastManStanding = true;
         this.game = new Thread(this);
         this.textOnPlayerScreen = "";
         this.powerupsOnMap = new ArrayList();
@@ -211,6 +211,19 @@ public class Game extends Thread{
 
     }
 
+    public void lastManStanding() {
+        int playersAlive = 0;
+        for (Player player : players) {
+            if (player.getAlive()) {
+                playersAlive++;
+            }
+        }
+
+        if (playersAlive <= 1) {
+            lastManStanding = true;
+        }
+    }
+
     //logic for the game thread. Do not run this method. run the start() even tho it is not specified here
     @Override
     public void run() {
@@ -238,16 +251,23 @@ public class Game extends Thread{
         //counts down the game before its starts
         startGame();
         timer.schedule(countDown, 1000,1000);
-        paused = false;
+        lastManStanding = false;
 
         System.out.println("serverloop started");
         //start updating players
-    	while(!paused) {
+    	while(!lastManStanding) {
+            //spawns new powerups
             SpawnPowerups();
+            //moves powerups
             MovePowerups();
+            //moves players
             playerTick();
+            //send new data to players
     		UpdateGame();
+            //sleeps for a tick
     		sleepTick();
+            //if wincondition is met, cancel the while loop
+            lastManStanding();
     	}
 
         System.out.println("serverloop ended");
