@@ -55,8 +55,8 @@ public class Powerup extends GameObject implements EntityPowerUp {
         x -= 5;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setType(int type) {
+        this.type = type;
     }
 
     public int getId() {

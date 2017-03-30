@@ -130,7 +130,6 @@ public class Game extends Thread{
             type = rand.nextInt(8) + 1;
             try {
                 InputStream is = this.getClass().getClassLoader().getResourceAsStream("powerup.png");
-                //File mypu = new File("/powerup.png");
                 img = ImageIO.read(is);
             } catch (IOException e) {
                 System.out.println("Cant find powerup.bmp");
@@ -141,7 +140,7 @@ public class Game extends Thread{
             width = img.getWidth();
 
             Powerup pu = new Powerup(x, y, height, width, type, img);
-            powerup.setId(rand.nextInt(numberOfPowerUps)+1);
+            powerup.setType(rand.nextInt(numberOfPowerUps)+1);
             this.powerupsOnMap.add(powerup);
             timeStart = System.currentTimeMillis();
         }
