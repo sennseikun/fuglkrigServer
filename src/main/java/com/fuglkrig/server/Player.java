@@ -150,6 +150,14 @@ public class Player {
         return this.coordX;
     }
 
+    public void setCoordX(int x) {
+        this.coordX = x;
+    }
+
+    public void setCoordY(int y) {
+        this.coordY = y;
+    }
+
     public int getCoordY() {
         return this.coordY;
     }
