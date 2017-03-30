@@ -149,10 +149,8 @@ public class Game extends Thread{
     }
 
     public void MovePowerups() {
-        System.out.println(powerupsOnMap);
         List<Powerup> toDelete = new ArrayList<>();
         for (Powerup powerup : powerupsOnMap) {
-            System.out.println(powerup.type);
             if (powerup.getX() < 0 ) {
                 toDelete.add(powerup);
             }
@@ -162,7 +160,9 @@ public class Game extends Thread{
         }
 
         if (toDelete.size() > 0) {
+
             for (Powerup powerup : toDelete) {
+                System.out.println("removing powerup");
                 powerupsOnMap.remove(powerup);
             }
         }
@@ -240,15 +240,17 @@ public class Game extends Thread{
         timer.schedule(countDown, 1000,1000);
         paused = false;
 
-    	//start updating players
+        System.out.println("serverloop started");
+        //start updating players
     	while(!paused) {
-            System.out.println("running tick");
             SpawnPowerups();
             MovePowerups();
             playerTick();
     		UpdateGame();
     		sleepTick();
     	}
+
+        System.out.println("serverloop ended");
     }
 
 }

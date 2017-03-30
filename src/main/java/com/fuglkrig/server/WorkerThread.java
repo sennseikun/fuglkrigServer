@@ -370,8 +370,6 @@ public class WorkerThread implements Runnable {
                 if (y >= 0) {
                     this.receiveThread.player.setCoordY(y);
                 }
-
-
             }
 
             else{
