@@ -1,5 +1,6 @@
 package com.fuglkrig.server;
 
+import javafx.concurrent.Worker;
 import jdk.nashorn.api.scripting.JSObject;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,6 +35,8 @@ public class WorkerThread implements Runnable {
     public WorkerThread(String command){
         this.command = command;
     }
+
+
 
     @Override
     public void run() {
@@ -351,6 +354,12 @@ public class WorkerThread implements Runnable {
                     Game game = new Game(playerList);
                     game.start();
                 }
+            }
+
+            else if(command.equals("12")) {
+                JSONObject jsonData = new JSONObject(message);
+                this.receiveThread.player.setTargetPos((int) jsonData.get("TargetX"), (int) jsonData.get("TargetY"));
+
             }
 
             else{
