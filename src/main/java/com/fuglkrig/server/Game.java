@@ -128,7 +128,7 @@ public class Game extends Thread{
             //this needs to be the same as the number of powerups.
             type = rand.nextInt(8) + 1;
             try {
-                img = ImageIO.read(new File("/javapowerup.png").getAbsoluteFile());
+                img = ImageIO.read(new File("/javapowerup.png"));
             } catch (IOException e) {
                 System.out.println("Cant find powerup.bmp");
                 System.out.println(e);
