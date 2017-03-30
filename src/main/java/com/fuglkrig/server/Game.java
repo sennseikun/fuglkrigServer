@@ -148,13 +148,20 @@ public class Game extends Thread{
 
     public void MovePowerups() {
         System.out.println(powerupsOnMap);
+        List<Powerup> toDelete = new ArrayList<>();
         for (Powerup powerup : powerupsOnMap) {
             System.out.println(powerup.type);
             if (powerup.getX() < 0 ) {
-                powerupsOnMap.remove(powerup);
+                toDelete.add(powerup);
             }
             else {
                 powerup.tick();
+            }
+        }
+
+        if (toDelete.size() > 0) {
+            for (Powerup powerup : toDelete) {
+                powerupsOnMap.remove(powerup);
             }
         }
     }
