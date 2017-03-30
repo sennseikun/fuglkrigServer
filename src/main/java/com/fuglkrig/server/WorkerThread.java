@@ -259,7 +259,7 @@ public class WorkerThread implements Runnable {
                 else {
 
                     JSONObject fullJson = new JSONObject();
-                    fullJson.put("Datatype", 9);
+                    fullJson.put("Datatype", 20);
 
                     DataOutputStream out = new DataOutputStream(socket.getOutputStream());
                     out.writeUTF(fullJson.toString());
