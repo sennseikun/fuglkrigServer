@@ -102,12 +102,17 @@ public class Game extends Thread{
 
     public void SpawnPowerups() {
         //Used to spawn powerups
+        /*
+        This needs to be fixed. needs to make a powerup before adding it to list
+        currently we get nullpointer
+
         timeSinceLastPowerUp = System.currentTimeMillis()-timeStart;
         if(timeSinceLastPowerUp > timeForNewPowerUp){
+            Powerup pu = new Powerup();
             powerup.setId(rand.nextInt(numberOfPowerUps)+1);
             this.powerupsOnMap.add(powerup);
             timeStart = System.currentTimeMillis();
-        }
+        }*/
     }
 
     public void MovePowerups() {

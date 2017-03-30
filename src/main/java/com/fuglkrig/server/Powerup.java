@@ -11,6 +11,7 @@ public class Powerup extends GameObject implements EntityPowerUp {
 
     int id;
     String powerUpName;
+
     public Powerup(double x, double y, double height, double width,int id){
         super(x, y, width, height);
         this.id = id;
