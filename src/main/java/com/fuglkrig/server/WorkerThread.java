@@ -20,15 +20,15 @@ public class WorkerThread implements Runnable {
     private JSONObject json;
     private String message;
     private int id;
-    private ReceiveThread ReceiveThread;
+    private ReceiveThread receiveThread;
 
-    public WorkerThread(ReceiveThread ReceiveThread ,int id, String command, Socket socket, String message){
+    public WorkerThread(ReceiveThread receiveThread ,int id, String command, Socket socket, String message){
         this.command=command;
         this.socket = socket;
         this.json = json;
         this.message = message;
         this.id = id;
-        this.ReceiveThread = ReceiveThread;
+        this.receiveThread = receiveThread;
     }
 
     public WorkerThread(String command){
@@ -76,7 +76,7 @@ public class WorkerThread implements Runnable {
                 if (value.equals("1")) {
 
                     Player player = new Player(name, id, 0, socket);
-                    ReceiveThread.setPlayer(player);
+                    receiveThread.setPlayer(player);
                     OnlinePlayers.newPlayer(player);
 
                     System.out.println("WorkerThread 0: Players online: " + OnlinePlayers.getPlayers());
@@ -342,23 +342,24 @@ public class WorkerThread implements Runnable {
                     Sjekk om spilleren er først i lobby sin spiller liste, hvis ja, start spill
                     hvis nei, break.
                 */
-                List<Player> playerList = LobbyList.getPlayersFromLobby(this.ReceiveThread.player);
+                List<Player> playerList = LobbyList.getPlayersFromLobby(receiveThread.player);
+                List<Player> players = LobbyList.getLobbyWithPlayer(receiveThread.player).getPlayers();
                 System.out.println("list of players from start button");
                 System.out.println(playerList);
 
-                if (playerList != null) {
+                if (playerList != null && players.size() > 1) {
                     Game game = new Game(playerList);
                     game.start();
                 }
             }
 
             else{
-                ReceiveThread.stopThread();
+                receiveThread.stopThread();
             }
 
         } catch (IOException e) {
             e.printStackTrace();
-            ReceiveThread.stopThread();
+            receiveThread.stopThread();
         }
     }
 
