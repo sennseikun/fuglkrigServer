@@ -225,8 +225,15 @@ public class Player {
     }
 
     //send the data that comes from the game out to the client
-    public void UpdateClient() {
+    public void UpdateClient(JSONObject data) {
 
+        DataOutputStream out = null;
+        try {
+            out = new DataOutputStream(playerSocket.getOutputStream());
+            out.writeUTF(data.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     //update the data model of this player

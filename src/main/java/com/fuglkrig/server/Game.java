@@ -108,7 +108,7 @@ public class Game extends Thread{
 
         //pushes the data to the clients.
         for (Player player : players) {
-            player.UpdateClient();
+            player.UpdateClient(dataToPlayers);
         }
     }
 
@@ -184,6 +184,14 @@ public class Game extends Thread{
 
     public void startGame() {
         //this needs to send a package with datatype 14.
+        JSONObject startGame = new JSONObject();
+        startGame.put("Datatype", 14);
+
+        //sends it to players
+        for (Player player : players) {
+            player.UpdateClient(startGame);
+        }
+
     }
 
     //logic for the game thread. Do not run this method. run the start() even tho it is not specified here
