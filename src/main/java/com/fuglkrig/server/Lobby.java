@@ -26,6 +26,10 @@ public class Lobby {
         this.name = name;
     }
 
+    public Player getHost(){
+        return players.get(0);
+    }
+
     public void removeByPlayerName(String name) {
 
         int value = -1;
