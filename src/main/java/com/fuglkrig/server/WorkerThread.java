@@ -362,6 +362,8 @@ public class WorkerThread implements Runnable {
                 int x = (int) jsonData.get("TargetX");
                 int y = (int) jsonData.get("TargetY");
 
+                System.out.println("X: " + x + " Y: " + y);
+
                 if (x >= 0) {
                     this.receiveThread.player.setCoordX(x);
                 }
