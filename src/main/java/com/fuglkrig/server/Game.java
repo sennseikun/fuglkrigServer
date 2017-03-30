@@ -1,9 +1,14 @@
 package com.fuglkrig.server;
 
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 import org.json.*;
+
+import javax.imageio.ImageIO;
 
 import static java.util.Random.*;
 
@@ -19,12 +24,16 @@ public class Game extends Thread{
     Date lastTimeUpdatePlayers;
     double timeStart = System.currentTimeMillis();
     double timeSinceLastPowerUp;
-    double timeForNewPowerUp = 500;
+    //in millisecounds
+    double timeForNewPowerUp = 5000;
     String textOnPlayerScreen;
     int secoundsUntilStart = 6;
     int numberOfPowerUps = 8;
     Random rand = new Random();
     Powerup powerup;
+
+    int gameSizeX = 1920;
+    int gameSizeY = 1080;
 
     //powerups on map
     ArrayList<Powerup> powerupsOnMap;
@@ -102,17 +111,35 @@ public class Game extends Thread{
 
     public void SpawnPowerups() {
         //Used to spawn powerups
-        /*
-        This needs to be fixed. needs to make a powerup before adding it to list
-        currently we get nullpointer
+
+        //This needs to be fixed. needs to make a powerup before adding it to list
+        //currently we get nullpointer
 
         timeSinceLastPowerUp = System.currentTimeMillis()-timeStart;
         if(timeSinceLastPowerUp > timeForNewPowerUp){
-            Powerup pu = new Powerup();
+
+            int x, y, height, width, type;
+            x = gameSizeX + 100;
+            y = rand.nextInt(gameSizeY) + 1;
+            BufferedImage img = null;
+
+            //this needs to be the same as the number of powerups.
+            type = rand.nextInt(8) + 1;
+            try {
+                img = ImageIO.read(new File("powerup.bmp"));
+            } catch (IOException e) {
+                System.out.println("Cant find powerup.bmp");
+                System.out.println(e);
+            }
+
+            height = img.getHeight();
+            width = img.getWidth();
+
+            Powerup pu = new Powerup(x, y, height, width, type, img);
             powerup.setId(rand.nextInt(numberOfPowerUps)+1);
             this.powerupsOnMap.add(powerup);
             timeStart = System.currentTimeMillis();
-        }*/
+        }
     }
 
     public void MovePowerups() {
@@ -174,6 +201,7 @@ public class Game extends Thread{
     	while(!paused) {
             System.out.println("running tick");
             SpawnPowerups();
+            MovePowerups();
             playerTick();
     		UpdateGame();
     		sleepTick();
