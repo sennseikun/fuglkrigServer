@@ -200,27 +200,25 @@ public class WorkerThread implements Runnable {
                 String name = jsonObject.getString("Name");
                 String lobbyID = jsonObject.getString("Lobby");
 
-                System.out.println("Someone joining: " + LobbyList.getLobby(lobbyID).getName());
+                if(LobbyList.getLobby(lobbyID) != null) {
+                    System.out.println("Someone joining: " + LobbyList.getLobby(lobbyID).getName());
 
-                int playerCount = LobbyList.getLobby(lobbyID).getPlayerCount();
-                int maxPlayerCount = LobbyList.getLobby(lobbyID).getMax_player_count();
+                    int playerCount = LobbyList.getLobby(lobbyID).getPlayerCount();
+                    int maxPlayerCount = LobbyList.getLobby(lobbyID).getMax_player_count();
 
-                for(Player p: LobbyList.getLobby(lobbyID).getPlayers()){
-                    System.out.println("Player in lobby: " + p.getNick());
-                }
+                    for (Player p : LobbyList.getLobby(lobbyID).getPlayers()) {
+                        System.out.println("Player in lobby: " + p.getNick());
+                    }
 
 
-                if(playerCount >= maxPlayerCount){
+                    if (playerCount >= maxPlayerCount) {
 
-                    JSONObject fullJson = new JSONObject();
-                    fullJson.put("Datatype",9);
+                        JSONObject fullJson = new JSONObject();
+                        fullJson.put("Datatype", 9);
 
-                    DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-                    out.writeUTF(fullJson.toString());
-                }
-                else {
-
-                    if (LobbyList.getLobbys() != null) {
+                        DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+                        out.writeUTF(fullJson.toString());
+                    } else {
                         List<Lobby> lobbys = LobbyList.getLobbys();
                         Lobby currLobby = null;
                         List<Player> players = null;
@@ -257,14 +255,14 @@ public class WorkerThread implements Runnable {
                         }
                         LobbyList.updateLobbies();
                     }
-                    else {
+                }
+                else {
 
-                        JSONObject fullJson = new JSONObject();
-                        fullJson.put("Datatype", 9);
+                    JSONObject fullJson = new JSONObject();
+                    fullJson.put("Datatype", 9);
 
-                        DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-                        out.writeUTF(fullJson.toString());
-                    }
+                    DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+                    out.writeUTF(fullJson.toString());
                 }
             }
 
