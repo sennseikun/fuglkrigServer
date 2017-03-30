@@ -200,6 +200,8 @@ public class Game extends Thread{
 
         startGame.put("Players",listOfPlayers);
 
+        System.out.println("\n\n\n\n" + startGame + "\n\n\n\n\n");
+
         //sends it to players
         for (Player player : players) {
             player.UpdateClient(startGame);
