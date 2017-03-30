@@ -247,6 +247,13 @@ public class WorkerThread implements Runnable {
                             p.addToGameLobby(lobbyID,name,players);
                         }
                     }
+                    else{
+                        JSONObject fullJson = new JSONObject();
+                        fullJson.put("Datatype",9);
+
+                        DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+                        out.writeUTF(fullJson.toString());
+                    }
                     LobbyList.updateLobbies();
                 }
             }
