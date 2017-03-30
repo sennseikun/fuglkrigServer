@@ -4,6 +4,7 @@ package com.fuglkrig.server;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 
 import org.json.*;
@@ -128,7 +129,9 @@ public class Game extends Thread{
             //this needs to be the same as the number of powerups.
             type = rand.nextInt(8) + 1;
             try {
-                img = ImageIO.read(new File("/javapowerup.png"));
+                InputStream is = this.getClass().getClassLoader().getResourceAsStream("powerup.png");
+                //File mypu = new File("/powerup.png");
+                img = ImageIO.read(is);
             } catch (IOException e) {
                 System.out.println("Cant find powerup.bmp");
                 System.out.println(e);
