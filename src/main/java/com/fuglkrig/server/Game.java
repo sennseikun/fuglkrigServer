@@ -196,6 +196,8 @@ public class Game extends Thread{
         for (Player player : players) {
             JSONObject playerData = new JSONObject();
             playerData.put("PlayerID", player.getPlayerID());
+
+            listOfPlayers.put(playerData);
         }
 
         startGame.put("Players",listOfPlayers);
