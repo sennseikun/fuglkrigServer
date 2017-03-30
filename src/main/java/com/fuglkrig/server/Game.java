@@ -91,7 +91,7 @@ public class Game extends Thread{
         for (Player player : players) {
             //playerdocument
             JSONObject playerData = new JSONObject();
-            playerData.put("playerID", player.getPlayerID());
+            playerData.put("PlayerID", player.getPlayerID());
             playerData.put("Name", player.getNick());
             playerData.put("Hp", player.getHp());
             playerData.put("Skin", player.getSkin());
