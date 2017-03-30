@@ -74,6 +74,7 @@ public class Game extends Thread{
 
     //updates all clients in the game
     public void UpdateGame() {
+        //datatype 14
         //builds the data that is going to be pushed
 
         //initial json document
@@ -127,7 +128,7 @@ public class Game extends Thread{
             //this needs to be the same as the number of powerups.
             type = rand.nextInt(8) + 1;
             try {
-                img = ImageIO.read(new File("powerup.bmp"));
+                img = ImageIO.read(new File("/src/main/resources/javapowerup.bmp").getAbsoluteFile());
             } catch (IOException e) {
                 System.out.println("Cant find powerup.bmp");
                 System.out.println(e);
@@ -170,6 +171,10 @@ public class Game extends Thread{
         for (Player player : players) {
             player.nextTick();
         }
+    }
+
+    public void startGame() {
+        //this needs to send a package with datatype 14.
     }
 
     //logic for the game thread. Do not run this method. run the start() even tho it is not specified here
