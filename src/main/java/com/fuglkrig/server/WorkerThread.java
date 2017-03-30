@@ -342,9 +342,10 @@ public class WorkerThread implements Runnable {
                     Sjekk om spilleren er først i lobby sin spiller liste, hvis ja, start spill
                     hvis nei, break.
                 */
-                List playerList = LobbyList.getPlayersFromLobby(this.ReceiveThread.player);
+                List<Player> playerList = LobbyList.getPlayersFromLobby(this.ReceiveThread.player);
                 System.out.println("list of players from start button");
                 System.out.println(playerList);
+
                 if (playerList != null) {
                     Game game = new Game(playerList);
                     game.start();
