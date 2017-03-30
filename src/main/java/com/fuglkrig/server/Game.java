@@ -140,8 +140,8 @@ public class Game extends Thread{
             width = img.getWidth();
 
             Powerup pu = new Powerup(x, y, height, width, type, img);
-            powerup.setType(rand.nextInt(numberOfPowerUps)+1);
-            this.powerupsOnMap.add(powerup);
+            pu.setType(rand.nextInt(numberOfPowerUps)+1);
+            this.powerupsOnMap.add(pu);
             timeStart = System.currentTimeMillis();
         }
     }
