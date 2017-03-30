@@ -69,6 +69,7 @@ public class Game extends Thread{
         this.paused = true;
         this.game = new Thread(this);
         this.textOnPlayerScreen = "";
+        this.powerupsOnMap = new ArrayList();
     }
 
     //updates all clients in the game
