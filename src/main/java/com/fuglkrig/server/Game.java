@@ -75,11 +75,13 @@ public class Game extends Thread{
 
     //updates all clients in the game
     public void UpdateGame() {
-        //datatype 14
+        //datatype 15
         //builds the data that is going to be pushed
 
         //initial json document
         JSONObject dataToPlayers = new JSONObject();
+
+        dataToPlayers.put("Datatype", 15);
 
         //liste over powerups på kart
 
