@@ -71,8 +71,11 @@ public class Player {
                 for(int i = 0; i < players.size(); i++){
                     System.out.println(sendJson);
                     System.out.println(players.get(i));
-                    sendJson.put("PlayerName"+i,players.get(i));
-                    System.out.println(sendJson);
+
+                    if(!players.get(i).getNick().equals(name)) {
+                        sendJson.put("PlayerName" + i, players.get(i));
+                        System.out.println(sendJson);
+                    }
                 }
 
 
