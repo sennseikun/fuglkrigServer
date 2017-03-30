@@ -106,7 +106,7 @@ public class Game extends Thread{
             playersData.put(playerData);
         }
         //puts all players in the initial json document
-        dataToPlayers.put("players", playersData);
+        dataToPlayers.put("Players", playersData);
 
         //pushes the data to the clients.
         for (Player player : players) {
@@ -188,6 +188,17 @@ public class Game extends Thread{
         //this needs to send a package with datatype 14.
         JSONObject startGame = new JSONObject();
         startGame.put("Datatype", 14);
+        startGame.put("Width", this.gameSizeX);
+        startGame.put("Height", this.gameSizeY);
+
+        JSONArray listOfPlayers = new JSONArray();
+
+        for (Player player : players) {
+            JSONObject playerData = new JSONObject();
+            playerData.put("PlayerID", player.getPlayerID());
+        }
+
+        startGame.put("Players",listOfPlayers);
 
         //sends it to players
         for (Player player : players) {
