@@ -20,9 +20,8 @@ import static java.util.Random.*;
 
 public class Game extends Thread {
     List<Player> players;
-    Map currentMap;
+    String currentMap;
     Thread game;
-    Date lastTimeUpdatePlayers;
     double timeStart = System.currentTimeMillis();
     double timeSinceLastPowerUp;
     //in millisecounds
@@ -30,8 +29,14 @@ public class Game extends Thread {
     String textOnPlayerScreen;
     int secoundsUntilStart = 6;
     int numberOfPowerUps = 8;
+    //used to move map and powerups. in px
+    int speed;
     Random rand = new Random();
-    Powerup powerup;
+    int lastManStandingX = 0;
+    int getLastManStandingY = 0;
+    int mapXPos;
+    int winMapXPos;
+    Player lastPlayer;
 
     int gameSizeX = 1920;
     int gameSizeY = 1080;
@@ -72,6 +77,10 @@ public class Game extends Thread {
      */
     boolean lastManStanding;
 
+    public void moveLastManStanding() {
+
+    }
+
     /**
      * Create a game with the list of players.
      *
@@ -81,9 +90,13 @@ public class Game extends Thread {
         this.players = players;
         this.sleepTime = 1000 / 30;
         this.lastManStanding = true;
+        this.currentMap ="egypt";
+        this.mapXPos = 0;
+        this.winMapXPos = 1921;
         this.game = new Thread(this);
         this.textOnPlayerScreen = "";
         this.powerupsOnMap = new ArrayList();
+        this.speed = 10;
     }
 
     /**
@@ -183,7 +196,7 @@ public class Game extends Thread {
             if (powerup.getX() < 0) {
                 toDelete.add(powerup);
             } else {
-                powerup.tick();
+                powerup.tick(speed);
             }
         }
 
@@ -194,6 +207,13 @@ public class Game extends Thread {
                 powerupsOnMap.remove(powerup);
             }
         }
+    }
+
+    //moves the map
+    public void moveMap() {
+
+        mapXPos = mapXPos - 10;
+
     }
 
     /**
@@ -256,6 +276,11 @@ public class Game extends Thread {
         }
 
         if (playersAlive <= 1) {
+            for (Player player : players) {
+                if(player.getAlive()) {
+                    lastPlayer = player;
+                }
+            }
             lastManStanding = true;
         }
     }
@@ -298,7 +323,6 @@ public class Game extends Thread {
          */
         startGame();
         timer.schedule(countDown, 1000, 1000);
-        lastManStanding = false;
 
         /**
          * start updating players
@@ -307,7 +331,12 @@ public class Game extends Thread {
             System.out.println("running tick");
 
             System.out.println("serverloop started");
-            //start updating players
+
+            /*
+            This is the game loop. When the game is started this updates all the clients untill someone won
+
+
+             */
             while (!lastManStanding) {
                 //spawns new powerups
                 SpawnPowerups();
@@ -323,7 +352,22 @@ public class Game extends Thread {
                 lastManStanding();
             }
 
-            System.out.println("serverloop ended");
+            System.out.println("LAST MAN STANDING");
+
+            //this is used between playing the game and lobby
+            while (lastManStanding) {
+                //we still need to move the powerups.
+                MovePowerups();
+                //we need to control the player to the nest
+
+                //updates the players with the new game state
+                UpdateGame();
+                //Still need to sleeptick to not spam the user with alot of data
+                sleepTick();
+
+            }
+
+            System.out.println("Shutting down server");
         }
 
     }

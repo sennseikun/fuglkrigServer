@@ -54,8 +54,8 @@ public class Powerup extends GameObject implements EntityPowerUp {
     /**
      * update function for the powerup
      */
-    public void tick() {
-        x -= 5;
+    public void tick(int speed) {
+        x -= speed;
     }
 
     /**
