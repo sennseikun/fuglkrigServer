@@ -232,12 +232,11 @@ public class Player {
         this.coordY = y;
     }
 
-    public void setTargetPos(float x, float y){
-        System.out.println("\nold pos: " + coordX + " " + coordY);
-        System.out.println("target pos: " + targetPosX + " " + targetPosY);
-
+    public void setTargetPosX(float x){
         targetPosX = x;
-        targetPosY = y;
+    }
+
+    public void UpdateDxDy(){
 
         dx = targetPosX - coordX;
         dy = targetPosY - coordY;
@@ -250,8 +249,8 @@ public class Player {
         System.out.println("speed " + this.xSpeed + " " + this.ySpeed);
     }
 
-    public void setTargetPosY(int y){
-
+    public void setTargetPosY(float y){
+        targetPosY = y;
     }
 
 
