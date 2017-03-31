@@ -20,9 +20,8 @@ import static java.util.Random.*;
 
 public class Game extends Thread {
     List<Player> players;
-    String currentMap;
-    String nextMap;
     Thread game;
+    Map map;
     double timeStart = System.currentTimeMillis();
     double timeSinceLastPowerUp;
     //in millisecounds
@@ -35,8 +34,6 @@ public class Game extends Thread {
     Random rand = new Random();
     int lastManStandingX = 0;
     int getLastManStandingY = 0;
-    int mapXPos;
-    int nextMapXPos;
     Player lastPlayer;
     int gameSizeX = 1920;
     int gameSizeY = 1080;
@@ -90,13 +87,17 @@ public class Game extends Thread {
         this.players = players;
         this.sleepTime = 1000 / 30;
         this.lastManStanding = false;
-        this.currentMap ="egypt";
-        this.mapXPos = 0;
-        this.nextMapXPos = 1921;
         this.game = new Thread(this);
         this.textOnPlayerScreen = "";
         this.powerupsOnMap = new ArrayList();
         this.speed = 10;
+
+        //creating map
+        Random rand = new Random();
+        //TODO NEEDS TO BE CHANGED TO 3 WHEN LAST MAP IS ADDED
+        this.map = new Map(rand.nextInt(2) + 1);
+        System.out.println("New game created. Map: " + map.getMapName());
+
     }
 
     /**
@@ -160,9 +161,6 @@ public class Game extends Thread {
      * Adds a powerup to the powerupsOnMap list
      */
     public void SpawnPowerups() {
-        //todo This needs to be fixed. needs to make a powerup before adding it to list currently we get nullpointer
-
-
         timeSinceLastPowerUp = System.currentTimeMillis() - timeStart;
         if (timeSinceLastPowerUp > timeForNewPowerUp) {
 
@@ -210,19 +208,6 @@ public class Game extends Thread {
         }
     }
 
-    //moves the map
-    public void moveMap() {
-        if (lastManStanding){
-
-
-        }
-
-        else {
-            mapXPos -= speed;
-        }
-
-
-    }
 
     /**
      * sleeps a game for tick time. Used to avoid a billion try/catch in the code.
@@ -347,6 +332,8 @@ public class Game extends Thread {
 
              */
             while (!lastManStanding) {
+                //moves the map
+                map.moveMap(speed, lastManStanding);
                 //spawns new powerups
                 SpawnPowerups();
                 //moves powerups
@@ -365,6 +352,8 @@ public class Game extends Thread {
 
             //this is used between playing the game and lobby
             while (lastManStanding) {
+                //moves the map
+                map.moveMap(speed, lastManStanding);
                 //we still need to move the powerups.
                 MovePowerups();
                 //we need to control the player to the nest
