@@ -133,7 +133,12 @@ public class Player {
             sendJson.put("Datatype","3");
             sendJson.put("LobbyID",lobbyID);
             sendJson.put("Error","0");
-            sendJson.put("hostPlayer",LobbyList.getLobby(lobbyID).getPlayers().get(1).getNick());
+            if(LobbyList.getLobby(lobbyID).getPlayers().size() > 0){
+                sendJson.put("hostPlayer",LobbyList.getLobby(lobbyID).getPlayers().get(1).getNick());
+            }
+            else{
+                sendJson.put("hostPlayer",LobbyList.getLobby(lobbyID).getPlayers().get(0).getNick());
+            }
 
             sendJson.put("PlayerCount",Integer.toString(players.size()-1));
 
