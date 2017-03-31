@@ -144,7 +144,6 @@ public class Game extends Thread {
          */
         JSONArray playersData = new JSONArray();
         for (Player player : players) {
-            System.out.println("Player " + player.getNick() + " got position " + player.getCoordX() + " " + player.getCoordY());
             /**
              * playerdocument
              */
