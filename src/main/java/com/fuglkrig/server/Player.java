@@ -21,8 +21,8 @@ public class Player {
     int targetPosY;
     int coordX;
     int coordY;
-    int xSpeed;
-    int ySpeed;
+    float xSpeed;
+    float ySpeed;
     int direction;
     int speed;
     boolean alive;
