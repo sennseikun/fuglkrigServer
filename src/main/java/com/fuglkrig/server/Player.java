@@ -237,16 +237,11 @@ public class Player {
     }
 
     public void UpdateDxDy(){
-
         dx = targetPosX - coordX;
         dy = targetPosY - coordY;
         float targetPosLength = (float) Math.sqrt(dx*dx + dy*dy);
-        System.out.println("targetposlenght: " + targetPosLength);
-        System.out.println("dx " + dx);
         this.xSpeed = dx/targetPosLength;
         this.ySpeed = dy/targetPosLength;
-
-        System.out.println("speed " + this.xSpeed + " " + this.ySpeed);
     }
 
     public void setTargetPosY(double y){
@@ -320,16 +315,13 @@ public class Player {
 
         if ((dx > 0 && coordX >= targetPosX) || (dx < 0 && coordX <= targetPosX)){
             this.xSpeed = 0;
-            System.out.println("xspeed0");
         }
         if ((dy > 0 && coordY >= targetPosY) || (dy < 0 && coordY <= targetPosY)){
-            System.out.println("yspeed0");
             this.ySpeed = 0;
         }
 
         this.coordX += xSpeed * 15;
         this.coordY += ySpeed * 15;
-        System.out.println("new pos: " + coordX + " " + coordY);
     }
 
 
