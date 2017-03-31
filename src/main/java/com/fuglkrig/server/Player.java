@@ -289,17 +289,22 @@ public class Player {
         this.currentGame = game;
     }
 
-
-
     /**
      * todo fix this comment!
      * Update function for the changing of direction of the player.
      */
     public void nextTick() {
+
         System.out.println("old pos: " + coordX + " " + coordY);
         System.out.println("target pos: " + targetPosX + " " + targetPosY);
         int dx = coordX - targetPosX;
         int dy = coordY - targetPosY;
+        int targetPosLength = (int) Math.sqrt(dx*dx + dy*dy);
+
+        this.xSpeed = dx/targetPosLength;
+        this.ySpeed = dy/targetPosLength;
+
+
         if ((dx > 0 && coordX >= targetPosX) || (dx < 0 && coordX <= targetPosX)){
             this.xSpeed = 0;
         }
