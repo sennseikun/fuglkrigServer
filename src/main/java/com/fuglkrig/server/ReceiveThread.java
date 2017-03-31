@@ -49,8 +49,6 @@ public class ReceiveThread extends Thread {
     public void stopConnection(){
         try {
 
-            System.out.println("Moves past here");
-
             Lobby removeLobby = LobbyList.getLobbyWithPlayer(player);
 
 
@@ -113,8 +111,6 @@ public class ReceiveThread extends Thread {
                 DataInputStream in;
                 in = new DataInputStream(inputSocket.getInputStream());
                 String message = in.readUTF();
-
-                System.out.println("ReceiveThread: Message received: " +message);
 
                 int datatype = -1;
 
