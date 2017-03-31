@@ -374,7 +374,8 @@ public class WorkerThread implements Runnable {
                 //Double tempx = (double) jsonData.get("TargetX");
                 //Double tempy = (double) jsonData.get("TargetY");
 
-
+                System.out.println(jsonData.get("TargetX"));
+                System.out.println(jsonData.get("TargetY"));
                 int x = (int) jsonData.get("TargetX");
                 int y = (int) jsonData.get("TargetY");
 
