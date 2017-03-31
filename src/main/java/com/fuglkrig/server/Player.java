@@ -17,14 +17,14 @@ public class Player {
     int playerID;
     int hp;
     int skin;
-    float targetPosX;
-    float targetPosY;
-    float coordX;
-    float coordY;
-    float xSpeed;
-    float ySpeed;
-    float direction;
-    float speed;
+    double targetPosX;
+    double targetPosY;
+    double coordX;
+    double coordY;
+    double xSpeed;
+    double ySpeed;
+    double direction;
+    double speed;
     boolean alive;
 
     /**
@@ -34,8 +34,8 @@ public class Player {
 
     ArrayList<Integer> powerups;
     Game currentGame;
-    private float dx;
-    private float dy;
+    private double dx;
+    private double dy;
 
     /**
      * Changes the toString to return the name of the player.
@@ -203,21 +203,21 @@ public class Player {
     /**
      * @return the players target x position
      */
-    public float getTargetPosX() {
+    public double getTargetPosX() {
         return this.targetPosX;
     }
 
     /**
      * @return the players target y position
      */
-    public float getTargetPosY() {
+    public double getTargetPosY() {
         return this.targetPosY;
     }
 
     /**
      * @return the players current x position
      */
-    public float getCoordX() {
+    public double getCoordX() {
         return this.coordX;
     }
 
@@ -232,7 +232,7 @@ public class Player {
         this.coordY = y;
     }
 
-    public void setTargetPosX(float x){
+    public void setTargetPosX(double x){
         targetPosX = x;
     }
 
@@ -249,26 +249,26 @@ public class Player {
         System.out.println("speed " + this.xSpeed + " " + this.ySpeed);
     }
 
-    public void setTargetPosY(float y){
+    public void setTargetPosY(double y){
         targetPosY = y;
     }
 
 
-    public float getCoordY() {
+    public double getCoordY() {
         return this.coordY;
     }
 
     /**
      * @return the players direction
      */
-    public float getDirection() {
+    public double getDirection() {
         return this.direction;
     }
 
     /**
      * @return the players current speed
      */
-    public float getSpeed() {
+    public double getSpeed() {
         return this.speed;
     }
 
