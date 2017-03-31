@@ -23,7 +23,7 @@ public class Player {
     float coordY;
     float xSpeed;
     float ySpeed;
-    int direction;
+    float direction;
     float speed;
     boolean alive;
 
@@ -232,7 +232,7 @@ public class Player {
         this.coordY = y;
     }
 
-    public void setTargetPos(int x, int y){
+    public void setTargetPos(float x, float y){
         System.out.println("\nold pos: " + coordX + " " + coordY);
         System.out.println("target pos: " + targetPosX + " " + targetPosY);
 
@@ -262,7 +262,7 @@ public class Player {
     /**
      * @return the players direction
      */
-    public int getDirection() {
+    public float getDirection() {
         return this.direction;
     }
 
