@@ -62,7 +62,7 @@ public class Map {
     }
 
     public String getNextMap() {
-        return getNextMap();
+        return nextMap;
     }
 
     public String getWinMap() {
