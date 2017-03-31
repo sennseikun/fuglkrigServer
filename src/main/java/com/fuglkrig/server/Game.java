@@ -112,6 +112,16 @@ public class Game extends Thread {
         JSONObject dataToPlayers = new JSONObject();
         dataToPlayers.put("Datatype", 15);
 
+        //adds map data
+        dataToPlayers.put("MapName", this.map.getMapName());
+        dataToPlayers.put("CurrentMap", this.map.getCurrentMap());
+        dataToPlayers.put("NextMap", this.map.getNextMap());
+        dataToPlayers.put("WinMap", this.map.getWinMap());
+        dataToPlayers.put("MapType", this.map.getMapType());
+        dataToPlayers.put("MapXPos", this.map.getMapXPos());
+        dataToPlayers.put("NextMapXPos", this.map.getNextMapXPos());
+        dataToPlayers.put("WinMapXPos", this.map.getWinMapXPos());
+
         //liste over powerups på kart ??
 
 
@@ -241,6 +251,16 @@ public class Game extends Thread {
         startGame.put("Width", this.gameSizeX);
         startGame.put("Height", this.gameSizeY);
 
+        //gives the player information about the map that we are going to play
+        startGame.put("MapName", this.map.getMapName());
+        startGame.put("CurrentMap", this.map.getCurrentMap());
+        startGame.put("NextMap", this.map.getNextMap());
+        startGame.put("WinMap", this.map.getWinMap());
+        startGame.put("MapType", this.map.getMapType());
+        startGame.put("MapXPos", this.map.getMapXPos());
+        startGame.put("NextMapXPos", this.map.getNextMapXPos());
+        startGame.put("WinMapXPos", this.map.getWinMapXPos());
+
         JSONArray listOfPlayers = new JSONArray();
 
         for (Player player : players) {
@@ -284,6 +304,8 @@ public class Game extends Thread {
      */
     @Override
     public void run() {
+        //todo add logic that kills the server if there isnt any players in game.
+
         System.out.println("gameloop started");
 
         //todo Should probably make a timeout when we stop waiting for players to connect.

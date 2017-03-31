@@ -6,16 +6,16 @@ import java.util.ArrayList;
  * Created by Magnus on 03.03.2017.
  */
 public class Map {
-    String mapName;
-    String currentMap;
-    String nextMap;
-    String winMap;
-    int mapWidth;
-    int winMapWidth;
-    int mapType;
-    int mapXPos;
-    int nextMapXPos;
-    int winMapXPos;
+    private String mapName;
+    private String currentMap;
+    private String nextMap;
+    private String winMap;
+    private int mapWidth;
+    private int winMapWidth;
+    private int mapType;
+    private int mapXPos;
+    private int nextMapXPos;
+    private int winMapXPos;
 
 
     //maptype is 1, 2 or 3.
@@ -55,6 +55,42 @@ public class Map {
 
     public String getMapName() {
         return this.mapName;
+    }
+
+    public String getCurrentMap() {
+        return this.currentMap;
+    }
+
+    public String getNextMap() {
+        return getNextMap();
+    }
+
+    public String getWinMap() {
+        return this.winMap;
+    }
+
+    public int getMapWidth() {
+        return this.mapWidth;
+    }
+
+    public int getWinMapWidth() {
+        return this.winMapWidth;
+    }
+
+    public int getMapType() {
+        return this.mapType;
+    }
+
+    public int getMapXPos() {
+        return this.mapXPos;
+    }
+
+    public int getNextMapXPos() {
+        return this.nextMapXPos;
+    }
+
+    public int getWinMapXPos() {
+        return this.winMapXPos;
     }
 
     //moves the map. one map is 1652px wide
