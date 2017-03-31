@@ -317,6 +317,7 @@ public class Player {
      * Update function for the changing of direction of the player.
      */
     public void nextTick() {
+        System.out.println("old pos: " + coordX + " " + coordY);
         int dx = coordX - targetPosX;
         int dy = coordY - targetPosY;
         if ((dx > 0 && coordX >= targetPosX) || (dx < 0 && coordX <= targetPosX)){
@@ -328,6 +329,7 @@ public class Player {
 
         this.coordX += xSpeed * 15;
         this.coordY += ySpeed * 15;
+        System.out.println("new pos: " + coordX + " " + coordY);
     }
 
 
