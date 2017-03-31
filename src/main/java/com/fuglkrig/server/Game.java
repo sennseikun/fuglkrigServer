@@ -333,7 +333,7 @@ public class Game extends Thread {
              */
             while (!lastManStanding) {
                 //moves the map
-                map.moveMap(speed, lastManStanding);
+                map.moveMap(speed, lastManStanding, gameSizeX);
                 //spawns new powerups
                 SpawnPowerups();
                 //moves powerups
@@ -353,7 +353,7 @@ public class Game extends Thread {
             //this is used between playing the game and lobby
             while (lastManStanding) {
                 //moves the map
-                map.moveMap(speed, lastManStanding);
+                map.moveMap(speed, lastManStanding, gameSizeX);
                 //we still need to move the powerups.
                 MovePowerups();
                 //we need to control the player to the nest

@@ -15,12 +15,15 @@ public class Map {
     int mapType;
     int mapXPos;
     int nextMapXPos;
+    int winMapXPos;
 
 
     //maptype is 1, 2 or 3.
     public Map(int mapType) {
 
         this.mapType = mapType;
+        this.mapXPos = 0;
+
 
         //this sets the map name
         if (mapType == 1) {
@@ -55,27 +58,30 @@ public class Map {
     }
 
     //moves the map. one map is 1652px wide
-    public void moveMap(int speed, boolean lastManStanding) {
-        if (lastManStanding){
+    public void moveMap(int speed, boolean lastManStanding, int gameSizeX) {
+        mapXPos -= speed;
+        nextMapXPos = mapXPos + mapWidth;
 
+        boolean winMapDone = false;
 
-            //if winningmap got pos 0
-            if (nextMapXPos <= 0) {
-
+        if (lastManStanding) {
+            if (gameSizeX - winMapXPos <= winMapWidth) {
+                winMapXPos -= speed;
             }
+            else {
+                winMapDone = true;
+            }
+
         }
 
-        //the normal map loop
-        else {
-            mapXPos -= speed;
+        //hvis mapXPos er "ferdig" og vi winmap ikke er på rett posisjon
+        if ((mapXPos <= mapWidth * -1) && !winMapDone) {
+            //mapxpos får nextmap sin posisjon. nextmap får ny posisjon bortenfor
+            mapXPos = nextMapXPos;
             nextMapXPos = mapXPos + mapWidth;
-
-            //hvis mapXPos er "ferdig"
-            if (mapXPos <= mapWidth * -1) {
-                //mapxpos får nextmap sin posisjon. nextmap får ny posisjon bortenfor
-                mapXPos = nextMapXPos;
-                nextMapXPos = mapXPos + mapWidth;
-            }
         }
+
+
+
     }
 }
