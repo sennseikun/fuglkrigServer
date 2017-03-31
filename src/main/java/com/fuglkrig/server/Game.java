@@ -271,7 +271,6 @@ public class Game extends Thread {
         int playersAlive = 0;
         for (Player player : players) {
             if (player.getAlive()) {
-                System.out.println(player.getNick() + " is alive!");
                 playersAlive++;
             }
         }
@@ -282,7 +281,6 @@ public class Game extends Thread {
                     lastPlayer = player;
                 }
             }
-            System.out.println("number of people alive " + playersAlive);
             lastManStanding = true;
         }
     }
