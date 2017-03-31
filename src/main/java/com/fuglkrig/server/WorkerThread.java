@@ -371,13 +371,13 @@ public class WorkerThread implements Runnable {
                 System.out.println(receiveThread.player.getNick());
                 JSONObject jsonData = new JSONObject(message);
 
-                Double tempx = Double.valueOf((double) jsonData.get("TargetX"));
-                Double tempy = Double.valueOf((double) jsonData.get("TargetY"));
+                Double tempx = jsonData.getDouble("TargetX");
+                Double tempy = jsonData.getDouble("TargetY");
 
                 System.out.println(jsonData.get("TargetX"));
                 System.out.println(jsonData.get("TargetY"));
-                int x = (int) jsonData.get("TargetX");
-                int y = (int) jsonData.get("TargetY");
+                int x = tempx.intValue();
+                int y = tempy.intValue();
 
                 System.out.println("X: " + x + " Y: " + y);
 
