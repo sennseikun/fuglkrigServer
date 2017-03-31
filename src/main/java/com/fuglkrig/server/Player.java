@@ -289,28 +289,7 @@ public class Player {
         this.currentGame = game;
     }
 
-    /**
-     * Setting target position in the x and y values
-     * @param x
-     * @param y
-     */
-    public void setTargetPos(int x, int y) {
-        //used to calculate the direction while setting the targetPos.
-        //http://stackoverflow.com/questions/9970281/java-calculating-the-angle-between-two-points-in-degrees
-        //no idea if it works, needs testing
 
-
-        double tempAngle = Math.toDegrees(Math.atan2(y - coordY, x - coordX));
-        this.direction = (int) tempAngle;
-
-        if (this.direction < 0) {
-            this.direction += 360;
-        }
-
-        this.targetPosX = x;
-        this.targetPosY = y;
-
-    }
 
     /**
      * todo fix this comment!
@@ -318,6 +297,7 @@ public class Player {
      */
     public void nextTick() {
         System.out.println("old pos: " + coordX + " " + coordY);
+        System.out.println("target pos: " + targetPosX + " " + targetPosY);
         int dx = coordX - targetPosX;
         int dy = coordY - targetPosY;
         if ((dx > 0 && coordX >= targetPosX) || (dx < 0 && coordX <= targetPosX)){
@@ -361,21 +341,6 @@ public class Player {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * update the data model of this player
-     * @param targetPosX
-     * @param targetPosY
-     * @param direction
-     * @param speed
-     */
-    public void UpdatePlayer(int targetPosX, int targetPosY, int direction, int speed) {
-        this.targetPosX = targetPosX;
-        this.targetPosY = targetPosY;
-        this.direction = direction;
-        this.speed = speed;
-
     }
 
     /**
