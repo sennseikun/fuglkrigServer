@@ -304,9 +304,9 @@ public class Player {
 
         System.out.println("\nold pos: " + coordX + " " + coordY);
         System.out.println("target pos: " + targetPosX + " " + targetPosY);
-        int dx = targetPosX - coordX;
-        int dy = targetPosY - coordY;
-        int targetPosLength = (int) Math.sqrt(dx*dx + dy*dy);
+        float dx = targetPosX - coordX;
+        float dy = targetPosY - coordY;
+        float targetPosLength = (float) Math.sqrt(dx*dx + dy*dy);
         System.out.println("targetposlenght: " + targetPosLength);
         System.out.println("dx " + dx);
         this.xSpeed = dx/targetPosLength;

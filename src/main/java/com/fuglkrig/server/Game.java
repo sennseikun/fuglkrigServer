@@ -128,8 +128,8 @@ public class Game extends Thread {
             playerData.put("Name", player.getNick());
             playerData.put("Hp", player.getHp());
             playerData.put("Skin", player.getSkin());
-            playerData.put("PosX", player.getCoordX());
-            playerData.put("PosY", player.getCoordY());
+            playerData.put("PosX", (int) player.getCoordX());
+            playerData.put("PosY", (int) player.getCoordY());
             playerData.put("Direction", player.getDirection());
             playerData.put("Speed", player.getSpeed());
             playerData.put("Alive", player.getAlive());
