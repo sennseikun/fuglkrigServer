@@ -249,7 +249,6 @@ public class Game extends Thread {
      * Is the update function of the players
      */
     public void playerTick() {
-        System.out.println("running tick");
         for (Player player : players) {
             player.nextTick();
         }

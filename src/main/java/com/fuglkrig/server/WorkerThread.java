@@ -368,16 +368,10 @@ public class WorkerThread implements Runnable {
             }
 
             else if(command.equals("12")) {
-                System.out.println(receiveThread.player.getNick());
                 JSONObject jsonData = new JSONObject(message);
 
                 double x = jsonData.getDouble("TargetX");
                 double y = jsonData.getDouble("TargetY");
-
-                System.out.println(jsonData.get("TargetX"));
-                System.out.println(jsonData.get("TargetY"));
-
-                System.out.println("X: " + x + " Y: " + y);
 
                 if (x >= 0) {
                     this.receiveThread.player.setTargetPosX(x);
