@@ -271,6 +271,7 @@ public class Game extends Thread {
         int playersAlive = 0;
         for (Player player : players) {
             if (player.getAlive()) {
+                System.out.println(player.getNick() + " is alive!");
                 playersAlive++;
             }
         }
@@ -281,7 +282,8 @@ public class Game extends Thread {
                     lastPlayer = player;
                 }
             }
-            lastManStanding = true;
+            System.out.println("number of people alive " + playersAlive);
+            //lastManStanding = true;
         }
     }
 
@@ -349,7 +351,7 @@ public class Game extends Thread {
                 //sleeps for a tick
                 sleepTick();
                 //if wincondition is met, cancel the while loop
-                //lastManStanding();
+                lastManStanding();
             }
 
             System.out.println("LAST MAN STANDING");
