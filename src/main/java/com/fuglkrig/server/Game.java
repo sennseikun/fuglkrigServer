@@ -89,7 +89,7 @@ public class Game extends Thread {
     public Game(List<Player> players) {
         this.players = players;
         this.sleepTime = 1000 / 30;
-        this.lastManStanding = true;
+        this.lastManStanding = false;
         this.currentMap ="egypt";
         this.mapXPos = 0;
         this.winMapXPos = 1921;
