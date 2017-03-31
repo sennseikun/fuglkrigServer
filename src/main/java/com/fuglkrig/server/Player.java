@@ -250,6 +250,10 @@ public class Player {
         System.out.println("speed " + this.xSpeed + " " + this.ySpeed);
     }
 
+    public void setTargetPosY(int y){
+
+    }
+
 
     public int getCoordY() {
         return this.coordY;
