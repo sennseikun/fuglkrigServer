@@ -19,7 +19,7 @@ import java.util.HashSet;
 public class CollisionDetection {
 
     /**
-     *  Checking if the birds are colliding
+     *  Checking if the rectangle of the birds are colliding and calling pixel perfect collision detection
      */
     public static boolean collisionBird(EntityBird b, ArrayList<EntityBird> birds){
         for (EntityBird bird: birds) {
@@ -31,7 +31,7 @@ public class CollisionDetection {
     }
 
     /**
-     *  Checking if a bird collides with a powerUp
+     *  Checking if the rectangle of a bird collides with the rectangle of a powerUp and calling pixel perfect collision detection
      */
     public static boolean collisionPowerup(EntityBird b, ArrayList<EntityPowerUp> powerUps){
         for (EntityPowerUp powerUp: powerUps) {
@@ -43,7 +43,8 @@ public class CollisionDetection {
     }
 
     /**
-     *  Checking if a bird collides with a wall #deadBird
+     *  Checking if the rectangle of a bird collides with the rectangle of a wall and calling pixel perfect collision detection
+     *  #deadBird
      */
     public static boolean collision(EntityBird bird, ArrayList<EntityWall> walls){
         for (EntityWall wall: walls) {
@@ -55,7 +56,7 @@ public class CollisionDetection {
     }
 
     /**
-     *  Checking if 2 walls collides
+     *  Checking if the rectangle of 2 walls collides and calling pixel perfect collision detection
      */
     public static boolean collision(EntityWall w, ArrayList<EntityWall> walls){
         for (EntityWall wall: walls) {
@@ -67,7 +68,7 @@ public class CollisionDetection {
     }
 
     /**
-     *  Checking if a cannonBall collides with a wall
+     *  Checking if the rectangle of a cannonBall collides with the rectangle of a wall and calling pixel perfect collision detection
      */
     public static boolean collision(EntityCanonBall canonBall, ArrayList<EntityWall> walls){
         for (EntityWall wall: walls) {
@@ -85,6 +86,7 @@ public class CollisionDetection {
 
         /**
          *  This method detects to see if the images overlap at all. If they do, collision is possible
+         *  todo check if this is usless with the other classes
          */
         int ax1 = (int)a.getX();
         int ay1 = (int)a.getY();
