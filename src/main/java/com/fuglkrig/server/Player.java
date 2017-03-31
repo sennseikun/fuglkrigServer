@@ -57,6 +57,13 @@ public class Player {
         this.skin = skin;
         this.playerSocket = connection;
         this.alive = true;
+        this.targetPosX = 1;
+        this.targetPosY = 1;
+        this.coordX = 1;
+        this.coordY = 1;
+        this.xSpeed = 1;
+        this.ySpeed = 1;
+
     }
 
     /**
