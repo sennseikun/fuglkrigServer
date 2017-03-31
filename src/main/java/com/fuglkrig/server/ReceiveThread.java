@@ -109,6 +109,7 @@ public class ReceiveThread extends Thread {
         while(running){
             try {
 
+                //TODO. her burde vi sjekke om det FAKTISK er data som venter. hvis ikke kan vi hoppe over resten. da slipper vi EOFException
                 DataInputStream in;
                 in = new DataInputStream(inputSocket.getInputStream());
                 String message = in.readUTF();
