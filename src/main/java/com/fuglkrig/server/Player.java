@@ -17,14 +17,14 @@ public class Player {
     int playerID;
     int hp;
     int skin;
-    int targetPosX;
-    int targetPosY;
-    int coordX;
-    int coordY;
+    float targetPosX;
+    float targetPosY;
+    float coordX;
+    float coordY;
     float xSpeed;
     float ySpeed;
     int direction;
-    int speed;
+    float speed;
     boolean alive;
 
     /**
@@ -201,21 +201,21 @@ public class Player {
     /**
      * @return the players target x position
      */
-    public int getTargetPosX() {
+    public float getTargetPosX() {
         return this.targetPosX;
     }
 
     /**
      * @return the players target y position
      */
-    public int getTargetPosY() {
+    public float getTargetPosY() {
         return this.targetPosY;
     }
 
     /**
      * @return the players current x position
      */
-    public int getCoordX() {
+    public float getCoordX() {
         return this.coordX;
     }
 
@@ -239,7 +239,7 @@ public class Player {
     }
 
 
-    public int getCoordY() {
+    public float getCoordY() {
         return this.coordY;
     }
 
@@ -253,7 +253,7 @@ public class Player {
     /**
      * @return the players current speed
      */
-    public int getSpeed() {
+    public float getSpeed() {
         return this.speed;
     }
 
