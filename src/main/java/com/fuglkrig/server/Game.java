@@ -85,7 +85,7 @@ public class Game extends Thread {
      */
     public Game(List<Player> players) {
         this.players = players;
-        this.sleepTime = 1000 / 30;
+        this.sleepTime = 1000 / 60;
         this.lastManStanding = false;
         this.game = new Thread(this);
         this.textOnPlayerScreen = "";
