@@ -380,6 +380,11 @@ public class Game extends Thread {
                 sleepTick();
                 //if wincondition is met, cancel the while loop
                 lastManStanding();
+
+                //kills the server if no one is left
+                if (players.size() == 0) {
+                    lastManStanding = true;
+                }
             }
 
             System.out.println("LAST MAN STANDING");
@@ -397,10 +402,19 @@ public class Game extends Thread {
                 //Still need to sleeptick to not spam the user with alot of data
                 sleepTick();
 
+                //kills the server if no one is left
+                if (players.size() == 0) {
+                    lastManStanding = false;
+                }
             }
 
-            System.out.println("Shutting down server");
+            if (players.size() == 0) {
+                paused = true;
+            }
+
         }
+
+        System.out.println("Shutting down server");
 
     }
 }

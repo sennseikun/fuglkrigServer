@@ -30,7 +30,7 @@ public class Map {
             this.mapName = "egypt";
             this.currentMap = "egypt1";
             this.nextMap = "egypt2";
-            this.nextMap = "egypt3";
+            this.winMap = "egypt3";
             this.mapWidth = 1652;
             //TODO, er dette rett?
             this.winMapWidth = 550;
@@ -46,7 +46,10 @@ public class Map {
             this.winMapWidth = 550;
         }
         else if (mapType == 3) {
-            this.mapName = "todo";
+            this.mapName = "forrest";
+            this.currentMap = "forrest1";
+            this.nextMap = "forrest2";
+            this.winMap = "forrest3";
         }
         else {
             System.out.println("\n\n\nWARNING: TRIED TO START A MAP THAT DOESNT EXIST, number: " + mapType + "\n\n\n");
