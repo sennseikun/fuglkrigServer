@@ -213,13 +213,11 @@ public class WorkerThread implements Runnable {
                 String lobbyID = jsonObject.getString("Lobby");
 
                 if(LobbyList.getLobby(lobbyID) != null) {
-                    System.out.println("Someone joining: " + LobbyList.getLobby(lobbyID).getName());
 
                     int playerCount = LobbyList.getLobby(lobbyID).getPlayerCount();
                     int maxPlayerCount = LobbyList.getLobby(lobbyID).getMax_player_count();
 
                     for (Player p : LobbyList.getLobby(lobbyID).getPlayers()) {
-                        System.out.println("Player in lobby: " + p.getNick());
                     }
 
 
@@ -251,11 +249,8 @@ public class WorkerThread implements Runnable {
 
                         if (players != null && currLobby != null) {
 
-                            System.out.println("Players: " + players.toString());
 
-                            System.out.println("WorkerThread 4: Players" + players);
                             for (Player p : players) {
-                                System.out.println("Player notified: " + p.getNick());
                                 p.addToGameLobby(lobbyID, name, players);
                             }
                         } else {
@@ -290,13 +285,11 @@ public class WorkerThread implements Runnable {
                     Player p = OnlinePlayers.getPlayer(name);
 
                     OnlinePlayers.removePlayer(OnlinePlayers.getPlayer(name));
-                    System.out.println("WorkerThread 5: Removed from OnlinePlayers: "+name);
                     status = "1";
 
                     for(Lobby l: LobbyList.getLobbys()){
                         if(l.containsPlayer(p)){
                             l.removePlayer(p);
-                            System.out.println("WorkerThread 5: Player: " + name + " removed");
                         }
                     }
 
@@ -322,7 +315,6 @@ public class WorkerThread implements Runnable {
                 LobbyList.updateLobbies();
                 LobbyList.remove_empty_lists();*/
 
-                System.out.println("WorkerThread 6: Current lobbies: " + LobbyList.getLobbys().size());
 
             }
 
@@ -358,8 +350,6 @@ public class WorkerThread implements Runnable {
 
                 List<Player> playerList = LobbyList.getPlayersFromLobby(receiveThread.player);
                 List<Player> players = LobbyList.getLobbyWithPlayer(receiveThread.player).getPlayers();
-                System.out.println("list of players from start button");
-                System.out.println(playerList);
 
                 if (playerList != null && players.size() > 1) {
                     Game game = new Game(playerList);

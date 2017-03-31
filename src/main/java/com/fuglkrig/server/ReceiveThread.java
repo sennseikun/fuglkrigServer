@@ -130,7 +130,6 @@ public class ReceiveThread extends Thread {
 
                 if(datatype == 0){
                     Runnable worker = new WorkerThread(this,id,"0",inputSocket,message);
-                    System.out.println("Executing worker thread 0");
                     executor.execute(worker);
                 }
 
@@ -140,7 +139,6 @@ public class ReceiveThread extends Thread {
 
                 else if(datatype == 1 || datatype == 10){
 
-                    System.out.println("Executing worker thread 1");
                     Runnable worker = new WorkerThread(this,id,"1",inputSocket,message);
                     executor.execute(worker);
                 }
@@ -160,7 +158,6 @@ public class ReceiveThread extends Thread {
                  */
 
                 else if(datatype == 3){
-                    System.out.println("Executing worker thread 3");
                     Runnable worker = new WorkerThread(this,id,"3",inputSocket,message);
                     executor.execute(worker);
                 }
@@ -170,7 +167,6 @@ public class ReceiveThread extends Thread {
                  */
 
                 else if(datatype == 4){
-                    System.out.println("Executing worker thread 4");
                     Runnable worker = new WorkerThread(this,id,"4",inputSocket,message);
                     executor.execute(worker);
 
@@ -181,7 +177,6 @@ public class ReceiveThread extends Thread {
                 }
 
                 else if(datatype == 8){
-                    System.out.println("Executing worker thread 8");
                     Runnable worker = new WorkerThread(this,id,"8",inputSocket,message);
                     executor.execute(worker);
                 }
@@ -190,13 +185,11 @@ public class ReceiveThread extends Thread {
                  * this starts the gameloop
                  */
                 else if(datatype == 11) {
-                    System.out.println("Executing worker thread 11");
                     Runnable worker = new WorkerThread(this,id,"11",inputSocket,message);
                     executor.execute(worker);
                 }
 
                 else if(datatype == 12) {
-                    System.out.println("Executing worker thread 12");
                     Runnable worker = new WorkerThread(this,id,"12",inputSocket,message);
                     executor.execute(worker);
                 }
