@@ -143,7 +143,7 @@ public class Game extends Thread {
         /**
          * puts all players in the initial json document
          */
-        dataToPlayers.put("players", playersData);
+        dataToPlayers.put("Players", playersData);
 
 
         /**
@@ -349,7 +349,7 @@ public class Game extends Thread {
                 //sleeps for a tick
                 sleepTick();
                 //if wincondition is met, cancel the while loop
-                lastManStanding();
+                //lastManStanding();
             }
 
             System.out.println("LAST MAN STANDING");
