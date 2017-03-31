@@ -16,6 +16,8 @@ public class Map {
     private int mapXPos;
     private int nextMapXPos;
     private int winMapXPos;
+    private int winPosX;
+    private int winPosY;
 
 
     //maptype is 1, 2 or 3.
@@ -23,6 +25,10 @@ public class Map {
 
         this.mapType = mapType;
         this.mapXPos = 0;
+
+        //the position you go to when you are the last man standing. this should be the nest
+        this.winPosX = 1700;
+        this.winPosY = 500;
 
 
         //this sets the map name
@@ -94,6 +100,14 @@ public class Map {
 
     public int getWinMapXPos() {
         return this.winMapXPos;
+    }
+
+    public int getWinPosX() {
+        return this.winPosX;
+    }
+
+    public int getWinPosY() {
+        return this.winPosY;
     }
 
     //moves the map. one map is 1652px wide

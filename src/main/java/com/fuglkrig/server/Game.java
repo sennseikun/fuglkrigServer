@@ -391,6 +391,9 @@ public class Game extends Thread {
 
             //this is used between playing the game and lobby
             while (lastManStanding) {
+                lastPlayer.targetPosX = map.getWinPosX();
+                lastPlayer.targetPosY = map.getWinPosY();
+
                 //moves the map
                 map.moveMap(speed, lastManStanding, gameSizeX);
                 //we still need to move the powerups.
