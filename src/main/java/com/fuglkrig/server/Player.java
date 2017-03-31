@@ -223,6 +223,15 @@ public class Player {
         this.coordY = y;
     }
 
+    public void setTargetPosX (int x) {
+        this.targetPosX = x;
+    }
+
+    public void setTargetPosY (int y) {
+        this.targetPosY = y;
+    }
+
+
     public int getCoordY() {
         return this.coordY;
     }
