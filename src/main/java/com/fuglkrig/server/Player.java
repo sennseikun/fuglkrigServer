@@ -311,6 +311,8 @@ public class Player {
         this.xSpeed = dx/targetPosLength;
         this.ySpeed = dy/targetPosLength;
 
+        System.out.println("speed " + this.xSpeed + " " + this.ySpeed);
+
 
         /*if ((dx > 0 && coordX >= targetPosX) || (dx < 0 && coordX <= targetPosX)){
             this.xSpeed = 0;
