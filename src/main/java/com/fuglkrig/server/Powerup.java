@@ -2,23 +2,34 @@ package com.fuglkrig.server;
 
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Random;
+
 import com.fuglkrig.server.classes.EntityPowerUp;
+
+import javax.imageio.ImageIO;
 
 /**
  * Created by Tore on 20.03.2017.
  */
 public class Powerup extends GameObject implements EntityPowerUp {
 
-    int id;
+    int type;
     String powerUpName;
 
-    public Powerup(double x, double y, double height, double width,int id){
+    BufferedImage img = null;
+
+    public Powerup(int x, int y, int height, int width, int type, BufferedImage img){
         super(x, y, width, height);
-        this.id = id;
+        this.type = type;
+        this.img = img;
 
 
         //TODO fix this to give powers!
-        switch (this.id) {
+        //remember to fix Powerup! It has a randint that needs to be changed
+        switch (this.type) {
             case 1: powerUpName = "Wall Forwards";
                 break;
             case 2: powerUpName = "Wall Up";
@@ -35,6 +46,8 @@ public class Powerup extends GameObject implements EntityPowerUp {
                 break;
             case 8: powerUpName = "Fake powerup";
                 break;
+            default:
+                System.out.println("\n\n\nWARNING!\nThe randint in Powerup doesnt match the cases in the other Powerup constructor in the powerup file.\n\n\n ");
         }
     }
 
@@ -47,10 +60,10 @@ public class Powerup extends GameObject implements EntityPowerUp {
 
     /**
      * Setting the id of the powerup
-     * @param id
+     * @param type
      */
-    public void setId(int id) {
-        this.id = id;
+    public void setType(int type) {
+        this.type = type;
     }
 
     /**

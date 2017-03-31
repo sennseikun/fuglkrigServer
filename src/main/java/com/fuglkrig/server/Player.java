@@ -79,17 +79,25 @@ public class Player {
 
         try{
             JSONObject sendJson = new JSONObject();
+            sendJson.put("hostPlayer",LobbyList.getLobby(lobbyID).getHost().getNick());
 
             if(name.equals(getNick())){
 
+                sendJson.put("Datatype","4");
+                sendJson.put("LobbyID",lobbyID);
+                sendJson.put("Error","0");
+                sendJson.put("PlayerName",name);
+                sendJson.put("PlayerCount",Integer.toString(players.size()));
+
                 for(int i = 0; i < players.size(); i++){
-                    sendJson.put("PlayerName"+i,players.get(i).getNick());
+                    System.out.println(sendJson);
+                    System.out.println(players.get(i));
+                    sendJson.put("PlayerName" + i, players.get(i).getNick());
+                    System.out.println(sendJson);
                 }
             }
 
             else{
-
-
                 sendJson.put("Datatype","4");
                 sendJson.put("LobbyID",lobbyID);
                 sendJson.put("Error","0");
@@ -125,6 +133,7 @@ public class Player {
             sendJson.put("Datatype","3");
             sendJson.put("LobbyID",lobbyID);
             sendJson.put("Error","0");
+            sendJson.put("hostPlayer",LobbyList.getLobby(lobbyID).getHost().getNick());
 
             sendJson.put("PlayerCount",Integer.toString(players.size()-1));
 
@@ -198,6 +207,14 @@ public class Player {
     /**
      * @return the players current y position
      */
+    public void setCoordX(int x) {
+        this.coordX = x;
+    }
+
+    public void setCoordY(int y) {
+        this.coordY = y;
+    }
+
     public int getCoordY() {
         return this.coordY;
     }
@@ -310,8 +327,15 @@ public class Player {
     /**
      * send the data that comes from the game out to the client
      */
-    public void UpdateClient() {
+    public void UpdateClient(JSONObject data) {
 
+        DataOutputStream out = null;
+        try {
+            out = new DataOutputStream(playerSocket.getOutputStream());
+            out.writeUTF(data.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

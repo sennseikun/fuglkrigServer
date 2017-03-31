@@ -1,5 +1,6 @@
 package com.fuglkrig.server;
 
+import javafx.concurrent.Worker;
 import jdk.nashorn.api.scripting.JSObject;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,28 +21,31 @@ public class WorkerThread implements Runnable {
     private JSONObject json;
     private String message;
     private int id;
-    private ReceiveThread ReceiveThread;
+    private ReceiveThread receiveThread;
 
     /**
      * Creating the thread that is running the game
-     * @param ReceiveThread
+     * @param receiveThread
      * @param id
      * @param command
      * @param socket
      * @param message
      */
-    public WorkerThread(ReceiveThread ReceiveThread ,int id, String command, Socket socket, String message){
+    public WorkerThread(ReceiveThread receiveThread ,int id, String command, Socket socket, String message){
+
         this.command=command;
         this.socket = socket;
         this.json = json;
         this.message = message;
         this.id = id;
-        this.ReceiveThread = ReceiveThread;
+        this.receiveThread = receiveThread;
     }
 
     public WorkerThread(String command){
         this.command = command;
     }
+
+
 
     @Override
     public void run() {
@@ -84,7 +88,7 @@ public class WorkerThread implements Runnable {
                 if (value.equals("1")) {
 
                     Player player = new Player(name, id, 0, socket);
-                    ReceiveThread.setPlayer(player);
+                    receiveThread.setPlayer(player);
                     OnlinePlayers.newPlayer(player);
 
                     System.out.println("WorkerThread 0: Players online: " + OnlinePlayers.getPlayers());
@@ -208,54 +212,69 @@ public class WorkerThread implements Runnable {
                 String name = jsonObject.getString("Name");
                 String lobbyID = jsonObject.getString("Lobby");
 
-                System.out.println("Someone joining: " + LobbyList.getLobby(lobbyID).getName());
+                if(LobbyList.getLobby(lobbyID) != null) {
+                    System.out.println("Someone joining: " + LobbyList.getLobby(lobbyID).getName());
 
-                int playerCount = LobbyList.getLobby(lobbyID).getPlayerCount();
-                int maxPlayerCount = LobbyList.getLobby(lobbyID).getMax_player_count();
+                    int playerCount = LobbyList.getLobby(lobbyID).getPlayerCount();
+                    int maxPlayerCount = LobbyList.getLobby(lobbyID).getMax_player_count();
 
-                for(Player p: LobbyList.getLobby(lobbyID).getPlayers()){
-                    System.out.println("Player in lobby: " + p.getNick());
+                    for (Player p : LobbyList.getLobby(lobbyID).getPlayers()) {
+                        System.out.println("Player in lobby: " + p.getNick());
+                    }
+
+
+                    if (playerCount >= maxPlayerCount) {
+
+                        JSONObject fullJson = new JSONObject();
+                        fullJson.put("Datatype", 9);
+
+                        DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+                        out.writeUTF(fullJson.toString());
+                    } else {
+                        List<Lobby> lobbys = LobbyList.getLobbys();
+                        Lobby currLobby = null;
+                        List<Player> players = null;
+
+                        //Add player to the lobby being joined
+
+                        for (Lobby l : lobbys) {
+                            if (l.getName().equals(lobbyID)) {
+
+                                Player p = OnlinePlayers.getPlayer(name);
+                                l.addPlayer(p);
+                                currLobby = l;
+                                players = l.getPlayers();
+
+                                break;
+                            }
+                        }
+
+                        if (players != null && currLobby != null) {
+
+                            System.out.println("Players: " + players.toString());
+
+                            System.out.println("WorkerThread 4: Players" + players);
+                            for (Player p : players) {
+                                System.out.println("Player notified: " + p.getNick());
+                                p.addToGameLobby(lobbyID, name, players);
+                            }
+                        } else {
+                            JSONObject fullJson = new JSONObject();
+                            fullJson.put("Datatype", 9);
+
+                            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+                            out.writeUTF(fullJson.toString());
+                        }
+                        LobbyList.updateLobbies();
+                    }
                 }
-
-
-                if(playerCount >= maxPlayerCount){
+                else {
 
                     JSONObject fullJson = new JSONObject();
-                    fullJson.put("Datatype",9);
+                    fullJson.put("Datatype", 20);
 
                     DataOutputStream out = new DataOutputStream(socket.getOutputStream());
                     out.writeUTF(fullJson.toString());
-                }
-                else{
-                    List<Lobby> lobbys = LobbyList.getLobbys();
-                    Lobby currLobby = null;
-                    List<Player> players = null;
-
-                    //Add player to the lobby being joined
-
-                    for(Lobby l: lobbys){
-                        if(l.getName().equals(lobbyID)){
-
-                            Player p = OnlinePlayers.getPlayer(name);
-                            l.addPlayer(p);
-                            currLobby = l;
-                            players = l.getPlayers();
-
-                            break;
-                        }
-                    }
-
-                    if(players != null && currLobby != null){
-
-                        System.out.println("Players: " + players.toString());
-
-                        System.out.println("WorkerThread 4: Players" + players);
-                        for(Player p: players){
-                            System.out.println("Player notified: " +p.getNick());
-                            p.addToGameLobby(lobbyID,name,players);
-                        }
-                    }
-                    LobbyList.updateLobbies();
                 }
             }
 
@@ -331,25 +350,46 @@ public class WorkerThread implements Runnable {
                 out.writeUTF(sendJson.toString());
             }
             else if(command.equals("11")) {
+
                 /**
                  *   Sjekk om spilleren er først i lobby sin spiller liste, hvis ja, start spill
                  *  hvis nei, break.
                  */
-                List playerList = LobbyList.getPlayersFromLobby(this.ReceiveThread.player);
+
+                List<Player> playerList = LobbyList.getPlayersFromLobby(receiveThread.player);
+                List<Player> players = LobbyList.getLobbyWithPlayer(receiveThread.player).getPlayers();
                 System.out.println("list of players from start button");
                 System.out.println(playerList);
-                if (playerList != null) {
+
+                if (playerList != null && players.size() > 1) {
                     Game game = new Game(playerList);
                     game.start();
                 }
             }
+
+            else if(command.equals("12")) {
+                JSONObject jsonData = new JSONObject(message);
+
+                int x = (int) jsonData.get("TargetX");
+                int y = (int) jsonData.get("TargetY");
+
+                System.out.println("X: " + x + " Y: " + y);
+
+                if (x >= 0) {
+                    this.receiveThread.player.setCoordX(x);
+                }
+                if (y >= 0) {
+                    this.receiveThread.player.setCoordY(y);
+                }
+            }
+
             else{
-                ReceiveThread.stopThread();
+                receiveThread.stopThread();
             }
 
         } catch (IOException e) {
             e.printStackTrace();
-            ReceiveThread.stopThread();
+            receiveThread.stopThread();
         }
     }
 

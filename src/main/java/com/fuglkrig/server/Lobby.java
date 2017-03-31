@@ -34,6 +34,13 @@ public class Lobby {
     }
 
     /**
+     * @return the host of the lobby
+     */
+    public Player getHost(){
+        return players.get(0);
+    }
+
+    /**
      * Remove the player in the lobby.
      * @param name
      */

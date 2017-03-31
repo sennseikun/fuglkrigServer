@@ -198,6 +198,12 @@ public class ReceiveThread extends Thread {
                     executor.execute(worker);
                 }
 
+                else if(datatype == 12) {
+                    System.out.println("Executing worker thread 12");
+                    Runnable worker = new WorkerThread(this,id,"12",inputSocket,message);
+                    executor.execute(worker);
+                }
+
                 else{
                     break;
                 }
