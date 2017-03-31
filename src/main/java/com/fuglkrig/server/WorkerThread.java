@@ -376,11 +376,12 @@ public class WorkerThread implements Runnable {
                 System.out.println("X: " + x + " Y: " + y);
 
                 if (x >= 0) {
-                    this.receiveThread.player.setTargetPos(x, receiveThread.player.getCoordY());
+                    this.receiveThread.player.setTargetPosX(x);
                 }
                 if(y >= 0){
-                    this.receiveThread.player.setTargetPos(receiveThread.player.getCoordX(), y);
+                    this.receiveThread.player.setTargetPosY(y);
                 }
+                this.receiveThread.player.UpdateDxDy();
             }
 
             else{
