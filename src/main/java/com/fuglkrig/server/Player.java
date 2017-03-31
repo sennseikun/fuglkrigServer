@@ -312,14 +312,14 @@ public class Player {
         this.ySpeed = dy/targetPosLength;
 
 
-        if ((dx > 0 && coordX >= targetPosX) || (dx < 0 && coordX <= targetPosX)){
+        /*if ((dx > 0 && coordX >= targetPosX) || (dx < 0 && coordX <= targetPosX)){
             this.xSpeed = 0;
             System.out.println("xspeed0");
         }
         if ((dy > 0 && coordY >= targetPosY) || (dy < 0 && coordY <= targetPosY)){
             System.out.println("yspeed0");
             this.ySpeed = 0;
-        }
+        }*/
 
         this.coordX += xSpeed * 15;
         this.coordY += ySpeed * 15;
