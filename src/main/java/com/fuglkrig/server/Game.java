@@ -122,7 +122,21 @@ public class Game extends Thread {
         dataToPlayers.put("NextMapXPos", this.map.getNextMapXPos());
         dataToPlayers.put("WinMapXPos", this.map.getWinMapXPos());
 
-        //liste over powerups på kart ??
+        //liste over powerups på kart
+        JSONArray powerupData = new JSONArray();
+        for (Powerup powerup : powerupsOnMap) {
+
+            //information about this object
+            JSONObject powerupObject = new JSONObject();
+            powerupObject.put("XPos", powerup.getX());
+            powerupObject.put("YPos", powerup.getY());
+
+            //puts the object in the list
+            powerupData.put(powerupObject);
+        }
+
+        //adds the powerupdata to the json that is sent to the players
+        dataToPlayers.put("PowerupData", powerupData);
 
 
         /**
