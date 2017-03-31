@@ -241,6 +241,7 @@ public class Game extends Thread {
      */
     public void playerTick() {
         for (Player player : players) {
+            System.out.println("Trying to tick " + player.getNick());
             player.nextTick();
         }
     }
