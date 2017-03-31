@@ -34,6 +34,8 @@ public class Player {
 
     ArrayList<Integer> powerups;
     Game currentGame;
+    private float dx;
+    private float dy;
 
     /**
      * Changes the toString to return the name of the player.
@@ -230,12 +232,22 @@ public class Player {
         this.coordY = y;
     }
 
-    public void setTargetPosX (int x) {
-        this.targetPosX = x;
-    }
+    public void setTargetPos(int x, int y){
+        System.out.println("\nold pos: " + coordX + " " + coordY);
+        System.out.println("target pos: " + targetPosX + " " + targetPosY);
 
-    public void setTargetPosY (int y) {
-        this.targetPosY = y;
+        targetPosX = x;
+        targetPosY = y;
+
+        dx = targetPosX - coordX;
+        dy = targetPosY - coordY;
+        float targetPosLength = (float) Math.sqrt(dx*dx + dy*dy);
+        System.out.println("targetposlenght: " + targetPosLength);
+        System.out.println("dx " + dx);
+        this.xSpeed = dx/targetPosLength;
+        this.ySpeed = dy/targetPosLength;
+
+        System.out.println("speed " + this.xSpeed + " " + this.ySpeed);
     }
 
 
@@ -301,18 +313,6 @@ public class Player {
      * Update function for the changing of direction of the player.
      */
     public void nextTick() {
-
-        System.out.println("\nold pos: " + coordX + " " + coordY);
-        System.out.println("target pos: " + targetPosX + " " + targetPosY);
-        float dx = targetPosX - coordX;
-        float dy = targetPosY - coordY;
-        float targetPosLength = (float) Math.sqrt(dx*dx + dy*dy);
-        System.out.println("targetposlenght: " + targetPosLength);
-        System.out.println("dx " + dx);
-        this.xSpeed = dx/targetPosLength;
-        this.ySpeed = dy/targetPosLength;
-
-        System.out.println("speed " + this.xSpeed + " " + this.ySpeed);
 
 
         if ((dx > 0 && coordX >= targetPosX) || (dx < 0 && coordX <= targetPosX)){
