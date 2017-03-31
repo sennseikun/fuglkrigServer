@@ -283,7 +283,7 @@ public class Game extends Thread {
                 }
             }
             System.out.println("number of people alive " + playersAlive);
-            //lastManStanding = true;
+            lastManStanding = true;
         }
     }
 
