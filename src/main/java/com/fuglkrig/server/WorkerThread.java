@@ -370,12 +370,12 @@ public class WorkerThread implements Runnable {
             else if(command.equals("12")) {
                 JSONObject jsonData = new JSONObject(message);
 
-                //double tempx = (double) jsonData.get("TargetX");
-                //double tempy = (double) jsonData.get("TargetY");
+                Double tempx = (double) jsonData.get("TargetX");
+                Double tempy = (double) jsonData.get("TargetY");
 
 
-                int x = (int) jsonData.get("TargetX");
-                int y = (int) jsonData.get("TargetY");
+                int x = (int) tempx.intValue();
+                int y = (int) tempy.intValue();
 
                 System.out.println("X: " + x + " Y: " + y);
 
