@@ -54,6 +54,7 @@ public class Player {
         this.playerID = playerID;
         this.skin = skin;
         this.playerSocket = connection;
+        this.alive = true;
     }
 
     /**
