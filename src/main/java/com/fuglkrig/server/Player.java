@@ -302,20 +302,22 @@ public class Player {
      */
     public void nextTick() {
 
-        System.out.println("old pos: " + coordX + " " + coordY);
+        System.out.println("\nold pos: " + coordX + " " + coordY);
         System.out.println("target pos: " + targetPosX + " " + targetPosY);
         int dx = coordX - targetPosX;
         int dy = coordY - targetPosY;
         int targetPosLength = (int) Math.sqrt(dx*dx + dy*dy);
-
+        System.out.println("targetposlenght: " + targetPosLength);
         this.xSpeed = dx/targetPosLength;
         this.ySpeed = dy/targetPosLength;
 
 
         if ((dx > 0 && coordX >= targetPosX) || (dx < 0 && coordX <= targetPosX)){
             this.xSpeed = 0;
+            System.out.println("xspeed0");
         }
         if ((dy > 0 && coordY >= targetPosY) || (dy < 0 && coordY <= targetPosY)){
+            System.out.println("yspeed0");
             this.ySpeed = 0;
         }
 
