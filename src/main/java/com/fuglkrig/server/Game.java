@@ -21,6 +21,7 @@ import static java.util.Random.*;
 public class Game extends Thread {
     List<Player> players;
     String currentMap;
+    String nextMap;
     Thread game;
     double timeStart = System.currentTimeMillis();
     double timeSinceLastPowerUp;
@@ -35,9 +36,8 @@ public class Game extends Thread {
     int lastManStandingX = 0;
     int getLastManStandingY = 0;
     int mapXPos;
-    int winMapXPos;
+    int nextMapXPos;
     Player lastPlayer;
-
     int gameSizeX = 1920;
     int gameSizeY = 1080;
 
@@ -92,7 +92,7 @@ public class Game extends Thread {
         this.lastManStanding = false;
         this.currentMap ="egypt";
         this.mapXPos = 0;
-        this.winMapXPos = 1921;
+        this.nextMapXPos = 1921;
         this.game = new Thread(this);
         this.textOnPlayerScreen = "";
         this.powerupsOnMap = new ArrayList();
@@ -211,8 +211,15 @@ public class Game extends Thread {
 
     //moves the map
     public void moveMap() {
+        if (lastManStanding){
 
-        mapXPos = mapXPos - 10;
+
+        }
+
+        else {
+            mapXPos -= speed;
+        }
+
 
     }
 

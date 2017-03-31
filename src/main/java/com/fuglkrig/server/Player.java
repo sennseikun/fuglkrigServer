@@ -21,6 +21,8 @@ public class Player {
     int targetPosY;
     int coordX;
     int coordY;
+    int xSpeed;
+    int ySpeed;
     int direction;
     int speed;
     boolean alive;
@@ -306,13 +308,19 @@ public class Player {
      * Update function for the changing of direction of the player.
      */
     public void nextTick() {
-        //http://stackoverflow.com/questions/1638437/given-an-angle-and-length-how-do-i-calculate-the-coordinates
-        /*
-        Aner ikke om dette faktisk funker.
-         */
-        this.coordX = (int) (this.coordX + speed * Math.cos((double) direction));
-        this.coordY = (int) (this.coordY + speed * Math.sin((double) direction));
+        int dx = coordX - targetPosX;
+        int dy = coordY - targetPosY;
+        if ((dx > 0 && coordX >= targetPosX) || (dx < 0 && coordX <= targetPosX)){
+            this.xSpeed = 0;
+        }
+        if ((dy > 0 && coordY >= targetPosY) || (dy < 0 && coordY <= targetPosY)){
+            this.ySpeed = 0;
+        }
+
+        this.coordX += xSpeed * 15;
+        this.coordY += ySpeed * 15;
     }
+
 
     /**
      * make all game specific variables something that doesnt make sence. like negatives.
