@@ -38,27 +38,46 @@ public class Powerup extends GameObject implements EntityPowerUp {
         }
     }
 
+    /**
+     * update function for the powerup
+     */
     public void tick() {
         x -= 5;
     }
 
+    /**
+     * Setting the id of the powerup
+     * @param id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * @return the id of the powerup
+     */
     public int getId() {
         return id;
     }
 
-    //todo fix witdh and height
+    /**
+     * Creates an rectangle around the powerup
+     * @return the rectangle
+     */
     public Rectangle getBounds() {
         return super.getBounds();
     }
 
+    /**
+     * @return the powerups x value
+     */
     public double getX() {
         return x;
     }
 
+    /**
+     * @return the powerups y value
+     */
     public double getY() {
         return y;
     }

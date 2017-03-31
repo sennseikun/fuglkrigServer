@@ -47,13 +47,21 @@ public class Game extends Thread{
         }
     };
 
-    //how many times a secound the game should update
-    //1000 / tick = time between updates
+    /**
+     * how many times a secound the game should update
+     * 1000 / tick = time between updates
+     */
     int sleepTime;
 
-    //used to make sure everyone has loaded the game and is ready to start
+    /**
+     * used to make sure everyone has loaded the game and is ready to start
+     */
     boolean paused;
 
+    /**
+     * Create a game with the list of players.
+     * @param players
+     */
     public Game(List<Player> players) {
         this.players = players;
         this.sleepTime = 1000 / 30;
@@ -62,20 +70,27 @@ public class Game extends Thread{
         this.textOnPlayerScreen = "";
     }
 
-    //updates all clients in the game
+    /**
+     * updates all clients in the game
+     */
     public void UpdateGame() {
-        //builds the data that is going to be pushed
-
-        //initial json document
+        /**
+         * builds the data that is going to be pushed
+         * initial json document
+         */
         JSONObject dataToPlayers = new JSONObject();
 
-        //liste over powerups på kart
+        //liste over powerups på kart???
 
 
-        //list over players
+        /**
+         * list over players
+         */
         JSONArray playersData = new JSONArray();
         for (Player player : players) {
-            //playerdocument
+            /**
+             * playerdocument
+             */
             JSONObject playerData = new JSONObject();
             playerData.put("playerID", player.getPlayerID());
             playerData.put("Name", player.getNick());
@@ -88,23 +103,31 @@ public class Game extends Thread{
             playerData.put("Alive", player.getAlive());
             playerData.put("powerups", player.getPowerups());
 
-            //put playerdocument to list over players.
+            /**
+             * put playerdocument to list over players.
+             */
             playersData.put(playerData);
         }
-        //puts all players in the initial json document
+        /**
+         * puts all players in the initial json document
+         */
         dataToPlayers.put("players", playersData);
 
-        //pushes the data to the clients.
+        /**
+         * pushes the data to the clients.
+         */
         for (Player player : players) {
             player.UpdateClient();
         }
     }
 
+    /**
+     * Used to spawn powerups at a given time interval.
+     * Adds a powerup to the powerupsOnMap list
+     */
     public void SpawnPowerups() {
-        //Used to spawn powerups
         /*
-        This needs to be fixed. needs to make a powerup before adding it to list
-        currently we get nullpointer
+        todo This needs to be fixed. needs to make a powerup before adding it to list currently we get nullpointer
 
         timeSinceLastPowerUp = System.currentTimeMillis()-timeStart;
         if(timeSinceLastPowerUp > timeForNewPowerUp){
@@ -126,7 +149,9 @@ public class Game extends Thread{
         }
     }
 
-    //sleeps a game for tick time. Used to avoid a billion try/catch in the code.
+    /**
+     * sleeps a game for tick time. Used to avoid a billion try/catch in the code.
+     */
     public void sleepTick() {
         try {
             game.sleep(sleepTime);
@@ -136,19 +161,27 @@ public class Game extends Thread{
         }
     }
 
+    /**
+     * Is the update function of the players
+     */
     public void playerTick() {
         for (Player player : players) {
             player.nextTick();
         }
     }
 
-    //logic for the game thread. Do not run this method. run the start() even tho it is not specified here
+    /**
+     * logic for the game thread. Do not run this method. run the start() even tho it is not specified here
+     */
     @Override
     public void run() {
         System.out.println("gameloop started");
-        //Should probably make a timeout when we stop waiting for players to connect. todo
 
-    	//Checks if all users are ready to start before moving on to other tasks.
+        //todo Should probably make a timeout when we stop waiting for players to connect.
+
+        /**
+         * Checks if all users are ready to start before moving on to other tasks.
+         */
         textOnPlayerScreen = "Waiting for players";
     	boolean readyToStart = true;
     	while (readyToStart == false) {
@@ -160,17 +193,25 @@ public class Game extends Thread{
                 }
             }
 
-            //updates the players of the current state.
+            /**
+             * updates the players of the current state.
+             */
             UpdateGame();
-            //reduces the amount of time this runs.
+            /**
+             * reduces the amount of time this runs.
+             */
             sleepTick();
     	}
 
-        //counts down the game before its starts
+        /**
+         * counts down the game before its starts
+         */
         timer.schedule(countDown, 1000,1000);
         paused = false;
 
-    	//start updating players
+        /**
+         * start updating players
+         */
     	while(!paused) {
             System.out.println("running tick");
             SpawnPowerups();

@@ -19,6 +19,11 @@ public class RequestHandler extends Thread {
     private Socket server;
     private int id;
 
+    /**
+     * Handeling the request from the clients
+     * @param port
+     * @throws IOException
+     */
     public RequestHandler(int port) throws IOException {
         serverSocket = new ServerSocket(port);
         id = 0;

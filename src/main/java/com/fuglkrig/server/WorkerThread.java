@@ -22,6 +22,14 @@ public class WorkerThread implements Runnable {
     private int id;
     private ReceiveThread ReceiveThread;
 
+    /**
+     * Creating the thread that is running the game
+     * @param ReceiveThread
+     * @param id
+     * @param command
+     * @param socket
+     * @param message
+     */
     public WorkerThread(ReceiveThread ReceiveThread ,int id, String command, Socket socket, String message){
         this.command=command;
         this.socket = socket;
@@ -323,10 +331,10 @@ public class WorkerThread implements Runnable {
                 out.writeUTF(sendJson.toString());
             }
             else if(command.equals("11")) {
-                /*
-                    Sjekk om spilleren er først i lobby sin spiller liste, hvis ja, start spill
-                    hvis nei, break.
-                */
+                /**
+                 *   Sjekk om spilleren er først i lobby sin spiller liste, hvis ja, start spill
+                 *  hvis nei, break.
+                 */
                 List playerList = LobbyList.getPlayersFromLobby(this.ReceiveThread.player);
                 System.out.println("list of players from start button");
                 System.out.println(playerList);
@@ -335,7 +343,6 @@ public class WorkerThread implements Runnable {
                     game.start();
                 }
             }
-
             else{
                 ReceiveThread.stopThread();
             }

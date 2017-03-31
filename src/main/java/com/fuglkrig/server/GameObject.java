@@ -11,6 +11,7 @@ public class GameObject {
     String nick;
     int id;
     int code;
+    String defaultImageLocation;
 
     double x, y, width, heigth;
 
@@ -21,28 +22,50 @@ public class GameObject {
         this.heigth = heigth;
     }
 
+    /**
+     *
+     * @return the x value of a gameObject
+     */
     public double getX(){
         return x;
     }
 
+    /**
+     *
+     * @return the y value of a gameObject
+     */
     public double getY(){
         return y;
     }
 
+    /**
+     *
+     * @return the width of the object
+     */
     public double getWidth(){
         return width;
     }
 
+    /**
+     *
+     * @return the height of the object
+     */
     public double getHeight(){
         return heigth;
     }
 
-    //TODO get img filepath for the object
+    /**
+     * Used for bitmapping on the collisiondetection
+     * @return a sting with the location of the image
+     */
     public String getDefaultImageLocation(){
-
-        return "";
+        return defaultImageLocation;
     }
 
+    /**
+     * Used for collisiondetection
+     * @return a rectangle that surrounds the the game object
+     */
     public Rectangle getBounds(){
         return new Rectangle((int)x, (int)y, (int)width ,(int)heigth);
     }

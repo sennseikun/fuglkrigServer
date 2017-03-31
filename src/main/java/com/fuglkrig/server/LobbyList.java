@@ -14,7 +14,10 @@ public class LobbyList {
     private static List<Lobby> lobbys = new ArrayList<>();
 
 
-    //Remove players no longer online from lobbies
+    /**
+     * Update the lobbies for all players
+     * Remove players no longer online from lobbies
+     */
     public static void updateLobbies(){
 
         for(Player p: OnlinePlayers.getPlayers()){
@@ -38,6 +41,11 @@ public class LobbyList {
 
     }
 
+    /**
+     * Goes through all the lobbies and find the given lobby by name.
+     * @param name of the lobby you want
+     * @return the lobby requested if it exists
+     */
     public static Lobby getLobby(String name){
         for(Lobby l: lobbys){
             if(l.getName().equals(name)){
@@ -47,6 +55,11 @@ public class LobbyList {
         return null;
     }
 
+    /**
+     * Goes through all the lobbies and find the lobby with the player given in p
+     * @param p for player
+     * @return the lobby with the requested player
+     */
     public static Lobby getLobbyWithPlayer(Player p){
 
         System.out.println("GetLobbyWithPlayer launched");
@@ -64,6 +77,11 @@ public class LobbyList {
         return null;
     }
 
+    /**
+     * Give the lobby containing the given player.
+     * @param player
+     * @return the lobby that contains the given player
+     */
     public static List<Player> getPlayersFromLobby(Player player) {
         for (Lobby l: lobbys) {
             System.out.println("playernick from socket" + player.getNick());
@@ -75,21 +93,39 @@ public class LobbyList {
         return null;
     }
 
+    /**
+     * Adds a new lobby to the list of lobbies
+     * @param lobby
+     */
     public static void addLobby(Lobby lobby){
         lobbys.add(lobby);
     }
 
+    /**
+     * Remove the given lobby for the list
+     * @param lobby
+     */
     public static void removeLobby(Lobby lobby){
         lobbys.remove(lobby);
     }
 
+    /**
+     * Gives you all the lobbies in the list.
+     * @return the list of lobbies.
+     */
     public static List<Lobby> getLobbys(){
         return lobbys;
     }
 
-    public void onChange(Game game) {
+    /**
+     *
+     * @param game
+     */
+    public void onChange(Game game) {}
 
-    }
+    /**
+     * Remove all the list that not contains any players
+     */
     public static  void remove_empty_lists() {
         Iterator<Lobby> l =  lobbys.iterator();
         while(l.hasNext()){

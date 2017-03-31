@@ -24,7 +24,11 @@ public class ReceiveThread extends Thread {
     boolean running;
     ExecutorService executor;
 
-
+    /**
+     * Thread that is receiving threads
+     * @param inputSocket
+     * @param id
+     */
     public ReceiveThread(Socket inputSocket, int id){
         this.inputSocket = inputSocket;
         this.id = id;
@@ -32,10 +36,16 @@ public class ReceiveThread extends Thread {
         executor = Executors.newFixedThreadPool(3);
     }
 
+    /**
+     * stopping the thread that is running
+     */
     public void stopThread(){
         this.running = false;
     }
 
+    /**
+     * stopping the connection with the client
+     */
     public void stopConnection(){
         try {
 
@@ -77,11 +87,13 @@ public class ReceiveThread extends Thread {
         }
     }
 
+    /**
+     * Connection the client to a player
+     * @param player
+     */
     public void setPlayer(Player player){
         this.player = player;
     }
-
-
 
     /*
         userValid = 0/1
@@ -89,7 +101,9 @@ public class ReceiveThread extends Thread {
         nick = "return nick"
      */
 
-
+    /**
+     * Function that runs the thread that's collection the connections
+     */
     @Override
     public void run(){
         while(running){
@@ -113,7 +127,9 @@ public class ReceiveThread extends Thread {
                     break;
                 }
 
-                //Check if username is taken, register this user on this username
+                /**
+                 * Check if username is taken, register this user on this username
+                 */
 
                 if(datatype == 0){
                     Runnable worker = new WorkerThread(this,id,"0",inputSocket,message);
@@ -121,7 +137,9 @@ public class ReceiveThread extends Thread {
                     executor.execute(worker);
                 }
 
-                //Asking for list of lobbys
+                /**
+                 * Asking for list of lobbys
+                 */
 
                 else if(datatype == 1 || datatype == 10){
 
@@ -130,7 +148,9 @@ public class ReceiveThread extends Thread {
                     executor.execute(worker);
                 }
 
-                //Create lobby
+                /**
+                 * Create lobby
+                 */
                 else if(datatype == 2){
                     System.out.println("Executing worker thread 2");
                     Runnable worker = new WorkerThread(this,id,"2",inputSocket,message);
@@ -138,7 +158,9 @@ public class ReceiveThread extends Thread {
                 }
 
 
-                //Remove player from lobby
+                /**
+                 * Remove player from lobby
+                 */
 
                 else if(datatype == 3){
                     System.out.println("Executing worker thread 3");
@@ -146,7 +168,9 @@ public class ReceiveThread extends Thread {
                     executor.execute(worker);
                 }
 
-                //New player joining a game
+                /**
+                 * New player joining a game
+                 */
 
                 else if(datatype == 4){
                     System.out.println("Executing worker thread 4");
@@ -165,7 +189,9 @@ public class ReceiveThread extends Thread {
                     executor.execute(worker);
                 }
 
-                //this starts the gameloop
+                /**
+                 * this starts the gameloop
+                 */
                 else if(datatype == 11) {
                     System.out.println("Executing worker thread 11");
                     Runnable worker = new WorkerThread(this,id,"11",inputSocket,message);
