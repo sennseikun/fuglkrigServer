@@ -223,7 +223,6 @@ public class Game extends Thread {
      */
     public void SpawnPowerups() {
 
-        System.out.println("Spawn powerup");
 
         timeSinceLastPowerUp = System.currentTimeMillis() - timeStart;
         if (timeSinceLastPowerUp > timeForNewPowerUp) {
@@ -254,8 +253,6 @@ public class Game extends Thread {
     }
 
     public void MovePowerups() {
-
-        System.out.println("Move powerup");
 
         List<Powerup> toDelete = new ArrayList<>();
         for (Powerup powerup : powerupsOnMap) {
