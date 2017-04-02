@@ -2,6 +2,7 @@ package com.fuglkrig.server;
 
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
@@ -106,9 +107,7 @@ public class Game extends Thread {
 
     public void initFugles(){
         try {
-
-            InputStream is = this.getClass().getClassLoader().getResourceAsStream("\\resources\\bird.png");
-            fugl_image = ImageIO.read(is);
+            fugl_image = ImageIO.read(new File("C:\\Users\\thoma\\AndroidStudioProjects\\fuglkrigServer\\src\\main\\java\\resources\\bird.png"));
             fugl_height = fugl_image.getHeight();
             fugl_width = fugl_image.getWidth();
         } catch (IOException e) {
