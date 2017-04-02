@@ -123,7 +123,7 @@ public class CollisionDetection {
     }
 
     /**
-     * returns a HashSet of strings that list all the pixels in an image that aren't transparent
+     * returns a HashSet of strings that list all the pixels in an fugl_image that aren't transparent
      * the pixels contained in the HashSet follow the guideline of:
      * x,y where x is the absolute x position of the pixel and y is the absolute y position of the pixel
      */

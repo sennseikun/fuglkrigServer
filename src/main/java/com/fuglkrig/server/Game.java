@@ -2,7 +2,6 @@ package com.fuglkrig.server;
 
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
@@ -10,8 +9,6 @@ import java.util.*;
 import org.json.*;
 
 import javax.imageio.ImageIO;
-
-import static java.util.Random.*;
 
 /**
  * Created by Magnus on 03.03.2017.
@@ -43,7 +40,7 @@ public class Game extends Thread {
     int gameSizeY = 1080;
     int fugl_height = 0;
     int fugl_width = 0;
-    BufferedImage image = null;
+    BufferedImage fugl_image = null;
 
     //powerups on map
     List<Powerup> powerupsOnMap;
@@ -109,9 +106,11 @@ public class Game extends Thread {
 
     public void initFugles(){
         try {
-            image = ImageIO.read(new File("C:/Users/thoma/AndroidStudioProjects/fuglkrigServer/src/main/java/com/fuglkrig/server/resources/bird.png"));
-            fugl_height = image.getHeight();
-            fugl_width = image.getWidth();
+
+            InputStream is = this.getClass().getClassLoader().getResourceAsStream("bird.png");
+            fugl_image = ImageIO.read(is);
+            fugl_height = fugl_image.getHeight();
+            fugl_width = fugl_image.getWidth();
         } catch (IOException e) {
             e.printStackTrace();
         }

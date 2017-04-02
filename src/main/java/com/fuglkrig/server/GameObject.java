@@ -56,7 +56,7 @@ public class GameObject {
 
     /**
      * Used for bitmapping on the collisiondetection
-     * @return a sting with the location of the image
+     * @return a sting with the location of the fugl_image
      */
     public String getDefaultImageLocation(){
         return defaultImageLocation;
