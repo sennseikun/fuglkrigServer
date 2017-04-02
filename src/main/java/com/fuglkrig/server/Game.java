@@ -2,6 +2,7 @@ package com.fuglkrig.server;
 
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
@@ -236,8 +237,9 @@ public class Game extends Thread {
             //this needs to be the same as the number of powerups.
             type = rand.nextInt(8) + 1;
             try {
-                InputStream is = this.getClass().getClassLoader().getResourceAsStream("powerup.png");
-                img = ImageIO.read(is);
+                ClassLoader classLoader = getClass().getClassLoader();
+                File file = new File(classLoader.getResource("bird.png").getFile());
+                img = ImageIO.read(file);
             } catch (IOException e) {
                 System.out.println("Cant find powerup.bmp");
                 System.out.println(e);
