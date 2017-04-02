@@ -9,8 +9,8 @@ import java.awt.*;
  */
 public class CannonBall extends GameObject implements EntityCanonBall {
 
-    public CannonBall(double x, double y, double height, double width, String defaultLocation){
-        super(x, y, width, height, defaultLocation);
+    public CannonBall(double x, double y, double height, double width){
+        super(x, y, width, height);
     }
 
     /**
