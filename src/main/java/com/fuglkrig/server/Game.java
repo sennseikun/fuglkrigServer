@@ -109,7 +109,7 @@ public class Game extends Thread {
 
     public void initFugles(){
         try {
-            image = ImageIO.read(Game.class.getResourceAsStream("/resources/bird.png"));
+            image = ImageIO.read(new File("C:/Users/thoma/AndroidStudioProjects/fuglkrigServer/src/main/java/com/fuglkrig/server/resources"));
             fugl_height = image.getHeight();
             fugl_width = image.getWidth();
         } catch (IOException e) {
