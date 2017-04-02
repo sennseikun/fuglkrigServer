@@ -28,7 +28,10 @@ public class Game extends Thread {
     double timeForNewPowerUp = 5000;
     String textOnPlayerScreen;
     int secoundsUntilStart = 6;
-    int numberOfPowerUps = 8;
+
+    //Changed nr of powerups to support current count
+
+    int numberOfPowerUps = 2;
     //used to move map and powerups. in px
     int speed;
     Random rand = new Random();
