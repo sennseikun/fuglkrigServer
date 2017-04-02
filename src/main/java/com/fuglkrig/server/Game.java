@@ -331,7 +331,7 @@ public class Game extends Thread {
             player.UpdateClient(startGame);
         }
 
-        //initFugles();
+        initFugles();
 
     }
 
@@ -423,7 +423,7 @@ public class Game extends Thread {
                 //if wincondition is met, cancel the while loop
                 lastManStanding();
                 //Updates the fugles representations on server
-                //updateFugles();
+                updateFugles();
 
                 //kills the server if no one is left
                 if (players.size() == 0) {
