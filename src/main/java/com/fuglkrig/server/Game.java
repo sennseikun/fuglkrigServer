@@ -106,7 +106,8 @@ public class Game extends Thread {
 
     public void initFugles(){
         try {
-            fugl_image = ImageIO.read(Game.class.getResourceAsStream("/resources/bird.png"));
+            InputStream is = this.getClass().getClassLoader().getResourceAsStream("bird.png");
+            fugl_image = ImageIO.read(is);
         } catch (IOException e) {
             e.printStackTrace();
         }
