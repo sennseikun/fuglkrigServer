@@ -107,7 +107,7 @@ public class Game extends Thread {
 
     public void initFugles(){
         try {
-            fugl_image = ImageIO.read(new File("./resources/bird"));
+            fugl_image = ImageIO.read(Game.class.getResourceAsStream("/resources/bird.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -128,7 +128,7 @@ public class Game extends Thread {
             double x = p.getCoordX();
             double y = p.getCoordY();
 
-            Fugl f = new Fugl(x,y,fugl_height,fugl_width, "./resources/bird");
+            Fugl f = new Fugl(x,y,fugl_height,fugl_width, "");
 
             System.out.println(f.toString());
 
