@@ -18,6 +18,12 @@ public class Fugl extends GameObject implements EntityBird {
     }
 
 
+    @Override
+    public String toString(){
+        return "Fugl: xPos: " + x + " yPos: "+y + " Height: " + height +" Width: "+width;
+    }
+
+
     /**
      * Update bird function.
      * Checking collision with other birds, walls and powerUps

@@ -13,13 +13,13 @@ public class GameObject {
     int code;
     String defaultImageLocation;
 
-    double x, y, width, heigth;
+    double x, y, width, height;
 
     public GameObject(double x, double y, double width, double height){
         this.x = x;
         this.y = y;
         this.width = width;
-        this.heigth = heigth;
+        this.height = height;
     }
 
     /**
@@ -51,7 +51,7 @@ public class GameObject {
      * @return the height of the object
      */
     public double getHeight(){
-        return heigth;
+        return height;
     }
 
     /**
@@ -67,7 +67,7 @@ public class GameObject {
      * @return a rectangle that surrounds the the game object
      */
     public Rectangle getBounds(){
-        return new Rectangle((int)x, (int)y, (int)width ,(int)heigth);
+        return new Rectangle((int)x, (int)y, (int)width ,(int)height);
     }
 
 }

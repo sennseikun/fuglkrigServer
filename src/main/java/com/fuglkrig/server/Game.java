@@ -20,6 +20,7 @@ import static java.util.Random.*;
 
 public class Game extends Thread {
     List<Player> players;
+    List<Fugl> fugles = new ArrayList<>();
     Thread game;
     Map map;
     double timeStart = System.currentTimeMillis();
@@ -40,6 +41,9 @@ public class Game extends Thread {
     Player lastPlayer;
     int gameSizeX = 1920;
     int gameSizeY = 1080;
+    int fugl_height = 0;
+    int fugl_width = 0;
+    BufferedImage image = null;
 
     //powerups on map
     List<Powerup> powerupsOnMap;
@@ -103,6 +107,34 @@ public class Game extends Thread {
 
     }
 
+    public void initFugles(){
+        try {
+            image = ImageIO.read(Game.class.getResourceAsStream("/resources/bird.png"));
+            fugl_height = image.getHeight();
+            fugl_width = image.getWidth();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        updateFugles();
+    }
+
+    public void updateFugles(){
+
+        fugles.clear();
+
+        for(Player p: players){
+            double x = p.getCoordX();
+            double y = p.getCoordY();
+
+            Fugl f = new Fugl(x,y,fugl_height,fugl_width);
+
+            System.out.println(f.toString());
+
+            fugles.add(f);
+        }
+    }
+
     /**
      * updates all clients in the game
      */
@@ -112,6 +144,7 @@ public class Game extends Thread {
          * initial json document
          * datatype 15
          */
+
         JSONObject dataToPlayers = new JSONObject();
         dataToPlayers.put("Datatype", 15);
 
@@ -302,6 +335,8 @@ public class Game extends Thread {
             player.UpdateClient(startGame);
         }
 
+        initFugles();
+
     }
 
     public void lastManStanding() {
@@ -391,6 +426,8 @@ public class Game extends Thread {
                 sleepTick();
                 //if wincondition is met, cancel the while loop
                 lastManStanding();
+                //Updates the fugles representations on server
+                updateFugles();
 
                 //kills the server if no one is left
                 if (players.size() == 0) {
