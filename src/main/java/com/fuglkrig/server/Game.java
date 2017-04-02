@@ -123,17 +123,28 @@ public class Game extends Thread {
         fugl_height = fugl_image.getHeight();
         fugl_width = fugl_image.getWidth();
 
-        System.out.println(fugl_image.toString());
+        //System.out.println(fugl_image.toString());
 
         for(Player p: players){
             double x = p.getCoordX();
             double y = p.getCoordY();
 
-            Fugl f = new Fugl(x,y,fugl_height,fugl_width, "");
+            Fugl f = new Fugl(p.getPlayerID(),x,y,fugl_height,fugl_width);
+            f.setDefaultImageLocation("bird.png");
 
-            System.out.println(f.toString());
+            //System.out.println(f.toString());
 
             fugles.add(f);
+        }
+    }
+
+    public void checkForCollisions(){
+        for(Fugl f1: fugles){
+            for(Fugl f2: fugles){
+                if(CollisionDetection.checkCollision(f1,f2) && (f1.getId() != f2.getId())){
+                    System.out.println("Collision");
+                }
+            }
         }
     }
 
@@ -425,7 +436,9 @@ public class Game extends Thread {
                 //if wincondition is met, cancel the while loop
                 lastManStanding();
                 //Updates the fugles representations on server
-                //updateFugles();
+                updateFugles();
+                //Check for collisions between fugles
+                checkForCollisions();
 
                 //kills the server if no one is left
                 if (players.size() == 0) {

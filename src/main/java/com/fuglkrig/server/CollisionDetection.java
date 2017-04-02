@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -21,6 +22,7 @@ public class CollisionDetection {
     /**
      *  Checking if the rectangle of the birds are colliding and calling pixel perfect collision detection
      */
+
     public static boolean collisionBird(EntityBird b, ArrayList<EntityBird> birds){
         for (EntityBird bird: birds) {
             if(b.getBounds().intersects(bird.getBounds())){
@@ -127,31 +129,31 @@ public class CollisionDetection {
      * the pixels contained in the HashSet follow the guideline of:
      * x,y where x is the absolute x position of the pixel and y is the absolute y position of the pixel
      */
+
     public static HashSet<String> getMask(GameObject go){
 
         HashSet<String> mask = new HashSet<String>();
         BufferedImage image = null;
         try {
-            image = ImageIO.read(new File(go.getDefaultImageLocation()));
-        } catch (IOException e) {
-            System.out.println("error");
-        }
-        int pixel, a;
-        for(int i = 0; i < image.getWidth(); i++){ // for every (x,y) component in the given box,
-            for( int j = 0; j < image.getHeight(); j++){
+            InputStream is = go.getClass().getClassLoader().getResourceAsStream(go.getDefaultImageLocation());
+            image = ImageIO.read(is);
+            int pixel, a;
+            for(int i = 0; i < image.getWidth(); i++){ // for every (x,y) component in the given box,
+                for( int j = 0; j < image.getHeight(); j++){
 
-                pixel = image.getRGB(i, j); // get the RGB value of the pixel
-                a= (pixel >> 24) & 0xff;
+                    pixel = image.getRGB(i, j); // get the RGB value of the pixel
+                    a= (pixel >> 24) & 0xff;
 
-                if(a != 0){  // if the alpha is not 0, it must be something other than transparent
-                    mask.add((go.getX()+i)+","+(go.getY()- j)); // add the absolute x and absolute y coordinates to our set
+                    if(a != 0){  // if the alpha is not 0, it must be something other than transparent
+                        mask.add((go.getX()+i)+","+(go.getY()- j)); // add the absolute x and absolute y coordinates to our set
+                    }
                 }
             }
+        } catch (IOException e) {
+            System.out.println("error");
         }
 
         return mask;  //return our set
 
     }
-
-
 }
