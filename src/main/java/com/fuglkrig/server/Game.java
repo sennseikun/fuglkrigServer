@@ -130,6 +130,8 @@ public class Game extends Thread {
             JSONObject powerupObject = new JSONObject();
             powerupObject.put("XPos", powerup.getX());
             powerupObject.put("YPos", powerup.getY());
+            powerupObject.put("Id",powerup.getId());
+            powerupObject.put("Type",powerup.type);
 
             //puts the object in the list
             powerupData.put(powerupObject);
@@ -184,6 +186,9 @@ public class Game extends Thread {
      * Adds a powerup to the powerupsOnMap list
      */
     public void SpawnPowerups() {
+
+        System.out.println("Spawn powerup");
+
         timeSinceLastPowerUp = System.currentTimeMillis() - timeStart;
         if (timeSinceLastPowerUp > timeForNewPowerUp) {
 
@@ -213,6 +218,9 @@ public class Game extends Thread {
     }
 
     public void MovePowerups() {
+
+        System.out.println("Move powerup");
+
         List<Powerup> toDelete = new ArrayList<>();
         for (Powerup powerup : powerupsOnMap) {
             if (powerup.getX() < 0) {
