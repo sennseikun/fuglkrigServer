@@ -108,8 +108,6 @@ public class Game extends Thread {
     public void initFugles(){
         try {
             fugl_image = ImageIO.read(new File("C:\\Users\\thoma\\AndroidStudioProjects\\fuglkrigServer\\src\\main\\java\\resources\\bird.png"));
-            fugl_height = fugl_image.getHeight();
-            fugl_width = fugl_image.getWidth();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -120,6 +118,11 @@ public class Game extends Thread {
     public void updateFugles(){
 
         fugles.clear();
+
+        fugl_height = fugl_image.getHeight();
+        fugl_width = fugl_image.getWidth();
+
+        System.out.println(fugl_image.toString());
 
         for(Player p: players){
             double x = p.getCoordX();
