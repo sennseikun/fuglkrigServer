@@ -15,11 +15,12 @@ public class GameObject {
 
     double x, y, width, height;
 
-    public GameObject(double x, double y, double width, double height){
+    public GameObject(double x, double y, double width, double height, String defaultImageLocation){
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
+        this.defaultImageLocation = defaultImageLocation;
     }
 
     /**

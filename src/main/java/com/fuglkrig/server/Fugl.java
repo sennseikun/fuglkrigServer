@@ -13,8 +13,8 @@ public class Fugl extends GameObject implements EntityBird {
 
     double speedX,speedY;
 
-    public Fugl(double x, double y, double height, double width){
-        super(x, y, width, height);
+    public Fugl(double x, double y, double height, double width, String defaultImageLocation){
+        super(x, y, width, height, defaultImageLocation);
     }
 
 
