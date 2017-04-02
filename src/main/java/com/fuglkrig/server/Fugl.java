@@ -4,6 +4,7 @@ package com.fuglkrig.server;
 import com.fuglkrig.server.classes.EntityBird;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * Created by Tore on 20.03.2017.
@@ -13,8 +14,9 @@ public class Fugl extends GameObject implements EntityBird {
 
     double speedX,speedY;
 
-    public Fugl(double x, double y, double height, double width, String defaultImageLocation){
-        super(x, y, width, height, defaultImageLocation);
+    public Fugl(double x, double y, double height, double width, String imageLocation){
+        super(x, y, width, height);
+        this.setDefaultImageLocation(imageLocation);
     }
 
 

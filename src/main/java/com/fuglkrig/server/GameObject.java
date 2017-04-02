@@ -15,12 +15,11 @@ public class GameObject {
 
     double x, y, width, height;
 
-    public GameObject(double x, double y, double width, double height, String defaultImageLocation){
+    public GameObject(double x, double y, double width, double height){
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.defaultImageLocation = defaultImageLocation;
     }
 
     /**
@@ -61,6 +60,10 @@ public class GameObject {
      */
     public String getDefaultImageLocation(){
         return defaultImageLocation;
+    }
+
+    public void setDefaultImageLocation(String imageLocation){
+        this.defaultImageLocation = imageLocation;
     }
 
     /**
