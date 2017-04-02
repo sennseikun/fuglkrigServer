@@ -333,7 +333,7 @@ public class Game extends Thread {
             player.UpdateClient(startGame);
         }
 
-        //initFugles();
+        initFugles();
     }
 
     public void lastManStanding() {
