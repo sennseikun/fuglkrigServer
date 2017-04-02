@@ -5,6 +5,7 @@ import com.fuglkrig.server.classes.EntityBird;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.InputStream;
 
 /**
  * Created by Tore on 20.03.2017.
@@ -13,11 +14,20 @@ import java.awt.image.BufferedImage;
 public class Fugl extends GameObject implements EntityBird {
 
     double speedX,speedY;
+    InputStream image_is;
+    private int id = -1;
 
-    public Fugl(double x, double y, double height, double width, String imageLocation){
+    public Fugl(int id,double x, double y, double height, double width){
         super(x, y, width, height);
-        this.setDefaultImageLocation(imageLocation);
+        this.image_is = image_is;
+        this.id = id;
     }
+
+    public InputStream getIS(){
+        return image_is;
+    }
+
+
 
 
     @Override
@@ -98,5 +108,13 @@ public class Fugl extends GameObject implements EntityBird {
      */
     public void setSpeedY(double speedY) {
         this.speedY = speedY;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
