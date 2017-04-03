@@ -17,10 +17,10 @@ public class GameObject {
     private double height;
 
     public GameObject(double x, double y, double width, double height){
-        this.setX(x);
-        this.setY(y);
-        this.setWidth(width);
-        this.setHeight(height);
+        this.width = width;
+        this.y = y;
+        this.height = height;
+        this.x = x;
     }
 
 
@@ -45,12 +45,6 @@ public class GameObject {
         return new Rectangle((int) getX(), (int) getY(), (int) getWidth(),(int) getHeight());
     }
 
-    public void setX(double x){
-        this.x = x;
-    }
-    public void setY(double y){
-        this.y = y;
-    }
 
     public void setHeight(double height){
         this.height = height;
@@ -122,13 +116,5 @@ public class GameObject {
 
     public void setY(double y) {
         this.y = y;
-    }
-
-    public void setWidth(double width) {
-        this.width = width;
-    }
-
-    public void setHeight(double height) {
-        this.height = height;
     }
 }
