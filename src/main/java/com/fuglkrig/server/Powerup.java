@@ -23,7 +23,7 @@ public class Powerup extends GameObject implements EntityPowerUp {
         this.setImg(img);
         this.damage = 1;
 
-        //TODO fix this to give powers!
+        //TODO fix this to give powers!. MATCH THIS WITH CLIENT
         //remember to fix Powerup! It has a randint that needs to be changed
         switch (this.getType()) {
 
@@ -37,7 +37,7 @@ public class Powerup extends GameObject implements EntityPowerUp {
                 break;
             case 4: setPowerUpName("Wall Back");
                 break;
-            case 5: setPowerUpName("Cannonball");
+            case 5: setPowerUpName("Birdpoop");
                 break;
             case 6: setPowerUpName("SpeedUp");
                 break;
