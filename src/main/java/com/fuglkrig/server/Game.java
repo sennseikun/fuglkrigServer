@@ -23,7 +23,6 @@ public class Game extends Thread {
     private Map map;
     private double timeStart = System.currentTimeMillis();
     private double timeSinceLastPowerUp;
-    private Lobby lobby;
     //in millisecounds
     private double timeForNewPowerUp;
     private String textOnPlayerScreen;
@@ -94,7 +93,6 @@ public class Game extends Thread {
         this.setPowerupsOnMap(new ArrayList());
         this.setSpeed(10);
         this.setTimeForNewPowerUp(5000);
-        this.lobby = lobby;
 
         //creating map
         Random rand = new Random();
@@ -493,6 +491,9 @@ public class Game extends Thread {
                 checkForCollisions();
                 checkForPowerupCollisions();
 
+                //kick players waiting to be kicked
+                actualKickPlayer();
+
                 //kills the server if no one is left
                 if (getPlayers().size() == 0) {
                     setLastManStanding(true);
@@ -516,6 +517,9 @@ public class Game extends Thread {
                 UpdateGame();
                 //Still need to sleeptick to not spam the user with alot of data
                 sleepTick();
+
+                //kick players waiting to be kicked
+                actualKickPlayer();
 
                 //kills the server if no one is left
                 if (getPlayers().size() == 0) {
