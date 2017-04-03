@@ -99,8 +99,9 @@ public class Game extends Thread {
 
     }
 
-    public void moveLastManStanding() {
-
+    public void moveLastManStanding(Player player) {
+        player.setTargetPosX(500);
+        player.setTargetPosY(500);
     }
 
     public void initFugles(){
@@ -403,6 +404,7 @@ public class Game extends Thread {
                 }
             }
             setLastManStanding(true);
+            moveLastManStanding(lastPlayer);
         }
     }
 

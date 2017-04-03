@@ -26,45 +26,11 @@ public class CollisionDetection {
     }
 
     /**
-     *  Checking if the rectangle of the birds are colliding and calling pixel perfect collision detection
-     */
-
-    public static boolean PlayerCollision(Player p1, Player p2, double scale){
-        /*System.out.println("Player1 X: " + p1.getCoordX());
-        System.out.println("Player1 Y: " + p1.getCoordY());
-        System.out.println("Player1 Width: " + p1.getWidth());
-        System.out.println("Player1 Height: " + p1.getHeight());
-        System.out.println("Player2 X: " + p2.getCoordX());
-        System.out.println("Player2 Y: " + p2.getCoordY());
-        System.out.println("Player2 Width: " + p2.getWidth());
-        System.out.println("Player2 Height: " + p2.getHeight());*/
-
-
-
-        return p1.getRectangle(scale).intersects(p2.getRectangle(scale)) || p1.getRectangle(scale).contains(p2.getRectangle(scale));
-    }
-
-    /**
      *  Checking if the rectangle of the bird are colliding with the powerup button
      */
     public static boolean playerPowerupCollision(Player p1, Powerup pUp, double scaleP, double scalePUp){
         if(p1.getRectangle(scaleP).intersects(pUp.getBounds(scalePUp)) || p1.getRectangle(scaleP).contains(pUp.getBounds(scalePUp))){
             return true;
-        }
-        return false;
-    }
-
-    /**
-     *  Checking if the rectangle of the birds are colliding and calling pixel perfect collision detection
-     */
-    public static boolean collisionBird(EntityBird b, ArrayList<EntityBird> birds){
-        for (EntityBird bird: birds) {
-            System.out.println("gets here #colliosion");
-            if(b.getBounds().intersects(bird.getBounds())){
-                return true;
-                //Todo move the birds
-                //return checkCollision((GameObject)b, (GameObject)bird);
-            }
         }
         return false;
     }
