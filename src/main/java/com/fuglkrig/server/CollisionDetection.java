@@ -30,7 +30,7 @@ public class CollisionDetection {
      */
 
     public static boolean PlayerCollision(Player p1, Player p2){
-        return p1.getRectangle().intersects(p2.getRectangle());
+        return p1.getRectangle().intersects(p2.getRectangle()) || p1.getRectangle().contains(p2.getRectangle());
     }
 
     /**
