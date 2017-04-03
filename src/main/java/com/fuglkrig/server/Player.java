@@ -81,8 +81,8 @@ public class Player {
         this.height = fugl_image.getHeight();
     }
 
-    public Rectangle getRectangle(){
-        return new Rectangle((int)this.getCoordX(),(int)this.getCoordY(),this.getWidth(),this.getHeight());
+    public Rectangle getRectangle(double scale){
+        return new Rectangle((int)this.getCoordX(),(int)this.getCoordY(),(int)(this.getWidth()*scale),(int)(this.getHeight()*scale));
     }
 
     /**

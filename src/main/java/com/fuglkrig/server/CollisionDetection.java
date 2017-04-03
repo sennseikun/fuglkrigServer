@@ -29,7 +29,7 @@ public class CollisionDetection {
      *  Checking if the rectangle of the birds are colliding and calling pixel perfect collision detection
      */
 
-    public static boolean PlayerCollision(Player p1, Player p2){
+    public static boolean PlayerCollision(Player p1, Player p2, double scale){
         /*System.out.println("Player1 X: " + p1.getCoordX());
         System.out.println("Player1 Y: " + p1.getCoordY());
         System.out.println("Player1 Width: " + p1.getWidth());
@@ -40,7 +40,8 @@ public class CollisionDetection {
         System.out.println("Player2 Height: " + p2.getHeight());*/
 
 
-        return p1.getRectangle().intersects(p2.getRectangle()) || p1.getRectangle().contains(p2.getRectangle());
+
+        return p1.getRectangle(scale).intersects(p2.getRectangle(scale)) || p1.getRectangle(scale).contains(p2.getRectangle(scale));
     }
 
     /**

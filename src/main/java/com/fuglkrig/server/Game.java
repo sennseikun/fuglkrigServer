@@ -138,7 +138,7 @@ public class Game extends Thread {
         for(Player p1: players){
             for(Player p2: players){
                 if(p1 != p2){
-                    if(CollisionDetection.PlayerCollision(p1,p2)){
+                    if(CollisionDetection.PlayerCollision(p1,p2, fuglScale)){
                         System.out.println("Collision between "+ p1.getNick() + " and " + p2.getNick() );
                     }
                 }
@@ -207,7 +207,11 @@ public class Game extends Thread {
             playerData.put("Direction", player.getDirection());
             playerData.put("Speed", player.getSpeed());
             playerData.put("Alive", player.getAlive());
-            playerData.put("powerups", player.getPowerups());
+
+
+            //powerups in inventory
+            JSONArray powerupList = new JSONArray(player.getPowerups());
+            playerData.put("Powerups", powerupList);
 
             /**
              * put playerdocument to list over players.
@@ -287,7 +291,7 @@ public class Game extends Thread {
 
         List<Powerup> toDelete = new ArrayList<>();
         for (Powerup powerup : getPowerupsOnMap()) {
-            if (powerup.getX() < 0) {
+            if (powerup.getX() < 0-powerup.getWidth()) {
                 toDelete.add(powerup);
             } else {
                 powerup.tick(getSpeed());
@@ -348,6 +352,7 @@ public class Game extends Thread {
         startGame.put("BirdPoopScale", birdpoopScale);
         startGame.put("WallScale", wallScale);
         startGame.put("PowerupScale", powerupBoxScale);
+
 
         JSONArray listOfPlayers = new JSONArray();
 

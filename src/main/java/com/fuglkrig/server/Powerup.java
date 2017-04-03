@@ -26,6 +26,9 @@ public class Powerup extends GameObject implements EntityPowerUp {
         //TODO fix this to give powers!
         //remember to fix Powerup! It has a randint that needs to be changed
         switch (this.getType()) {
+
+            case 0: setPowerUpName("Undeployed");
+                break;
             case 1: setPowerUpName("Wall Forwards");
                 break;
             case 2: setPowerUpName("Wall Up");
