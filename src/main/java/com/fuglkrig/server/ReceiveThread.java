@@ -46,6 +46,11 @@ public class ReceiveThread extends Thread {
     public void stopConnection(){
         try {
 
+            //cleans up the game
+            if (player.getCurrentGame() != null) {
+                player.getCurrentGame().kickPlayer(player);
+            }
+
             Lobby removeLobby = LobbyList.getLobbyWithPlayer(getPlayer());
 
 
@@ -60,9 +65,8 @@ public class ReceiveThread extends Thread {
                     }
                 }
             }
-
-            OnlinePlayers.removePlayer(getPlayer());
             System.out.println("Removed player: " + getPlayer().getNick());
+            OnlinePlayers.removePlayer(getPlayer());
             LobbyList.updateLobbies();
             LobbyList.remove_empty_lists();
 
@@ -210,6 +214,7 @@ public class ReceiveThread extends Thread {
                 break;
             }
         }
+
         stopConnection();
         stopThread();
     }
