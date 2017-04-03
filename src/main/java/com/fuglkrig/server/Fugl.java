@@ -22,13 +22,11 @@ public class Fugl extends GameObject implements EntityBird {
         this.id = id;
     }
 
-<<<<<<< HEAD
-=======
+
     public InputStream getIS(){
         return image_is;
     }
 
->>>>>>> fd93f44293b9c006af24212deba923ab9f6cb5cc
     @Override
     public String toString(){
         return "Fugl: xPos: " + super.getX() + " yPos: "+ super.getY() + " Height: " + getHeight() +" Width: "+ getWidth();
