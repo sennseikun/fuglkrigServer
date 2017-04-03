@@ -43,6 +43,11 @@ public class Game extends Thread {
     private int fugl_width = 0;
     private BufferedImage fugl_image = null;
 
+    private double fuglScale = 1.5;
+    private double powerupBoxScale = 1.5;
+    private double birdpoopScale = 1.5;
+    private double wallScale = 1.5;
+
     //powerups on map
     private List<Powerup> powerupsOnMap;
 
@@ -339,6 +344,10 @@ public class Game extends Thread {
         startGame.put("MapXPos", this.getMap().getMapXPos());
         startGame.put("NextMapXPos", this.getMap().getNextMapXPos());
         startGame.put("WinMapXPos", this.getMap().getWinMapXPos());
+        startGame.put("PlayerScale", fuglScale);
+        startGame.put("BirdPoopScale", birdpoopScale);
+        startGame.put("WallScale", wallScale);
+        startGame.put("PowerupScale", powerupBoxScale);
 
         JSONArray listOfPlayers = new JSONArray();
 
