@@ -16,7 +16,7 @@ public class Wall extends GameObject implements EntityWall {
      * @param height
      * @param width
      */
-    public Wall(double x, double y, double height, double width){
+    public Wall(int x, int y, int height, int width){
         super(x, y, width, height);
     }
 
@@ -41,14 +41,14 @@ public class Wall extends GameObject implements EntityWall {
     /**
      * @return the x value of the wall
      */
-    public double getX() {
+    public int getX() {
         return super.getX();
     }
 
     /**
      * @return the y value of the wall
      */
-    public double getY() {
+    public int getY() {
         return super.getY();
     }
 }

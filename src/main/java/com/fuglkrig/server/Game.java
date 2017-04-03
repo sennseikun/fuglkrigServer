@@ -122,8 +122,8 @@ public class Game extends Thread {
         //System.out.println(fugl_image.toString());
 
         for(Player p: players){
-            double x = p.getCoordX();
-            double y = p.getCoordY();
+            int x = (int)p.getCoordX();
+            int y = (int)p.getCoordY();
 
             Fugl f = new Fugl(p.getPlayerID(),x,y,fugl_height,fugl_width);
             f.setDefaultImageLocation("bird.png");
