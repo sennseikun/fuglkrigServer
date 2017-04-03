@@ -259,6 +259,25 @@ public class Game extends Thread {
         }
     }
 
+    public void addPowerup(int type, int x, int y) {
+        BufferedImage img = null;
+        //todo make sure the right image is loaded for the right powerup.
+
+        //loads powerup image
+        try {
+            InputStream is = this.getClass().getClassLoader().getResourceAsStream("powerup.png");
+            img = ImageIO.read(is);
+        } catch (IOException e) {
+            System.out.println("Cant find powerup.bmp");
+            System.out.println(e);
+        }
+
+        Powerup pu = new Powerup(x, y, img.getHeight(), img.getWidth(), type, img);
+
+
+
+    }
+
     public void MovePowerups() {
 
         List<Powerup> toDelete = new ArrayList<>();

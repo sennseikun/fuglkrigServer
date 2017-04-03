@@ -338,6 +338,7 @@ public class WorkerThread implements Runnable {
                 DataOutputStream out = new DataOutputStream(socket.getOutputStream());
                 out.writeUTF(sendJson.toString());
             }
+
             else if(command.equals("11")) {
 
                 /**
@@ -350,6 +351,12 @@ public class WorkerThread implements Runnable {
 
                 if (playerList != null && players.size() > 1) {
                     Game game = new Game(playerList);
+
+                    //makes sure players have a game
+                    for (Player player : game.getPlayers()) {
+                        player.setCurrentGame(game);
+                    }
+
                     game.start();
                 }
             }
@@ -367,6 +374,27 @@ public class WorkerThread implements Runnable {
                     this.receiveThread.getPlayer().setTargetPosY(y);
                 }
                 this.receiveThread.getPlayer().UpdateDxDy();
+            }
+
+            else if(command.equals("13")){
+                JSONObject jsonData = new JSONObject(message);
+                int type = jsonData.getInt("type");
+                Player player = receiveThread.getPlayer();
+
+                //checks if the user actually got the powerup he wants to use
+                if (player.getPowerups().contains(type)) {
+                    System.out.println("spawning powerup");
+                    //removes the powerup from the user
+                    player.getPowerups().remove(type);
+
+                    //spawn the powerup
+                    player.getCurrentGame().addPowerup(type, (int) player.getCoordX(), (int) player.getCoordY());
+
+                }
+                else {
+                    System.out.println("user cheating? tried using a powerup he doesnt have");
+                }
+
             }
 
             else{

@@ -296,9 +296,8 @@ public class Player {
     /**
      * @return a json of the players powerup
      */
-    public JSONArray getPowerups() {
-        JSONArray powerups = new JSONArray(this.powerups);
-        return powerups;
+    public ArrayList<Integer> getPowerups() {
+        return this.powerups;
     }
 
     /**

@@ -191,6 +191,12 @@ public class ReceiveThread extends Thread {
                     getExecutor().execute(worker);
                 }
 
+                //client use powerup
+                else if(datatype == 13) {
+                    Runnable worker = new WorkerThread(this, getReceiveThreadId(),"13", getInputSocket(),message);
+                    getExecutor().execute(worker);
+                }
+
                 else{
                     break;
                 }
