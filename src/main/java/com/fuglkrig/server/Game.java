@@ -85,7 +85,7 @@ public class Game extends Thread {
      *
      * @param players
      */
-    public Game(List<Player> players, Lobby lobby) {
+    public Game(List<Player> players) {
         this.setPlayers(players);
         this.setSleepTime(1000 / 60);
         this.setLastManStanding(false);
