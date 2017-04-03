@@ -18,6 +18,7 @@ public class Lobby {
     private int max_player_count;
     private String password;
     private String name;
+    private boolean isStarted = false;
 
     /**
      * Creats a lobby with the creator of the lobby as the only player in the list at the start.
@@ -160,4 +161,11 @@ public class Lobby {
         return lobbyData;
     }
 
+    public boolean isStarted() {
+        return isStarted;
+    }
+
+    public void setStarted(boolean started) {
+        isStarted = started;
+    }
 }
