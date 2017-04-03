@@ -307,6 +307,7 @@ public class Player {
     public void addPowerUp(int powerUp){
         System.out.println("lol test");
         this.powerups.add(powerUp);
+        System.out.println("ka fan?");
     }
 
     /**
