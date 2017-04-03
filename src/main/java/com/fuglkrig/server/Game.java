@@ -207,7 +207,11 @@ public class Game extends Thread {
             playerData.put("Direction", player.getDirection());
             playerData.put("Speed", player.getSpeed());
             playerData.put("Alive", player.getAlive());
-            playerData.put("powerups", player.getPowerups());
+
+
+            //powerups in inventory
+            JSONArray powerupList = new JSONArray(player.getPowerups());
+            playerData.put("Powerups", powerupList);
 
             /**
              * put playerdocument to list over players.
@@ -348,6 +352,7 @@ public class Game extends Thread {
         startGame.put("BirdPoopScale", birdpoopScale);
         startGame.put("WallScale", wallScale);
         startGame.put("PowerupScale", powerupBoxScale);
+
 
         JSONArray listOfPlayers = new JSONArray();
 
