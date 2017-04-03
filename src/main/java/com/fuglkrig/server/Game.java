@@ -149,7 +149,7 @@ public class Game extends Thread {
         Powerup powerup = null;
         for (Powerup pUp: powerupsOnMap) {
             for (Player p: players){
-                if(CollisionDetection.playerPowerupCollision(p,pUp, fuglScale,powerupBoxScale, this)){
+                if(CollisionDetection.playerPowerupCollision(p,pUp, fuglScale,powerupBoxScale)){
                     powerup=pUp;
                     System.out.println("lol!!");
                 }

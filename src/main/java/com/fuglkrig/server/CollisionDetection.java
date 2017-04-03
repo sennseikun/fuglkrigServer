@@ -47,10 +47,9 @@ public class CollisionDetection {
     /**
      *  Checking if the rectangle of the bird are colliding with the powerup button
      */
-    public static boolean playerPowerupCollision(Player p1, Powerup pUp, double scaleP, double scalePUp, Game game){
+    public static boolean playerPowerupCollision(Player p1, Powerup pUp, double scaleP, double scalePUp){
         if(p1.getRectangle(scaleP).intersects(pUp.getBounds(scalePUp)) || p1.getRectangle(scaleP).contains(pUp.getBounds(scalePUp))){
-            //game.removePowerupOnMap(pUp);
-            //p1.addPowerUp(pUp.getType());
+            System.out.println(pUp.getType());
             return true;
         }
         return false;
