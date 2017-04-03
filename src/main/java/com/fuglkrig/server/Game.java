@@ -408,6 +408,7 @@ public class Game extends Thread {
     }
 
     public void kickPlayer(Player player) {
+        player.setAlive(false);
         kickPlayer.add(player);
     }
 
