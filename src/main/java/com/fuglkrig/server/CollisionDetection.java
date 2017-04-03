@@ -23,8 +23,11 @@ public class CollisionDetection {
      */
 
     public static boolean PlayerCollision(Player p1, Player p2){
+        System.out.println("P1 Height: " + p1.getWidth());
+        System.out.println("P1 Width: " + p1.getHeight());
+        System.out.println("P2 Height: " + p2.getWidth());
+        System.out.println("P2 Width: " + p2.getHeight());
         return p1.getCoordX() < p2.getCoordX() + p2.getWidth() && p1.getCoordX() + p1.getWidth() > p2.getCoordX() && p1.getCoordY() < p2.getCoordY() + p2.getHeight() && p1.getCoordY() + p1.getHeight() > p2.getCoordY();
-
     }
 
     public static boolean collisionBird(EntityBird b, ArrayList<EntityBird> birds){
