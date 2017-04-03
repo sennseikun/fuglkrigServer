@@ -68,6 +68,7 @@ public class CollisionDetection {
      */
     public static boolean collisionBird(EntityBird b, ArrayList<EntityBird> birds){
         for (EntityBird bird: birds) {
+            System.out.println("gets here #colliosion");
             if(b.getBounds().intersects(bird.getBounds())){
                 return true;
                 //Todo move the birds
