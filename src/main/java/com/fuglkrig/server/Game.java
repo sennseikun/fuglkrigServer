@@ -129,9 +129,13 @@ public class Game extends Thread {
     }
 
     public void checkForCollisions(){
-        for(EntityBird f1: fugles){
-            if(CollisionDetection.collisionBird(f1,fugles)) {
-                System.out.println("Dummy collision");
+        for(Player p1: players){
+            for(Player p2: players){
+                if(p1 != p2){
+                    if(CollisionDetection.PlayerCollision(p1,p2)){
+                        System.out.println("Collision between "+ p1.getNick() + " and " + p2.getNick() );
+                    }
+                }
             }
         }
     }
