@@ -103,12 +103,13 @@ public class WorkerThread implements Runnable {
             else if (command.equals("1")) {
                 try {
 
+                    int count = 0;
+
                     //Lobby logic here
                     JSONObject json = new JSONObject();
                     json.put("Datatype", "1");
 
                     List<Lobby> lobbys = LobbyList.getLobbys();
-                    json.put("Count", lobbys.size());
 
                     //Return all the lobbies with lobby name, player count, max player count and password
 
@@ -121,6 +122,9 @@ public class WorkerThread implements Runnable {
                         }
 
                         else{
+
+                            count++;
+
                             System.out.println("WorkerThread 2: Packing lobby: " + l.getName());
 
                             json.put("Name" + i, l.getName());
@@ -135,6 +139,8 @@ public class WorkerThread implements Runnable {
                             }
                         }
                     }
+
+                    json.put("Count", count);
 
                     DataOutputStream out = new DataOutputStream(socket.getOutputStream());
                     out.writeUTF(json.toString());
