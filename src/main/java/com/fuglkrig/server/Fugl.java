@@ -4,7 +4,6 @@ package com.fuglkrig.server;
 import com.fuglkrig.server.classes.EntityBird;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.InputStream;
 
 /**
@@ -13,8 +12,8 @@ import java.io.InputStream;
  */
 public class Fugl extends GameObject implements EntityBird {
 
-    double speedX,speedY;
-    InputStream image_is;
+    private double speedX,speedY;
+    private InputStream image_is;
     private int id = -1;
 
     public Fugl(int id,double x, double y, double height, double width){
@@ -23,26 +22,25 @@ public class Fugl extends GameObject implements EntityBird {
         this.id = id;
     }
 
+<<<<<<< HEAD
+=======
     public InputStream getIS(){
         return image_is;
     }
 
-
-
-
+>>>>>>> fd93f44293b9c006af24212deba923ab9f6cb5cc
     @Override
     public String toString(){
-        return "Fugl: xPos: " + x + " yPos: "+y + " Height: " + height +" Width: "+width;
+        return "Fugl: xPos: " + super.getX() + " yPos: "+ super.getY() + " Height: " + getHeight() +" Width: "+ getWidth();
     }
-
 
     /**
      * Update bird function.
      * Checking collision with other birds, walls and powerUps
      */
     public void tick() {
-        x += speedX;
-        y += speedY;
+        setX(super.getX() + speedX);
+        setY(super.getY() + speedY);
         /*if(CollisionDetection.collisionBird(this,birds)){
             //Todo move the birds
         }
@@ -67,7 +65,7 @@ public class Fugl extends GameObject implements EntityBird {
      * @return the x position of the bird
      */
     public double getX() {
-        return x;
+        return super.getX();
     }
 
     /**
@@ -75,7 +73,7 @@ public class Fugl extends GameObject implements EntityBird {
      * @return the y position of the bird
      */
     public double getY() {
-        return y;
+        return super.getY();
     }
 
     /**

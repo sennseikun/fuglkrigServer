@@ -1,8 +1,5 @@
 package com.fuglkrig.server;
 
-import javafx.concurrent.Worker;
-import jdk.nashorn.api.scripting.JSObject;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.DataOutputStream;
@@ -348,8 +345,8 @@ public class WorkerThread implements Runnable {
                  *  hvis nei, break.
                  */
 
-                List<Player> playerList = LobbyList.getPlayersFromLobby(receiveThread.player);
-                List<Player> players = LobbyList.getLobbyWithPlayer(receiveThread.player).getPlayers();
+                List<Player> playerList = LobbyList.getPlayersFromLobby(receiveThread.getPlayer());
+                List<Player> players = LobbyList.getLobbyWithPlayer(receiveThread.getPlayer()).getPlayers();
 
                 if (playerList != null && players.size() > 1) {
                     Game game = new Game(playerList);
@@ -364,12 +361,12 @@ public class WorkerThread implements Runnable {
                 double y = jsonData.getDouble("TargetY");
 
                 if (x >= 0) {
-                    this.receiveThread.player.setTargetPosX(x);
+                    this.receiveThread.getPlayer().setTargetPosX(x);
                 }
                 if(y >= 0){
-                    this.receiveThread.player.setTargetPosY(y);
+                    this.receiveThread.getPlayer().setTargetPosY(y);
                 }
-                this.receiveThread.player.UpdateDxDy();
+                this.receiveThread.getPlayer().UpdateDxDy();
             }
 
             else{

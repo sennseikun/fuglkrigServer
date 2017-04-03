@@ -7,7 +7,6 @@ import com.fuglkrig.server.classes.EntityWall;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.*;
@@ -19,11 +18,19 @@ import java.util.HashSet;
  */
 public class CollisionDetection {
 
-    public static boolean dummyCollides(GameObject g1, GameObject g2){
-        if(g1.getBounds().intersects(g2.getBounds())){
+    public static boolean dummyCollides(GameObject g1, GameObject g2) {
+        if (g1.getBounds().intersects(g2.getBounds())) {
             return true;
         }
         return false;
+    }
+
+    /**
+     *  Checking if the rectangle of the birds are colliding and calling pixel perfect collision detection
+     */
+
+    public static boolean PlayerCollision(Player p1, Player p2){
+        return p1.getCoordX() < p2.getCoordX() + p2.getWidth() && p1.getCoordX() + p1.getWidth() > p2.getWidth() && p1.getCoordY() < p2.getCoordY() + p2.getHeight() && p1.getCoordY() + p1.getHeight() > p2.getCoordY();
     }
 
     /**
