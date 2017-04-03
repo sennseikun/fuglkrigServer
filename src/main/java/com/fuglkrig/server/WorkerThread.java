@@ -116,19 +116,24 @@ public class WorkerThread implements Runnable {
 
                         Lobby l = lobbys.get(i - 1);
 
-                        System.out.println("WorkerThread 2: Packing lobby: " + l.getName());
-
-                        json.put("Name" + i, l.getName());
-                        json.put("PlayerCount" + i, l.getPlayerCount());
-                        json.put("MaxPlayers" + i, l.getMax_player_count());
-
-                        if(l.getPassword().equals("")){
-                            json.put("Password" + i, "");
+                        if(l.isStarted()){
+                            System.out.println("Game started not sent");
                         }
+
                         else{
-                            json.put("Password" + i, "1");
-                        }
+                            System.out.println("WorkerThread 2: Packing lobby: " + l.getName());
 
+                            json.put("Name" + i, l.getName());
+                            json.put("PlayerCount" + i, l.getPlayerCount());
+                            json.put("MaxPlayers" + i, l.getMax_player_count());
+
+                            if(l.getPassword().equals("")){
+                                json.put("Password" + i, "");
+                            }
+                            else{
+                                json.put("Password" + i, "1");
+                            }
+                        }
                     }
 
                     DataOutputStream out = new DataOutputStream(socket.getOutputStream());
@@ -209,7 +214,7 @@ public class WorkerThread implements Runnable {
                 String name = jsonObject.getString("Name");
                 String lobbyID = jsonObject.getString("Lobby");
 
-                if(LobbyList.getLobby(lobbyID) != null) {
+                if(LobbyList.getLobby(lobbyID) != null && !LobbyList.getLobby(lobbyID).isStarted()) {
 
                     int playerCount = LobbyList.getLobby(lobbyID).getPlayerCount();
                     int maxPlayerCount = LobbyList.getLobby(lobbyID).getMax_player_count();
@@ -348,6 +353,7 @@ public class WorkerThread implements Runnable {
 
                 List<Player> playerList = LobbyList.getPlayersFromLobby(receiveThread.getPlayer());
                 List<Player> players = LobbyList.getLobbyWithPlayer(receiveThread.getPlayer()).getPlayers();
+                Lobby l = LobbyList.getLobbyWithPlayer(receiveThread.getPlayer());
 
                 if (playerList != null && players.size() > 1) {
                     Game game = new Game(playerList);
@@ -356,7 +362,7 @@ public class WorkerThread implements Runnable {
                     for (Player player : game.getPlayers()) {
                         player.setCurrentGame(game);
                     }
-
+                    l.setStarted(true);
                     game.start();
                 }
             }
