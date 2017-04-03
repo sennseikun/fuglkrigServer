@@ -11,12 +11,12 @@ public class GameObject {
     private int code;
     private String defaultImageLocation;
 
-    private double x;
-    private double y;
-    private double width;
-    private double height;
+    private int x;
+    private int y;
+    private int width;
+    private int height;
 
-    public GameObject(double x, double y, double width, double height){
+    public GameObject(int x, int y, int width, int height){
         this.width = width;
         this.y = y;
         this.height = height;
@@ -46,11 +46,11 @@ public class GameObject {
     }
 
 
-    public void setHeight(double height){
+    public void setHeight(int height){
         this.height = height;
     }
 
-    public void setWidth(double width){
+    public void setWidth(int width){
         this.width = width;
     }
 
@@ -58,7 +58,7 @@ public class GameObject {
      *
      * @return the x value of a gameObject
      */
-    public double getX(){
+    public int getX(){
         return x;
     }
 
@@ -66,7 +66,7 @@ public class GameObject {
      *
      * @return the y value of a gameObject
      */
-    public double getY(){
+    public int getY(){
         return y;
     }
 
@@ -74,7 +74,7 @@ public class GameObject {
      *
      * @return the width of the object
      */
-    public double getWidth(){
+    public int getWidth(){
         return width;
     }
 
@@ -82,7 +82,7 @@ public class GameObject {
      *
      * @return the height of the object
      */
-    public double getHeight(){
+    public int getHeight(){
         return height;
     }
 
@@ -110,11 +110,11 @@ public class GameObject {
         this.code = code;
     }
 
-    public void setX(double x) {
+    public void setX(int x) {
         this.x = x;
     }
 
-    public void setY(double y) {
+    public void setY(int y) {
         this.y = y;
     }
 }

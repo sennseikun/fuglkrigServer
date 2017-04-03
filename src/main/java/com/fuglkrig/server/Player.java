@@ -489,4 +489,9 @@ public class Player {
     public void setDy(double dy) {
         this.dy = dy;
     }
+
+    public BufferedImage getFugl_image(){
+        return fugl_image;
+    }
+
 }

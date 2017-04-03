@@ -64,7 +64,8 @@ public class CollisionDetection {
     public static boolean collisionPowerup(EntityBird b, ArrayList<EntityPowerUp> powerUps){
         for (EntityPowerUp powerUp: powerUps) {
             if(b.getBounds().intersects(powerUp.getBounds())){
-                return checkCollision((GameObject)b, (GameObject)powerUp);
+                return true;
+                //return checkCollision((GameObject)b, (GameObject)powerUp);
             }
         }
         return false;
@@ -77,7 +78,8 @@ public class CollisionDetection {
     public static boolean collision(EntityBird bird, ArrayList<EntityWall> walls){
         for (EntityWall wall: walls) {
             if(bird.getBounds().intersects(wall.getBounds())){
-                return checkCollision((GameObject)bird, (GameObject)wall);
+                return true;
+                //return checkCollision((GameObject)bird, (GameObject)wall);
             }
         }
         return false;
@@ -89,7 +91,8 @@ public class CollisionDetection {
     public static boolean collision(EntityWall w, ArrayList<EntityWall> walls){
         for (EntityWall wall: walls) {
             if(w.getBounds().intersects(wall.getBounds())){
-                return checkCollision((GameObject)w, (GameObject)wall);
+                return true;
+                //return checkCollision((GameObject)w, (GameObject)wall);
             }
         }
         return false;
@@ -101,7 +104,8 @@ public class CollisionDetection {
     public static boolean collision(EntityCanonBall canonBall, ArrayList<EntityWall> walls){
         for (EntityWall wall: walls) {
             if(canonBall.getBounds().intersects(wall.getBounds())){
-                return checkCollision((GameObject)canonBall, (GameObject)wall);
+                return true;
+                //return checkCollision((GameObject)canonBall, (GameObject)wall);
             }
         }
         return false;
@@ -110,20 +114,20 @@ public class CollisionDetection {
     /**
      *  Returns true if there is a collision between object a and object b
      */
-    public static boolean checkCollision(GameObject a, GameObject b){
+    public static boolean checkCollision(Player a, Player b){
 
         /**
          *  This method detects to see if the images overlap at all. If they do, collision is possible
          *  todo check if this is usless with the other classes
          */
-        int ax1 = (int)a.getX();
-        int ay1 = (int)a.getY();
-        int ax2 = ax1 + (int)a.getWidth();
-        int ay2 = ay1 + (int)a.getHeight();
-        int bx1 = (int)b.getX();
-        int by1 = (int)b.getY();
-        int bx2 = bx1 + (int)b.getWidth();
-        int by2 = by1 + (int)b.getHeight();
+        int ax1 = (int)a.getCoordX();
+        int ay1 = (int)a.getCoordY();
+        int ax2 = ax1 + a.getWidth();
+        int ay2 = ay1 + a.getHeight();
+        int bx1 = (int)b.getCoordX();
+        int by1 = (int)b.getCoordY();
+        int bx2 = bx1 + b.getWidth();
+        int by2 = by1 + b.getHeight();
 
         if(by2 < ay1 || ay2 < by1 || bx2 < ax1 || ax2 < bx1)
         {
@@ -156,13 +160,13 @@ public class CollisionDetection {
      * x,y where x is the absolute x position of the pixel and y is the absolute y position of the pixel
      */
 
-    public static HashSet<String> getMask(GameObject go){
+    public static HashSet<String> getMask(Player player){
 
         HashSet<String> mask = new HashSet<String>();
         BufferedImage image = null;
         try {
-            InputStream is = go.getClass().getClassLoader().getResourceAsStream(go.getDefaultImageLocation());
-            image = ImageIO.read(is);
+
+            image = player.getFugl_image();
             int pixel, a;
             for(int i = 0; i < image.getWidth(); i++){ // for every (x,y) component in the given box,
                 for( int j = 0; j < image.getHeight(); j++){
@@ -171,11 +175,11 @@ public class CollisionDetection {
                     a= (pixel >> 24) & 0xff;
 
                     if(a != 0){  // if the alpha is not 0, it must be something other than transparent
-                        mask.add((go.getX()+i)+","+(go.getY()- j)); // add the absolute x and absolute y coordinates to our set
+                        mask.add((player.getCoordX()+i)+","+(player.getCoordY()- j)); // add the absolute x and absolute y coordinates to our set
                     }
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("error");
         }
         //System.out.println(mask);
