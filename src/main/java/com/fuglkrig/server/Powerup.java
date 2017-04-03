@@ -29,13 +29,13 @@ public class Powerup extends GameObject implements EntityPowerUp {
 
             case 0: setPowerUpName("Undeployed");
                 break;
-            case 1: setPowerUpName("Wall Forwards");
+            case 1: setPowerUpName("Walls Forwards");
                 break;
-            case 2: setPowerUpName("Wall Up");
+            case 2: setPowerUpName("Walls Up");
                 break;
-            case 3: setPowerUpName("Wall Down");
+            case 3: setPowerUpName("Walls Down");
                 break;
-            case 4: setPowerUpName("Wall Back");
+            case 4: setPowerUpName("Walls Back");
                 break;
             case 5: setPowerUpName("Birdpoop");
                 break;
