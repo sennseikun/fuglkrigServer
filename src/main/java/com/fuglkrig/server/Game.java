@@ -141,9 +141,9 @@ public class Game extends Thread {
     public void checkForCollisions(){
         for(Fugl f1: fugles){
             for(Fugl f2: fugles){
-                if(CollisionDetection.checkCollision(f1,f2) && (f1.getId() != f2.getId())){
+                /*if(CollisionDetection.checkCollision(f1,f2) && (f1.getId() != f2.getId())){
                     System.out.println("Collision");
-                }
+                }*/
                 if(CollisionDetection.dummyCollides(f1,f2) && (f1.getId() != f2.getId())){
                     System.out.println("Dummy collision");
                 }
