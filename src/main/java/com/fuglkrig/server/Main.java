@@ -3,6 +3,7 @@ package com.fuglkrig.server;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Scanner;
 
 public class Main {
@@ -12,7 +13,7 @@ public class Main {
         int port = 5555;
 
         //updates the ip address to the clients
-        URL url = null;
+        /*URL url = null;
         try {
             url = new URL("http://guttormsen.io/fuglkrig/updateip.php?code=fuGlKrig03042017'");
             Scanner s = new Scanner(url.openStream());
@@ -20,8 +21,22 @@ public class Main {
         } catch (Exception e) {
             System.out.println("couldnt update ip address");
             e.printStackTrace();
-        }
+        }*/
 
+        URL url = null;
+
+        //gets ip address to server
+        try {
+            String code = "fuGlKrig03042017";
+            url = new URL("http://guttormsen.io/fuglkrig/updateip.php?code=" + URLEncoder.encode(code, "UTF-8"));
+
+            Scanner s = new Scanner(url.openStream());
+            System.out.println("information from server");
+            System.out.println(s.nextLine());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
 
