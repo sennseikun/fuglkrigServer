@@ -13,6 +13,7 @@ public class Powerup extends GameObject implements EntityPowerUp {
 
     private int type;
     private String powerUpName;
+    private int damage;
 
     private BufferedImage img = null;
 
@@ -20,6 +21,7 @@ public class Powerup extends GameObject implements EntityPowerUp {
         super(x, y, width, height);
         this.setType(type);
         this.setImg(img);
+        this.damage = 1;
 
         //TODO fix this to give powers!
         //remember to fix Powerup! It has a randint that needs to be changed

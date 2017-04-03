@@ -1,6 +1,7 @@
 package com.fuglkrig.server;
 
 import java.io.DataInputStream;
+import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;

@@ -24,7 +24,7 @@ public class Game extends Thread {
     private double timeStart = System.currentTimeMillis();
     private double timeSinceLastPowerUp;
     //in millisecounds
-    private double timeForNewPowerUp = 5000;
+    private double timeForNewPowerUp;
     private String textOnPlayerScreen;
     private int secoundsUntilStart = 6;
 
@@ -86,6 +86,7 @@ public class Game extends Thread {
         this.setTextOnPlayerScreen("");
         this.setPowerupsOnMap(new ArrayList());
         this.setSpeed(10);
+        this.setTimeForNewPowerUp(5000);
 
         //creating map
         Random rand = new Random();
