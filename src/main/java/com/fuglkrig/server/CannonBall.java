@@ -9,12 +9,12 @@ import java.awt.*;
  */
 public class CannonBall extends GameObject implements EntityCanonBall {
 
-    public CannonBall(double x, double y, double height, double width){
+    public CannonBall(int x, int y, int height, int width) {
         super(x, y, width, height);
     }
 
     /**
-     *  Updateing the movement of the CannonBall
+     * Updateing the movement of the CannonBall
      **/
     public void tick() {
         setX(super.getX() + 10);
@@ -24,23 +24,23 @@ public class CannonBall extends GameObject implements EntityCanonBall {
     }
 
     /**
-     *  Using the rectangle size to get collision detect done easier
+     * Using the rectangle size to get collision detect done easier
      **/
     public Rectangle getBounds() {
         return super.getBounds();
     }
 
     /**
-     *  Returns the x coordinate of the object
+     * Returns the x coordinate of the object
      **/
-    public double getX() {
+    public int getX() {
         return super.getX();
     }
 
     /**
-     *  Returns the y coordinate of the object
+     * Returns the y coordinate of the object
      **/
-    public double getY() {
+    public int getY() {
         return super.getY();
     }
 }

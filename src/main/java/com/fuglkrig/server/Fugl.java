@@ -12,11 +12,11 @@ import java.io.InputStream;
  */
 public class Fugl extends GameObject implements EntityBird {
 
-    private double speedX,speedY;
+    private int speedX,speedY;
     private InputStream image_is;
     private int id = -1;
 
-    public Fugl(int id,double x, double y, double height, double width){
+    public Fugl(int id,int x, int y, int height, int width){
         super(x, y, width, height);
         this.image_is = image_is;
         this.id = id;
@@ -62,7 +62,7 @@ public class Fugl extends GameObject implements EntityBird {
      * When you want to know where the bird is on the x axis
      * @return the x position of the bird
      */
-    public double getX() {
+    public int getX() {
         return super.getX();
     }
 
@@ -70,7 +70,7 @@ public class Fugl extends GameObject implements EntityBird {
      * When you want to know where the bird is on the y axis
      * @return the y position of the bird
      */
-    public double getY() {
+    public int getY() {
         return super.getY();
     }
 
@@ -94,7 +94,7 @@ public class Fugl extends GameObject implements EntityBird {
      * setting the speed of the bird in the x axis
      * @param speedX
      */
-    public void setSpeedX(double speedX) {
+    public void setSpeedX(int speedX) {
         this.speedX = speedX;
     }
 
@@ -102,7 +102,7 @@ public class Fugl extends GameObject implements EntityBird {
      * Setting the speed of the bird in the y axis
      * @param speedY
      */
-    public void setSpeedY(double speedY) {
+    public void setSpeedY(int speedY) {
         this.speedY = speedY;
     }
 

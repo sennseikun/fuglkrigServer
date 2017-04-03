@@ -11,7 +11,7 @@ public interface EntityPowerUp {
     public void tick(int speed);
     public Rectangle getBounds();
 
-    public double getX();
-    public double getY();
+    public int getX();
+    public int getY();
 
 }

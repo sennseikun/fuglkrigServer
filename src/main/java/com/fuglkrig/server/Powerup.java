@@ -83,14 +83,14 @@ public class Powerup extends GameObject implements EntityPowerUp {
     /**
      * @return the powerups x value
      */
-    public double getX() {
+    public int getX() {
         return super.getX();
     }
 
     /**
      * @return the powerups y value
      */
-    public double getY() {
+    public int getY() {
         return super.getY();
     }
 

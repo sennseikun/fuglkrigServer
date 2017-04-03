@@ -10,7 +10,7 @@ public interface EntityWall {
     public void tick();
     public Rectangle getBounds();
 
-    public double getX();
-    public double getY();
+    public int getX();
+    public int getY();
 
 }
