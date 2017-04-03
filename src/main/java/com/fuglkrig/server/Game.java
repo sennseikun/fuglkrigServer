@@ -474,6 +474,7 @@ public class Game extends Thread {
                 //Updates the fugles representations on server
                 //Check for collisions between fugles
                 checkForCollisions();
+                checkForPowerupCollisions();
 
                 //kills the server if no one is left
                 if (getPlayers().size() == 0) {
