@@ -159,7 +159,7 @@ public class CollisionDetection {
         } catch (IOException e) {
             System.out.println("error");
         }
-        System.out.println(mask);
+        //System.out.println(mask);
 
         return mask;  //return our set
 
