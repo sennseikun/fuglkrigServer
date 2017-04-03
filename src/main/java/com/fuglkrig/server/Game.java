@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
+import com.fuglkrig.server.classes.EntityBird;
 import org.json.*;
 
 import javax.imageio.ImageIO;
@@ -18,7 +19,7 @@ import javax.imageio.ImageIO;
 
 public class Game extends Thread {
     List<Player> players;
-    List<Fugl> fugles = new ArrayList<>();
+    ArrayList<EntityBird> fugles = new ArrayList<>();
     Thread game;
     Map map;
     double timeStart = System.currentTimeMillis();
@@ -139,14 +140,9 @@ public class Game extends Thread {
     }
 
     public void checkForCollisions(){
-        for(Fugl f1: fugles){
-            for(Fugl f2: fugles){
-                /*if(CollisionDetection.checkCollision(f1,f2) && (f1.getId() != f2.getId())){
-                    System.out.println("Collision");
-                }*/
-                if(CollisionDetection.dummyCollides(f1,f2) && (f1.getId() != f2.getId())){
-                    System.out.println("Dummy collision");
-                }
+        for(EntityBird f1: fugles){
+            if(CollisionDetection.collisionBird(f1,fugles)){
+                System.out.println("Dummy collision");
             }
         }
     }
