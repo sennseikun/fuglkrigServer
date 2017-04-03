@@ -148,8 +148,8 @@ public class Game extends Thread {
     public void checkForPowerupCollisions(){
         for (Powerup pUp: powerupsOnMap) {
             for (Player p: players){
-                if(CollisionDetection.playerPowerupCollision(p,pUp, fuglScale,powerupBoxScale)){
-                    powerupsOnMap.remove(pUp);
+                if(CollisionDetection.playerPowerupCollision(p,pUp, fuglScale,powerupBoxScale, this)){
+                    //powerupsOnMap.remove(pUp);
                     System.out.println("lol!!");
                 }
             }
@@ -682,6 +682,10 @@ public class Game extends Thread {
 
     public void setPowerupsOnMap(List<Powerup> powerupsOnMap) {
         this.powerupsOnMap = powerupsOnMap;
+    }
+
+    public void removePowerupOnMap(Powerup powerup){
+        powerupsOnMap.remove(powerup);
     }
 
     public Timer getTimer() {
