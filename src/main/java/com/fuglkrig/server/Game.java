@@ -43,6 +43,11 @@ public class Game extends Thread {
     private int fugl_width = 0;
     private BufferedImage fugl_image = null;
 
+    private double fuglScale = 1.5;
+    private double powerupBoxScale = 1.5;
+    private double birdpoopScale = 1.5;
+    private double wallScale = 1.5;
+
     //powerups on map
     private List<Powerup> powerupsOnMap;
 
@@ -202,7 +207,11 @@ public class Game extends Thread {
             playerData.put("Direction", player.getDirection());
             playerData.put("Speed", player.getSpeed());
             playerData.put("Alive", player.getAlive());
-            playerData.put("powerups", player.getPowerups());
+
+
+            //powerups in inventory
+            JSONArray powerupList = new JSONArray(player.getPowerups());
+            playerData.put("Powerups", powerupList);
 
             /**
              * put playerdocument to list over players.
@@ -257,6 +266,25 @@ public class Game extends Thread {
             this.getPowerupsOnMap().add(pu);
             setTimeStart(System.currentTimeMillis());
         }
+    }
+
+    public void addPowerup(int type, int x, int y) {
+        BufferedImage img = null;
+        //todo make sure the right image is loaded for the right powerup.
+
+        //loads powerup image
+        try {
+            InputStream is = this.getClass().getClassLoader().getResourceAsStream("brickwall.png");
+            img = ImageIO.read(is);
+        } catch (IOException e) {
+            System.out.println("Cant find powerup.bmp");
+            System.out.println(e);
+        }
+
+        Powerup pu = new Powerup(x, y, img.getHeight(), img.getWidth(), type, img);
+
+
+
     }
 
     public void MovePowerups() {
@@ -320,6 +348,11 @@ public class Game extends Thread {
         startGame.put("MapXPos", this.getMap().getMapXPos());
         startGame.put("NextMapXPos", this.getMap().getNextMapXPos());
         startGame.put("WinMapXPos", this.getMap().getWinMapXPos());
+        startGame.put("PlayerScale", fuglScale);
+        startGame.put("BirdPoopScale", birdpoopScale);
+        startGame.put("WallScale", wallScale);
+        startGame.put("PowerupScale", powerupBoxScale);
+
 
         JSONArray listOfPlayers = new JSONArray();
 
