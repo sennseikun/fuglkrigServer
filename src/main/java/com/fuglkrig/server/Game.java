@@ -146,13 +146,17 @@ public class Game extends Thread {
     }
     
     public void checkForPowerupCollisions(){
+        Powerup powerup = null;
         for (Powerup pUp: powerupsOnMap) {
             for (Player p: players){
                 if(CollisionDetection.playerPowerupCollision(p,pUp, fuglScale,powerupBoxScale, this)){
-                    //powerupsOnMap.remove(pUp);
+                    powerup=pUp;
                     System.out.println("lol!!");
                 }
             }
+        }
+        if(powerup != null){
+            powerupsOnMap.remove(powerup);
         }
     }
 

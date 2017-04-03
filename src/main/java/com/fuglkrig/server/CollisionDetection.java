@@ -49,7 +49,7 @@ public class CollisionDetection {
      */
     public static boolean playerPowerupCollision(Player p1, Powerup pUp, double scaleP, double scalePUp, Game game){
         if(p1.getRectangle(scaleP).intersects(pUp.getBounds(scalePUp)) || p1.getRectangle(scaleP).contains(pUp.getBounds(scalePUp))){
-            game.removePowerupOnMap(pUp);
+            //game.removePowerupOnMap(pUp);
             //p1.addPowerUp(pUp.getType());
             return true;
         }
