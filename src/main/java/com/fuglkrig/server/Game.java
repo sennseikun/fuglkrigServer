@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
+import com.fuglkrig.server.classes.EntityBird;
 import org.json.*;
 
 import javax.imageio.ImageIO;
@@ -17,7 +18,7 @@ import javax.imageio.ImageIO;
 
 public class Game extends Thread {
     private List<Player> players;
-    private List<Fugl> fugles = new ArrayList<>();
+    private ArrayList<EntityBird> fugles = new ArrayList<>();
     private Thread game;
     private Map map;
     private double timeStart = System.currentTimeMillis();
@@ -94,12 +95,43 @@ public class Game extends Thread {
 
     }
 
-    public void checkForCollision(){
-        for(Player p1: players){
-            for(Player p2: players){
-                if(p1 != p2 && CollisionDetection.PlayerCollision(p1,p2)){
-                    System.out.println("Player " + p1.getNick() + " collided with " + p2.getNick());
-                }
+    public void initFugles(){
+        try {
+            InputStream is = this.getClass().getClassLoader().getResourceAsStream("bird.png");
+            fugl_image = ImageIO.read(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        updateFugles();
+    }
+
+    public void updateFugles(){
+
+        fugles.clear();
+
+        fugl_height = fugl_image.getHeight();
+        fugl_width = fugl_image.getWidth();
+
+        //System.out.println(fugl_image.toString());
+
+        for(Player p: players){
+            double x = p.getCoordX();
+            double y = p.getCoordY();
+
+            Fugl f = new Fugl(p.getPlayerID(),x,y,fugl_height,fugl_width);
+            f.setDefaultImageLocation("bird.png");
+
+            //System.out.println(f.toString());
+
+            fugles.add(f);
+        }
+    }
+
+    public void checkForCollisions(){
+        for(EntityBird f1: fugles){
+            if(CollisionDetection.collisionBird(f1,fugles)) {
+                System.out.println("Dummy collision");
             }
         }
     }
@@ -393,7 +425,7 @@ public class Game extends Thread {
                 lastManStanding();
                 //Updates the fugles representations on server
                 //Check for collisions between fugles
-                checkForCollision();
+                checkForCollisions();
 
                 //kills the server if no one is left
                 if (getPlayers().size() == 0) {
@@ -443,11 +475,11 @@ public class Game extends Thread {
         this.players = players;
     }
 
-    public List<Fugl> getFugles() {
+    public ArrayList<EntityBird> getFugles() {
         return fugles;
     }
 
-    public void setFugles(List<Fugl> fugles) {
+    public void setFugles(ArrayList<EntityBird> fugles) {
         this.fugles = fugles;
     }
 

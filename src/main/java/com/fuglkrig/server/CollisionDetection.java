@@ -18,6 +18,13 @@ import java.util.HashSet;
  */
 public class CollisionDetection {
 
+    public static boolean dummyCollides(GameObject g1, GameObject g2) {
+        if (g1.getBounds().intersects(g2.getBounds())) {
+            return true;
+        }
+        return false;
+    }
+
     /**
      *  Checking if the rectangle of the birds are colliding and calling pixel perfect collision detection
      */
@@ -56,10 +63,15 @@ public class CollisionDetection {
         }
     }
 
+    /**
+     *  Checking if the rectangle of the birds are colliding and calling pixel perfect collision detection
+     */
     public static boolean collisionBird(EntityBird b, ArrayList<EntityBird> birds){
         for (EntityBird bird: birds) {
             if(b.getBounds().intersects(bird.getBounds())){
-                return checkCollision((GameObject)b, (GameObject)bird);
+                return true;
+                //Todo move the birds
+                //return checkCollision((GameObject)b, (GameObject)bird);
             }
         }
         return false;
