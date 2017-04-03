@@ -75,9 +75,6 @@ public class Game extends Thread {
 
     private boolean lastManStanding;
 
-    public void moveLastManStanding() {
-
-    }
 
     /**
      * Create a game with the list of players.
@@ -99,6 +96,10 @@ public class Game extends Thread {
         //TODO NEEDS TO BE CHANGED TO 3 WHEN LAST MAP IS ADDED
         this.setMap(new Map(rand.nextInt(3) + 1));
         System.out.println("New game created. Map: " + getMap().getMapName());
+
+    }
+
+    public void moveLastManStanding() {
 
     }
 
@@ -438,6 +439,13 @@ public class Game extends Thread {
         System.out.println("gameloop started");
 
         //todo Should probably make a timeout when we stop waiting for players to connect.
+
+        //give random coordinates to the players
+        for (Player player: players) {
+            player.setCoordX(rand.nextInt(gameSizeX - 50));
+            player.setCoordY(rand.nextInt(gameSizeY - 50));
+        }
+
 
         /**
          * Checks if all users are ready to start before moving on to other tasks.
