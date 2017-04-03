@@ -1,25 +1,48 @@
 package com.fuglkrig.server;
 
-import javafx.scene.shape.Circle;
-
 import java.awt.*;
 
 /**
  * Created by Magnus on 03.03.2017.
  */
 public class GameObject {
-    String nick;
-    int id;
-    int code;
-    String defaultImageLocation;
+    private String nick;
+    private int id;
+    private int code;
+    private String defaultImageLocation;
 
-    double x, y, width, height;
+    private double x;
+    private double y;
+    private double width;
+    private double height;
 
     public GameObject(double x, double y, double width, double height){
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+        this.setX(x);
+        this.setY(y);
+        this.setWidth(width);
+        this.setHeight(height);
+    }
+
+
+
+    /**
+     * Used for bitmapping on the collisiondetection
+     * @return a sting with the location of the fugl_image
+     */
+    public String getDefaultImageLocation(){
+        return defaultImageLocation;
+    }
+
+    public void setDefaultImageLocation(String imageLocation){
+        this.defaultImageLocation = imageLocation;
+    }
+
+    /**
+     * Used for collisiondetection
+     * @return a rectangle that surrounds the the game object
+     */
+    public Rectangle getBounds(){
+        return new Rectangle((int) getX(), (int) getY(), (int) getWidth(),(int) getHeight());
     }
 
     public void setX(double x){
@@ -69,24 +92,43 @@ public class GameObject {
         return height;
     }
 
-    /**
-     * Used for bitmapping on the collisiondetection
-     * @return a sting with the location of the fugl_image
-     */
-    public String getDefaultImageLocation(){
-        return defaultImageLocation;
+    public String getNick() {
+        return nick;
     }
 
-    public void setDefaultImageLocation(String imageLocation){
-        this.defaultImageLocation = imageLocation;
+    public void setNick(String nick) {
+        this.nick = nick;
     }
 
-    /**
-     * Used for collisiondetection
-     * @return a rectangle that surrounds the the game object
-     */
-    public Rectangle getBounds(){
-        return new Rectangle((int)x, (int)y, (int)width ,(int)height);
+    public int getId() {
+        return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
 }

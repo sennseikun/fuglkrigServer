@@ -17,7 +17,7 @@ public class CannonBall extends GameObject implements EntityCanonBall {
      *  Updateing the movement of the CannonBall
      **/
     public void tick() {
-        x += 10;
+        setX(super.getX() + 10);
         /*if(CollisionDetection.collision(this,e)){
             //Todo destroy wall
         }*/
@@ -34,13 +34,13 @@ public class CannonBall extends GameObject implements EntityCanonBall {
      *  Returns the x coordinate of the object
      **/
     public double getX() {
-        return x;
+        return super.getX();
     }
 
     /**
      *  Returns the y coordinate of the object
      **/
     public double getY() {
-        return y;
+        return super.getY();
     }
 }

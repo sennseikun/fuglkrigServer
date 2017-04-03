@@ -1,12 +1,8 @@
 package com.fuglkrig.server;
 
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -18,11 +14,11 @@ import org.json.JSONObject;
  */
 public class ReceiveThread extends Thread {
 
-    Socket inputSocket;
-    int id;
-    Player player;
-    boolean running;
-    ExecutorService executor;
+    private Socket inputSocket;
+    private int id;
+    private Player player;
+    private boolean running;
+    private ExecutorService executor;
 
     /**
      * Thread that is receiving threads
@@ -32,15 +28,15 @@ public class ReceiveThread extends Thread {
     public ReceiveThread(Socket inputSocket, int id){
         this.inputSocket = inputSocket;
         this.id = id;
-        this.running = true;
-        executor = Executors.newFixedThreadPool(3);
+        this.setRunning(true);
+        setExecutor(Executors.newFixedThreadPool(3));
     }
 
     /**
      * stopping the thread that is running
      */
     public void stopThread(){
-        this.running = false;
+        this.setRunning(false);
     }
 
     /**
@@ -49,7 +45,7 @@ public class ReceiveThread extends Thread {
     public void stopConnection(){
         try {
 
-            Lobby removeLobby = LobbyList.getLobbyWithPlayer(player);
+            Lobby removeLobby = LobbyList.getLobbyWithPlayer(getPlayer());
 
 
             if(removeLobby != null){
@@ -57,27 +53,27 @@ public class ReceiveThread extends Thread {
                 System.out.println("Found removelobby" + removeLobby.getName());
 
                 for(Player p : removeLobby.getPlayers()){
-                    if(!p.getNick().equals(player.getNick())){
+                    if(!p.getNick().equals(getPlayer().getNick())){
                         System.out.println("Sending remove request to " + p.getNick());
-                        p.removeFromGameLobby(player.getNick(),removeLobby.getName(),removeLobby.getPlayers());
+                        p.removeFromGameLobby(getPlayer().getNick(),removeLobby.getName(),removeLobby.getPlayers());
                     }
                 }
             }
 
-            OnlinePlayers.removePlayer(player);
-            System.out.println("Removed player: " + player.getNick());
+            OnlinePlayers.removePlayer(getPlayer());
+            System.out.println("Removed player: " + getPlayer().getNick());
             LobbyList.updateLobbies();
             LobbyList.remove_empty_lists();
 
-            executor.shutdown();
+            getExecutor().shutdown();
 
-            while (!executor.isTerminated()) {
+            while (!getExecutor().isTerminated()) {
                 //System.out.println("Terminating worker threads");
             }
 
             System.out.println("Terminated worker thread");
 
-            inputSocket.close();
+            getInputSocket().close();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -104,12 +100,12 @@ public class ReceiveThread extends Thread {
      */
     @Override
     public void run(){
-        while(running){
+        while(isRunning()){
             try {
 
                 //TODO. her burde vi sjekke om det FAKTISK er data som venter. hvis ikke kan vi hoppe over resten. da slipper vi EOFException
                 DataInputStream in;
-                in = new DataInputStream(inputSocket.getInputStream());
+                in = new DataInputStream(getInputSocket().getInputStream());
                 String message = in.readUTF();
 
                 int datatype = -1;
@@ -129,8 +125,8 @@ public class ReceiveThread extends Thread {
                  */
 
                 if(datatype == 0){
-                    Runnable worker = new WorkerThread(this,id,"0",inputSocket,message);
-                    executor.execute(worker);
+                    Runnable worker = new WorkerThread(this, getReceiveThreadId(),"0", getInputSocket(),message);
+                    getExecutor().execute(worker);
                 }
 
                 /**
@@ -139,8 +135,8 @@ public class ReceiveThread extends Thread {
 
                 else if(datatype == 1 || datatype == 10){
 
-                    Runnable worker = new WorkerThread(this,id,"1",inputSocket,message);
-                    executor.execute(worker);
+                    Runnable worker = new WorkerThread(this, getReceiveThreadId(),"1", getInputSocket(),message);
+                    getExecutor().execute(worker);
                 }
 
                 /**
@@ -148,8 +144,8 @@ public class ReceiveThread extends Thread {
                  */
                 else if(datatype == 2){
                     System.out.println("Executing worker thread 2");
-                    Runnable worker = new WorkerThread(this,id,"2",inputSocket,message);
-                    executor.execute(worker);
+                    Runnable worker = new WorkerThread(this, getReceiveThreadId(),"2", getInputSocket(),message);
+                    getExecutor().execute(worker);
                 }
 
 
@@ -158,8 +154,8 @@ public class ReceiveThread extends Thread {
                  */
 
                 else if(datatype == 3){
-                    Runnable worker = new WorkerThread(this,id,"3",inputSocket,message);
-                    executor.execute(worker);
+                    Runnable worker = new WorkerThread(this, getReceiveThreadId(),"3", getInputSocket(),message);
+                    getExecutor().execute(worker);
                 }
 
                 /**
@@ -167,8 +163,8 @@ public class ReceiveThread extends Thread {
                  */
 
                 else if(datatype == 4){
-                    Runnable worker = new WorkerThread(this,id,"4",inputSocket,message);
-                    executor.execute(worker);
+                    Runnable worker = new WorkerThread(this, getReceiveThreadId(),"4", getInputSocket(),message);
+                    getExecutor().execute(worker);
 
                 }
 
@@ -177,21 +173,21 @@ public class ReceiveThread extends Thread {
                 }
 
                 else if(datatype == 8){
-                    Runnable worker = new WorkerThread(this,id,"8",inputSocket,message);
-                    executor.execute(worker);
+                    Runnable worker = new WorkerThread(this, getReceiveThreadId(),"8", getInputSocket(),message);
+                    getExecutor().execute(worker);
                 }
 
                 /**
                  * this starts the gameloop
                  */
                 else if(datatype == 11) {
-                    Runnable worker = new WorkerThread(this,id,"11",inputSocket,message);
-                    executor.execute(worker);
+                    Runnable worker = new WorkerThread(this, getReceiveThreadId(),"11", getInputSocket(),message);
+                    getExecutor().execute(worker);
                 }
 
                 else if(datatype == 12) {
-                    Runnable worker = new WorkerThread(this,id,"12",inputSocket,message);
-                    executor.execute(worker);
+                    Runnable worker = new WorkerThread(this, getReceiveThreadId(),"12", getInputSocket(),message);
+                    getExecutor().execute(worker);
                 }
 
                 else{
@@ -205,5 +201,37 @@ public class ReceiveThread extends Thread {
         }
         stopConnection();
         stopThread();
+    }
+
+    public Socket getInputSocket() {
+        return inputSocket;
+    }
+
+    public void setInputSocket(Socket inputSocket) {
+        this.inputSocket = inputSocket;
+    }
+
+    public int getReceiveThreadId() {
+        return this.id;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public boolean isRunning() {
+        return running;
+    }
+
+    public void setRunning(boolean running) {
+        this.running = running;
+    }
+
+    public ExecutorService getExecutor() {
+        return executor;
+    }
+
+    public void setExecutor(ExecutorService executor) {
+        this.executor = executor;
     }
 }

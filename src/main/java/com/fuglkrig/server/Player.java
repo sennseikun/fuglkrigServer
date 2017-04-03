@@ -17,27 +17,24 @@ import java.util.List;
  * Created by Magnus on 03.03.2017.
  */
 public class Player {
-    String nick;
-    int playerID;
-    int hp;
-    int skin;
-    double targetPosX;
-    double targetPosY;
-    double coordX;
-    double coordY;
-    double xSpeed;
-    double ySpeed;
-    double direction;
-    double speed;
-    boolean alive;
+    private String nick;
+    private int playerID;
+    private int hp;
+    private int skin;
+    private double targetPosX;
+    private double targetPosY;
+    private double coordX;
+    private double coordY;
+    private double xSpeed;
+    private double ySpeed;
+    private double direction;
+    private double speed;
+    private boolean alive;
 
-    /**
-     * to be able do to communication we need the socket here
-     */
-    Socket playerSocket;
+    private Socket playerSocket;
 
-    ArrayList<Integer> powerups;
-    Game currentGame;
+    private ArrayList<Integer> powerups;
+    private Game currentGame;
     private double dx;
     private double dy;
     private BufferedImage fugl_image;
@@ -50,7 +47,7 @@ public class Player {
      */
     @Override
     public String toString(){
-        return nick;
+        return getNick();
     }
 
     /**
@@ -61,17 +58,17 @@ public class Player {
      * @param connection
      */
     public Player(String nick, int playerID, int skin, Socket connection) {
-        this.nick = nick;
-        this.playerID = playerID;
-        this.skin = skin;
-        this.playerSocket = connection;
-        this.alive = true;
-        this.targetPosX = 1;
-        this.targetPosY = 1;
+        this.setNick(nick);
+        this.setPlayerID(playerID);
+        this.setSkin(skin);
+        this.setPlayerSocket(connection);
+        this.setAlive(true);
+        this.setTargetPosX(1);
+        this.setTargetPosY(1);
         this.coordX = 5;
         this.coordY = 5;
-        this.xSpeed = 5;
-        this.ySpeed = 5;
+        this.setxSpeed(5);
+        this.setySpeed(5);
 
         try {
             InputStream is = this.getClass().getClassLoader().getResourceAsStream("bird.png");
@@ -136,10 +133,10 @@ public class Player {
                 sendJson.put("PlayerCount",Integer.toString(players.size()));
             }
 
-            System.out.println(playerSocket);
+            System.out.println(getPlayerSocket());
             System.out.println(sendJson);
 
-            DataOutputStream out = new DataOutputStream(playerSocket.getOutputStream());
+            DataOutputStream out = new DataOutputStream(getPlayerSocket().getOutputStream());
             out.writeUTF(sendJson.toString());
 
             System.out.println("Sent adding update to player: "+getNick());
@@ -175,7 +172,7 @@ public class Player {
 
             sendJson.put("PlayerName",name);
 
-            DataOutputStream out = new DataOutputStream(playerSocket.getOutputStream());
+            DataOutputStream out = new DataOutputStream(getPlayerSocket().getOutputStream());
             out.writeUTF(sendJson.toString());
 
             System.out.println("Sent removing update to player: "+getNick());
@@ -185,6 +182,8 @@ public class Player {
     }
 
     /**
+     * to be able do to communication we need the socket here
+     */ /**
      * @return the players socket
      */
     public Socket getPlayerSocket(){
@@ -256,11 +255,11 @@ public class Player {
     }
 
     public void UpdateDxDy(){
-        dx = targetPosX - coordX;
-        dy = targetPosY - coordY;
-        float targetPosLength = (float) Math.sqrt(dx*dx + dy*dy);
-        this.xSpeed = dx/targetPosLength;
-        this.ySpeed = dy/targetPosLength;
+        setDx(getTargetPosX() - getCoordX());
+        setDy(getTargetPosY() - getCoordY());
+        float targetPosLength = (float) Math.sqrt(getDx() * getDx() + getDy() * getDy());
+        this.setxSpeed(getDx() /targetPosLength);
+        this.setySpeed(getDy() /targetPosLength);
     }
 
     public void setTargetPosY(double y){
@@ -290,7 +289,7 @@ public class Player {
      * @return if the player is alive or not
      */
     public boolean getAlive() {
-        return this.alive;
+        return this.isAlive();
     }
 
     /**
@@ -322,7 +321,7 @@ public class Player {
      * @param game
      */
     public void setGame(Game game) {
-        this.currentGame = game;
+        this.setCurrentGame(game);
     }
 
     /**
@@ -332,15 +331,15 @@ public class Player {
     public void nextTick() {
 
 
-        if ((dx > 0 && coordX >= targetPosX) || (dx < 0 && coordX <= targetPosX)){
-            this.xSpeed = 0;
+        if ((getDx() > 0 && getCoordX() >= getTargetPosX()) || (getDx() < 0 && getCoordX() <= getTargetPosX())){
+            this.setxSpeed(0);
         }
-        if ((dy > 0 && coordY >= targetPosY) || (dy < 0 && coordY <= targetPosY)){
-            this.ySpeed = 0;
+        if ((getDy() > 0 && getCoordY() >= getTargetPosY()) || (getDy() < 0 && getCoordY() <= getTargetPosY())){
+            this.setySpeed(0);
         }
 
-        this.coordX += xSpeed * 15;
-        this.coordY += ySpeed * 15;
+        this.setCoordX(this.getCoordX() + getxSpeed() * 15);
+        this.setCoordY(this.getCoordY() + getySpeed() * 15);
     }
 
 
@@ -348,16 +347,16 @@ public class Player {
      * make all game specific variables something that doesnt make sence. like negatives.
      */
     public void notInGame() {
-        this.hp = -1;
-        this.targetPosY = -1;
-        this.targetPosX = -1;
+        this.setHp(-1);
+        this.setTargetPosY(-1);
+        this.setTargetPosX(-1);
         this.coordX = -1;
         this.coordY = -1;
-        this.direction = -1;
-        this.speed = -1;
-        this.alive = false;
+        this.setDirection(-1);
+        this.setSpeed(-1);
+        this.setAlive(false);
         this.powerups.clear();
-        this.currentGame = null;
+        this.setCurrentGame(null);
     }
 
     /**
@@ -367,7 +366,7 @@ public class Player {
 
         DataOutputStream out = null;
         try {
-            out = new DataOutputStream(playerSocket.getOutputStream());
+            out = new DataOutputStream(getPlayerSocket().getOutputStream());
             out.writeUTF(data.toString());
         } catch (IOException e) {
             e.printStackTrace();
@@ -380,8 +379,8 @@ public class Player {
      * @param nick
      */
     public void UpdatePlayerSettings(int skin, String nick) {
-        this.nick = nick;
-        this.skin = skin;
+        this.setNick(nick);
+        this.setSkin(skin);
     }
 
     /**
@@ -406,5 +405,88 @@ public class Player {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+    public void setNick(String nick) {
+        this.nick = nick;
+    }
+
+    public void setPlayerID(int playerID) {
+        this.playerID = playerID;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    public void setSkin(int skin) {
+        this.skin = skin;
+    }
+
+    public void setCoordX(double coordX) {
+        this.coordX = coordX;
+    }
+
+    public void setCoordY(double coordY) {
+        this.coordY = coordY;
+    }
+
+    public double getxSpeed() {
+        return xSpeed;
+    }
+
+    public void setxSpeed(double xSpeed) {
+        this.xSpeed = xSpeed;
+    }
+
+    public double getySpeed() {
+        return ySpeed;
+    }
+
+    public void setySpeed(double ySpeed) {
+        this.ySpeed = ySpeed;
+    }
+
+    public void setDirection(double direction) {
+        this.direction = direction;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void setPlayerSocket(Socket playerSocket) {
+        this.playerSocket = playerSocket;
+    }
+
+    public void setPowerups(ArrayList<Integer> powerups) {
+        this.powerups = powerups;
+    }
+
+    public Game getCurrentGame() {
+        return currentGame;
+    }
+
+    public void setCurrentGame(Game currentGame) {
+        this.currentGame = currentGame;
+    }
+
+    public double getDx() {
+        return dx;
+    }
+
+    public void setDx(double dx) {
+        this.dx = dx;
+    }
+
+    public double getDy() {
+        return dy;
+    }
+
+    public void setDy(double dy) {
+        this.dy = dy;
     }
 }

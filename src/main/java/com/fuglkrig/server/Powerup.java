@@ -3,47 +3,42 @@ package com.fuglkrig.server;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.Random;
 
 import com.fuglkrig.server.classes.EntityPowerUp;
-
-import javax.imageio.ImageIO;
 
 /**
  * Created by Tore on 20.03.2017.
  */
 public class Powerup extends GameObject implements EntityPowerUp {
 
-    int type;
-    String powerUpName;
+    private int type;
+    private String powerUpName;
 
-    BufferedImage img = null;
+    private BufferedImage img = null;
 
     public Powerup(int x, int y, int height, int width, int type, BufferedImage img){
         super(x, y, width, height);
-        this.type = type;
-        this.img = img;
+        this.setType(type);
+        this.setImg(img);
 
         //TODO fix this to give powers!
         //remember to fix Powerup! It has a randint that needs to be changed
-        switch (this.type) {
-            case 1: powerUpName = "Wall Forwards";
+        switch (this.getType()) {
+            case 1: setPowerUpName("Wall Forwards");
                 break;
-            case 2: powerUpName = "Wall Up";
+            case 2: setPowerUpName("Wall Up");
                 break;
-            case 3: powerUpName = "Wall Down";
+            case 3: setPowerUpName("Wall Down");
                 break;
-            case 4: powerUpName = "Wall Back";
+            case 4: setPowerUpName("Wall Back");
                 break;
-            case 5: powerUpName = "Cannonball";
+            case 5: setPowerUpName("Cannonball");
                 break;
-            case 6: powerUpName = "SpeedUp";
+            case 6: setPowerUpName("SpeedUp");
                 break;
-            case 7: powerUpName = "SpeedDown";
+            case 7: setPowerUpName("SpeedDown");
                 break;
-            case 8: powerUpName = "Fake powerup";
+            case 8: setPowerUpName("Fake powerup");
                 break;
             default:
                 System.out.println("\n\n\nWARNING!\nThe randint in Powerup doesnt match the cases in the other Powerup constructor in the powerup file.\n\n\n ");
@@ -54,7 +49,7 @@ public class Powerup extends GameObject implements EntityPowerUp {
      * update function for the powerup
      */
     public void tick(int speed) {
-        x -= speed;
+        setX(super.getX() - speed);
     }
 
     /**
@@ -69,7 +64,7 @@ public class Powerup extends GameObject implements EntityPowerUp {
      * @return the id of the powerup
      */
     public int getId() {
-        return id;
+        return super.getId();
     }
 
     /**
@@ -84,13 +79,33 @@ public class Powerup extends GameObject implements EntityPowerUp {
      * @return the powerups x value
      */
     public double getX() {
-        return x;
+        return super.getX();
     }
 
     /**
      * @return the powerups y value
      */
     public double getY() {
-        return y;
+        return super.getY();
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public String getPowerUpName() {
+        return powerUpName;
+    }
+
+    public void setPowerUpName(String powerUpName) {
+        this.powerUpName = powerUpName;
+    }
+
+    public BufferedImage getImg() {
+        return img;
+    }
+
+    public void setImg(BufferedImage img) {
+        this.img = img;
     }
 }
