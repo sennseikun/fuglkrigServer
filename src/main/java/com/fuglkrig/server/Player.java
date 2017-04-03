@@ -3,8 +3,12 @@ package com.fuglkrig.server;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +40,9 @@ public class Player {
     Game currentGame;
     private double dx;
     private double dy;
+    private BufferedImage fugl_image;
+    private int width = 0;
+    private int height = 0;
 
     /**
      * Changes the toString to return the name of the player.
@@ -66,6 +73,18 @@ public class Player {
         this.xSpeed = 5;
         this.ySpeed = 5;
 
+        try {
+            InputStream is = this.getClass().getClassLoader().getResourceAsStream("bird.png");
+            fugl_image = ImageIO.read(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        this.width = fugl_image.getWidth();
+        this.height = fugl_image.getHeight();
+    }
+
+    public Rectangle getRectangle(){
+        return new Rectangle((int)this.getCoordX(),(int)this.getCoordY(),this.getWidth(),this.getHeight());
     }
 
     /**
@@ -373,4 +392,19 @@ public class Player {
     	return true;
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
 }

@@ -23,11 +23,9 @@ public class CollisionDetection {
      *  Checking if the rectangle of the birds are colliding and calling pixel perfect collision detection
      */
 
-    public static boolean dummyCollides(GameObject g1, GameObject g2){
-        if(g1.getBounds().intersects(g2.getBounds())){
-            return true;
-        }
-        return false;
+    public static boolean PlayerCollision(Player p1, Player p2){
+        return p1.getCoordX() < p2.getCoordX() + p2.getWidth() && p1.getCoordX() + p1.getWidth() > p2.getWidth() && p1.getCoordY() < p2.getCoordY() + p2.getHeight() && p1.getCoordY() + p1.getHeight() > p2.getCoordY();
+
     }
 
     public static boolean collisionBird(EntityBird b, ArrayList<EntityBird> birds){

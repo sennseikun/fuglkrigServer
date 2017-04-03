@@ -22,6 +22,21 @@ public class GameObject {
         this.height = height;
     }
 
+    public void setX(double x){
+        this.x = x;
+    }
+    public void setY(double y){
+        this.y = y;
+    }
+
+    public void setHeight(double height){
+        this.height = height;
+    }
+
+    public void setWidth(double width){
+        this.width = width;
+    }
+
     /**
      *
      * @return the x value of a gameObject

@@ -105,47 +105,12 @@ public class Game extends Thread {
 
     }
 
-    public void initFugles(){
-        try {
-            InputStream is = this.getClass().getClassLoader().getResourceAsStream("bird.png");
-            fugl_image = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        updateFugles();
-    }
-
-    public void updateFugles(){
-
-        fugles.clear();
-
-        fugl_height = fugl_image.getHeight();
-        fugl_width = fugl_image.getWidth();
-
-        //System.out.println(fugl_image.toString());
-
-        for(Player p: players){
-            double x = p.getCoordX();
-            double y = p.getCoordY();
-
-            Fugl f = new Fugl(p.getPlayerID(),x,y,fugl_height,fugl_width);
-            f.setDefaultImageLocation("bird.png");
-
-            //System.out.println(f.toString());
-
-            fugles.add(f);
-        }
-    }
 
     public void checkForCollisions(){
-        for(Fugl f1: fugles){
-            for(Fugl f2: fugles){
-                /*if(CollisionDetection.checkCollision(f1,f2) && (f1.getId() != f2.getId())){
-                    System.out.println("Collision");
-                }*/
-                if(CollisionDetection.dummyCollides(f1,f2) && (f1.getId() != f2.getId())){
-                    System.out.println("Dummy collision");
+        for(Player p1: players){
+            for(Player p2: players){
+                if(CollisionDetection.PlayerCollision(p1,p2)){
+                    System.out.println("Player " + p1.getNick() + " collides with " + " Player " + p2.getNick());
                 }
             }
         }
