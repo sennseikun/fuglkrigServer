@@ -97,7 +97,7 @@ public class Game extends Thread {
     public void checkForCollision(){
         for(Player p1: players){
             for(Player p2: players){
-                if(CollisionDetection.PlayerCollision(p1,p2) && p1 != p2){
+                if(p1 != p2 && CollisionDetection.PlayerCollision(p1,p2)){
                     System.out.println("Player " + p1.getNick() + " collided with " + p2.getNick());
                 }
             }

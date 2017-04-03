@@ -23,6 +23,7 @@ public class CollisionDetection {
      */
 
     public static boolean PlayerCollision(Player p1, Player p2){
+
         System.out.println("P1 X: " + p1.getCoordX());
         System.out.println("P1 Y: " + p1.getCoordY());
         System.out.println("P2 X: " + p2.getCoordX());
