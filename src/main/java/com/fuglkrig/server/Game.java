@@ -412,9 +412,7 @@ public class Game extends Thread {
     }
 
     private void actualKickPlayer() {
-        for (Player player: kickPlayer) {
-            kickPlayer.remove(player);
-        }
+        players.removeAll(kickPlayer);
     }
 
     /**
