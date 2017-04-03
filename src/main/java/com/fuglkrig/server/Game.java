@@ -46,7 +46,7 @@ public class Game extends Thread {
     private double fuglScale = 1.5;
     private double powerupBoxScale = 1.5;
     private double birdpoopScale = 1.5;
-    private double wallScale = 1.5;
+    private double wallScale = 3;
 
     //powerups on map
     private List<Powerup> powerupsOnMap;
