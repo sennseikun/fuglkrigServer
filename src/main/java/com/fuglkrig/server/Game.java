@@ -154,6 +154,7 @@ public class Game extends Thread {
                     powerup=pUp;
                     System.out.println(pUp.getType());
                     try{
+                        System.out.println(pUp.getType());
                         if(pUp.getType() == 0) {
                             p.addPowerUp(pUp.getType());
                         }
