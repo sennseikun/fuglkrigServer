@@ -97,7 +97,7 @@ public class Game extends Thread {
         //creating map
         Random rand = new Random();
         //TODO NEEDS TO BE CHANGED TO 3 WHEN LAST MAP IS ADDED
-        this.setMap(new Map(rand.nextInt(2) + 1));
+        this.setMap(new Map(rand.nextInt(3) + 1));
         System.out.println("New game created. Map: " + getMap().getMapName());
 
     }
@@ -261,11 +261,11 @@ public class Game extends Thread {
 
             int x, y, height, width, type;
             x = getGameSizeX() + 100;
-            y = getRand().nextInt(getGameSizeY()) + 1;
+            y = rand.nextInt(getGameSizeY()) + 1;
             BufferedImage img = null;
 
             //this needs to be the same as the number of powerups.
-            type = getRand().nextInt(8) + 1;
+            type = 0;
             try {
                 InputStream is = this.getClass().getClassLoader().getResourceAsStream("powerup.png");
                 img = ImageIO.read(is);
@@ -278,7 +278,7 @@ public class Game extends Thread {
             width = img.getWidth();
 
             Powerup pu = new Powerup(x, y, height, width, type, img);
-            pu.setType(getRand().nextInt(getNumberOfPowerUps()) + 1);
+            pu.setType(rand.nextInt(getNumberOfPowerUps()) + 1);
             this.getPowerupsOnMap().add(pu);
             setTimeStart(System.currentTimeMillis());
         }
@@ -624,13 +624,6 @@ public class Game extends Thread {
         this.speed = speed;
     }
 
-    public Random getRand() {
-        return rand;
-    }
-
-    public void setRand(Random rand) {
-        this.rand = rand;
-    }
 
     public int getLastManStandingX() {
         return lastManStandingX;
