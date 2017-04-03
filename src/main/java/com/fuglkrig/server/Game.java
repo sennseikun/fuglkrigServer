@@ -152,6 +152,19 @@ public class Game extends Thread {
             for (Player p: players){
                 if(CollisionDetection.playerPowerupCollision(p,pUp, fuglScale,powerupBoxScale)){
                     powerup=pUp;
+                    System.out.println(pUp.getType());
+                    try{
+                        if(pUp.getType() == 0) {
+                            p.addPowerUp(pUp.getType());
+                        }
+                        else{
+                            p.setAlive(false);
+                        }
+                    }
+                    catch (Exception e){
+                        System.out.println(e);
+                        System.out.println("adding powerup to player does not work");
+                    }
                     System.out.println("lol!!");
                 }
             }
@@ -278,7 +291,7 @@ public class Game extends Thread {
             width = img.getWidth();
 
             Powerup pu = new Powerup(x, y, height, width, type, img);
-            pu.setType(getRand().nextInt(getNumberOfPowerUps()) + 1);
+            pu.setType(0);
             this.getPowerupsOnMap().add(pu);
             setTimeStart(System.currentTimeMillis());
         }

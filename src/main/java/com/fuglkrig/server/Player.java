@@ -308,6 +308,7 @@ public class Player {
         try {
             this.powerups.add(powerUp);
         }catch (Exception e) {
+            System.out.println(e);
             System.out.println("ka fan?");
         }
     }
