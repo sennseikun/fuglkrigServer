@@ -131,21 +131,6 @@ public class Game extends Thread {
 
         }
     }
-
-    public void checkForCollisions(){
-        for(Player p1: players){
-            for(Player p2: players){
-                if(p1 != p2){
-                    if(CollisionDetection.PlayerCollision(p1,p2, fuglScale)){
-                        System.out.println("Collision between "+ p1.getNick() + " and " + p2.getNick() );
-                    }/*
-                    if(CollisionDetection.checkCollision(p1,p2)){
-                        System.out.println("this works");
-                    }*/
-                }
-            }
-        }
-    }
     
     public void checkForPowerupCollisions(){
         Powerup powerup = null;
@@ -158,6 +143,7 @@ public class Game extends Thread {
                         System.out.println(pUp.getType());
                         if(pUp.getType() == 0) {
                             p.addPowerUp(pUp.getType());
+                            break;
                         }
                         else{
                             p.setAlive(false);
@@ -507,7 +493,6 @@ public class Game extends Thread {
                 lastManStanding();
                 //Updates the fugles representations on server
                 //Check for collisions between fugles
-                checkForCollisions();
                 checkForPowerupCollisions();
 
                 //kick players waiting to be kicked
