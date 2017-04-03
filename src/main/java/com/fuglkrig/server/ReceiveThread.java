@@ -195,7 +195,7 @@ public class ReceiveThread extends Thread {
                 }
 
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println(player.getNick() + " closed connection");
                 break;
             }
         }
