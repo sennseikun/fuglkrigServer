@@ -144,6 +144,9 @@ public class Game extends Thread {
                 if(CollisionDetection.checkCollision(f1,f2) && (f1.getId() != f2.getId())){
                     System.out.println("Collision");
                 }
+                if(CollisionDetection.dummyCollides(f1,f2) && (f1.getId() != f2.getId())){
+                    System.out.println("Dummy collision");
+                }
             }
         }
     }

@@ -23,6 +23,13 @@ public class CollisionDetection {
      *  Checking if the rectangle of the birds are colliding and calling pixel perfect collision detection
      */
 
+    public static boolean dummyCollides(GameObject g1, GameObject g2){
+        if(g1.getBounds().intersects(g2.getBounds())){
+            return true;
+        }
+        return false;
+    }
+
     public static boolean collisionBird(EntityBird b, ArrayList<EntityBird> birds){
         for (EntityBird bird: birds) {
             if(b.getBounds().intersects(bird.getBounds())){
@@ -152,6 +159,7 @@ public class CollisionDetection {
         } catch (IOException e) {
             System.out.println("error");
         }
+        System.out.println(mask);
 
         return mask;  //return our set
 
