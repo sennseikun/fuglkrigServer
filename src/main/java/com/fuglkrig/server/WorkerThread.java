@@ -378,7 +378,7 @@ public class WorkerThread implements Runnable {
 
             else if(command.equals("13")){
                 JSONObject jsonData = new JSONObject(message);
-                int type = jsonData.getInt("type");
+                int type = jsonData.getInt("Type");
                 Player player = receiveThread.getPlayer();
 
                 //checks if the user actually got the powerup he wants to use
