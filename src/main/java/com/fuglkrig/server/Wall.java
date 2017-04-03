@@ -24,7 +24,7 @@ public class Wall extends GameObject implements EntityWall {
      * Update function for the movment of the wall
      */
     public void tick() {
-        x -= 5;
+        setX(super.getX() - 5);
         /*if(CollisionDetection.collision(this,walls)){
             //Todo destroy walls perhaps?
         }*/
@@ -42,13 +42,13 @@ public class Wall extends GameObject implements EntityWall {
      * @return the x value of the wall
      */
     public double getX() {
-        return x;
+        return super.getX();
     }
 
     /**
      * @return the y value of the wall
      */
     public double getY() {
-        return y;
+        return super.getY();
     }
 }

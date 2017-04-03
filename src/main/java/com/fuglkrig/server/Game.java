@@ -2,7 +2,6 @@ package com.fuglkrig.server;
 
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
@@ -17,67 +16,57 @@ import javax.imageio.ImageIO;
 
 
 public class Game extends Thread {
-    List<Player> players;
-    List<Fugl> fugles = new ArrayList<>();
-    Thread game;
-    Map map;
-    double timeStart = System.currentTimeMillis();
-    double timeSinceLastPowerUp;
+    private List<Player> players;
+    private List<Fugl> fugles = new ArrayList<>();
+    private Thread game;
+    private Map map;
+    private double timeStart = System.currentTimeMillis();
+    private double timeSinceLastPowerUp;
     //in millisecounds
-    double timeForNewPowerUp = 5000;
-    String textOnPlayerScreen;
-    int secoundsUntilStart = 6;
+    private double timeForNewPowerUp = 5000;
+    private String textOnPlayerScreen;
+    private int secoundsUntilStart = 6;
 
     //Changed nr of powerups to support current count
 
-    int numberOfPowerUps = 2;
+    private int numberOfPowerUps = 2;
     //used to move map and powerups. in px
-    int speed;
-    Random rand = new Random();
-    int lastManStandingX = 0;
-    int getLastManStandingY = 0;
-    Player lastPlayer;
-    int gameSizeX = 1920;
-    int gameSizeY = 1080;
-    int fugl_height = 0;
-    int fugl_width = 0;
-    BufferedImage fugl_image = null;
+    private int speed;
+    private Random rand = new Random();
+    private int lastManStandingX = 0;
+    private int getLastManStandingY = 0;
+    private Player lastPlayer;
+    private int gameSizeX = 1920;
+    private int gameSizeY = 1080;
+    private int fugl_height = 0;
+    private int fugl_width = 0;
+    private BufferedImage fugl_image = null;
 
     //powerups on map
-    List<Powerup> powerupsOnMap;
+    private List<Powerup> powerupsOnMap;
 
 
     //this is a count down used to(Start?)
-    Timer timer = new Timer();
+    private Timer timer = new Timer();
 
-    TimerTask countDown = new TimerTask() {
+    private TimerTask countDown = new TimerTask() {
         @Override
         public void run() {
-            if (secoundsUntilStart == 0) {
-                textOnPlayerScreen = "";
-                countDown.cancel();
+            if (getSecoundsUntilStart() == 0) {
+                setTextOnPlayerScreen("");
+                getCountDown().cancel();
             } else {
-                textOnPlayerScreen = Integer.toString(secoundsUntilStart - 1);
+                setTextOnPlayerScreen(Integer.toString(getSecoundsUntilStart() - 1));
             }
-            secoundsUntilStart--;
+            setSecoundsUntilStart(getSecoundsUntilStart() - 1);
         }
     };
 
-    /**
-     * how many times a secound the game should update
-     * 1000 / tick = time between updates
-     */
-    int sleepTime;
+    private int sleepTime;
 
-    /**
-     * used to make sure everyone has loaded the game and is ready to start
-     */
-    boolean paused;
+    private boolean paused;
 
-    /**
-     * used to check if there is a winner of the game
-     */
-    boolean lastManStanding;
+    private boolean lastManStanding;
 
     public void moveLastManStanding() {
 
@@ -89,26 +78,26 @@ public class Game extends Thread {
      * @param players
      */
     public Game(List<Player> players) {
-        this.players = players;
-        this.sleepTime = 1000 / 60;
-        this.lastManStanding = false;
-        this.game = new Thread(this);
-        this.textOnPlayerScreen = "";
-        this.powerupsOnMap = new ArrayList();
-        this.speed = 10;
+        this.setPlayers(players);
+        this.setSleepTime(1000 / 60);
+        this.setLastManStanding(false);
+        this.setGame(new Thread(this));
+        this.setTextOnPlayerScreen("");
+        this.setPowerupsOnMap(new ArrayList());
+        this.setSpeed(10);
 
         //creating map
         Random rand = new Random();
         //TODO NEEDS TO BE CHANGED TO 3 WHEN LAST MAP IS ADDED
-        this.map = new Map(rand.nextInt(2) + 1);
-        System.out.println("New game created. Map: " + map.getMapName());
+        this.setMap(new Map(rand.nextInt(2) + 1));
+        System.out.println("New game created. Map: " + getMap().getMapName());
 
     }
 
     public void initFugles(){
         try {
             InputStream is = this.getClass().getClassLoader().getResourceAsStream("bird.png");
-            fugl_image = ImageIO.read(is);
+            setFugl_image(ImageIO.read(is));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -118,29 +107,29 @@ public class Game extends Thread {
 
     public void updateFugles(){
 
-        fugles.clear();
+        getFugles().clear();
 
-        fugl_height = fugl_image.getHeight();
-        fugl_width = fugl_image.getWidth();
+        setFugl_height(getFugl_image().getHeight());
+        setFugl_width(getFugl_image().getWidth());
 
         //System.out.println(fugl_image.toString());
 
-        for(Player p: players){
+        for(Player p: getPlayers()){
             double x = p.getCoordX();
             double y = p.getCoordY();
 
-            Fugl f = new Fugl(p.getPlayerID(),x,y,fugl_height,fugl_width);
+            Fugl f = new Fugl(p.getPlayerID(),x,y, getFugl_height(), getFugl_width());
             f.setDefaultImageLocation("bird.png");
 
             //System.out.println(f.toString());
 
-            fugles.add(f);
+            getFugles().add(f);
         }
     }
 
     public void checkForCollisions(){
-        for(Fugl f1: fugles){
-            for(Fugl f2: fugles){
+        for(Fugl f1: getFugles()){
+            for(Fugl f2: getFugles()){
                 /*if(CollisionDetection.checkCollision(f1,f2) && (f1.getId() != f2.getId())){
                     System.out.println("Collision");
                 }*/
@@ -165,25 +154,25 @@ public class Game extends Thread {
         dataToPlayers.put("Datatype", 15);
 
         //adds map data
-        dataToPlayers.put("MapName", this.map.getMapName());
-        dataToPlayers.put("CurrentMap", this.map.getCurrentMap());
-        dataToPlayers.put("NextMap", this.map.getNextMap());
-        dataToPlayers.put("WinMap", this.map.getWinMap());
-        dataToPlayers.put("MapType", this.map.getMapType());
-        dataToPlayers.put("MapXPos", this.map.getMapXPos());
-        dataToPlayers.put("NextMapXPos", this.map.getNextMapXPos());
-        dataToPlayers.put("WinMapXPos", this.map.getWinMapXPos());
+        dataToPlayers.put("MapName", this.getMap().getMapName());
+        dataToPlayers.put("CurrentMap", this.getMap().getCurrentMap());
+        dataToPlayers.put("NextMap", this.getMap().getNextMap());
+        dataToPlayers.put("WinMap", this.getMap().getWinMap());
+        dataToPlayers.put("MapType", this.getMap().getMapType());
+        dataToPlayers.put("MapXPos", this.getMap().getMapXPos());
+        dataToPlayers.put("NextMapXPos", this.getMap().getNextMapXPos());
+        dataToPlayers.put("WinMapXPos", this.getMap().getWinMapXPos());
 
         //liste over powerups på kart
         JSONArray powerupData = new JSONArray();
-        for (Powerup powerup : powerupsOnMap) {
+        for (Powerup powerup : getPowerupsOnMap()) {
 
             //information about this object
             JSONObject powerupObject = new JSONObject();
             powerupObject.put("XPos", powerup.getX());
             powerupObject.put("YPos", powerup.getY());
             powerupObject.put("Id",powerup.getId());
-            powerupObject.put("Type",powerup.type);
+            powerupObject.put("Type", powerup.getType());
 
             //puts the object in the list
             powerupData.put(powerupObject);
@@ -197,7 +186,7 @@ public class Game extends Thread {
          * list over players
          */
         JSONArray playersData = new JSONArray();
-        for (Player player : players) {
+        for (Player player : getPlayers()) {
             /**
              * playerdocument
              */
@@ -228,7 +217,7 @@ public class Game extends Thread {
         /**
          * pushes the data to the clients.
          */
-        for (Player player : players) {
+        for (Player player : getPlayers()) {
             player.UpdateClient(dataToPlayers);
         }
     }
@@ -240,16 +229,16 @@ public class Game extends Thread {
     public void SpawnPowerups() {
 
 
-        timeSinceLastPowerUp = System.currentTimeMillis() - timeStart;
-        if (timeSinceLastPowerUp > timeForNewPowerUp) {
+        setTimeSinceLastPowerUp(System.currentTimeMillis() - getTimeStart());
+        if (getTimeSinceLastPowerUp() > getTimeForNewPowerUp()) {
 
             int x, y, height, width, type;
-            x = gameSizeX + 100;
-            y = rand.nextInt(gameSizeY) + 1;
+            x = getGameSizeX() + 100;
+            y = getRand().nextInt(getGameSizeY()) + 1;
             BufferedImage img = null;
 
             //this needs to be the same as the number of powerups.
-            type = rand.nextInt(8) + 1;
+            type = getRand().nextInt(8) + 1;
             try {
                 InputStream is = this.getClass().getClassLoader().getResourceAsStream("powerup.png");
                 img = ImageIO.read(is);
@@ -262,20 +251,20 @@ public class Game extends Thread {
             width = img.getWidth();
 
             Powerup pu = new Powerup(x, y, height, width, type, img);
-            pu.setType(rand.nextInt(numberOfPowerUps) + 1);
-            this.powerupsOnMap.add(pu);
-            timeStart = System.currentTimeMillis();
+            pu.setType(getRand().nextInt(getNumberOfPowerUps()) + 1);
+            this.getPowerupsOnMap().add(pu);
+            setTimeStart(System.currentTimeMillis());
         }
     }
 
     public void MovePowerups() {
 
         List<Powerup> toDelete = new ArrayList<>();
-        for (Powerup powerup : powerupsOnMap) {
+        for (Powerup powerup : getPowerupsOnMap()) {
             if (powerup.getX() < 0) {
                 toDelete.add(powerup);
             } else {
-                powerup.tick(speed);
+                powerup.tick(getSpeed());
             }
         }
 
@@ -283,7 +272,7 @@ public class Game extends Thread {
 
             for (Powerup powerup : toDelete) {
                 System.out.println("removing powerup");
-                powerupsOnMap.remove(powerup);
+                getPowerupsOnMap().remove(powerup);
             }
         }
     }
@@ -294,7 +283,7 @@ public class Game extends Thread {
      */
     public void sleepTick() {
         try {
-            game.sleep(sleepTime);
+            getGame().sleep(getSleepTime());
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -305,7 +294,7 @@ public class Game extends Thread {
      * Is the update function of the players
      */
     public void playerTick() {
-        for (Player player : players) {
+        for (Player player : getPlayers()) {
             player.nextTick();
         }
     }
@@ -317,22 +306,22 @@ public class Game extends Thread {
         //this needs to send a package with datatype 14.
         JSONObject startGame = new JSONObject();
         startGame.put("Datatype", 14);
-        startGame.put("Width", this.gameSizeX);
-        startGame.put("Height", this.gameSizeY);
+        startGame.put("Width", this.getGameSizeX());
+        startGame.put("Height", this.getGameSizeY());
 
         //gives the player information about the map that we are going to play
-        startGame.put("MapName", this.map.getMapName());
-        startGame.put("CurrentMap", this.map.getCurrentMap());
-        startGame.put("NextMap", this.map.getNextMap());
-        startGame.put("WinMap", this.map.getWinMap());
-        startGame.put("MapType", this.map.getMapType());
-        startGame.put("MapXPos", this.map.getMapXPos());
-        startGame.put("NextMapXPos", this.map.getNextMapXPos());
-        startGame.put("WinMapXPos", this.map.getWinMapXPos());
+        startGame.put("MapName", this.getMap().getMapName());
+        startGame.put("CurrentMap", this.getMap().getCurrentMap());
+        startGame.put("NextMap", this.getMap().getNextMap());
+        startGame.put("WinMap", this.getMap().getWinMap());
+        startGame.put("MapType", this.getMap().getMapType());
+        startGame.put("MapXPos", this.getMap().getMapXPos());
+        startGame.put("NextMapXPos", this.getMap().getNextMapXPos());
+        startGame.put("WinMapXPos", this.getMap().getWinMapXPos());
 
         JSONArray listOfPlayers = new JSONArray();
 
-        for (Player player : players) {
+        for (Player player : getPlayers()) {
             JSONObject playerData = new JSONObject();
             playerData.put("PlayerID", player.getPlayerID());
 
@@ -344,7 +333,7 @@ public class Game extends Thread {
         System.out.println("\n\n\n\n" + startGame + "\n\n\n\n\n");
 
         //sends it to players
-        for (Player player : players) {
+        for (Player player : getPlayers()) {
             player.UpdateClient(startGame);
         }
 
@@ -353,19 +342,19 @@ public class Game extends Thread {
 
     public void lastManStanding() {
         int playersAlive = 0;
-        for (Player player : players) {
+        for (Player player : getPlayers()) {
             if (player.getAlive()) {
                 playersAlive++;
             }
         }
 
         if (playersAlive <= 1) {
-            for (Player player : players) {
+            for (Player player : getPlayers()) {
                 if(player.getAlive()) {
-                    lastPlayer = player;
+                    setLastPlayer(player);
                 }
             }
-            lastManStanding = true;
+            setLastManStanding(true);
         }
     }
 
@@ -383,12 +372,12 @@ public class Game extends Thread {
         /**
          * Checks if all users are ready to start before moving on to other tasks.
          */
-        textOnPlayerScreen = "Waiting for players";
+        setTextOnPlayerScreen("Waiting for players");
         boolean readyToStart = true;
         while (readyToStart == false) {
 
             boolean everyoneReady = true;
-            for (Player player : players) {
+            for (Player player : getPlayers()) {
                 if (player.readyToStart() == false) {
                     everyoneReady = false;
                 }
@@ -408,12 +397,12 @@ public class Game extends Thread {
          * counts down the game before its starts
          */
         startGame();
-        timer.schedule(countDown, 1000, 1000);
+        getTimer().schedule(getCountDown(), 1000, 1000);
 
         /**
          * start updating players
          */
-        while (!paused) {
+        while (!isPaused()) {
             System.out.println("running tick");
 
             System.out.println("serverloop started");
@@ -423,9 +412,9 @@ public class Game extends Thread {
 
 
              */
-            while (!lastManStanding) {
+            while (!isLastManStanding()) {
                 //moves the map
-                map.moveMap(speed, lastManStanding, gameSizeX);
+                getMap().moveMap(getSpeed(), isLastManStanding(), getGameSizeX());
                 //spawns new powerups
                 SpawnPowerups();
                 //moves powerups
@@ -444,20 +433,20 @@ public class Game extends Thread {
                 checkForCollisions();
 
                 //kills the server if no one is left
-                if (players.size() == 0) {
-                    lastManStanding = true;
+                if (getPlayers().size() == 0) {
+                    setLastManStanding(true);
                 }
             }
 
             System.out.println("LAST MAN STANDING");
 
             //this is used between playing the game and lobby
-            while (lastManStanding) {
-                lastPlayer.targetPosX = map.getWinPosX();
-                lastPlayer.targetPosY = map.getWinPosY();
+            while (isLastManStanding()) {
+                getLastPlayer().setTargetPosX(getMap().getWinPosX());
+                getLastPlayer().setTargetPosY(getMap().getWinPosY());
 
                 //moves the map
-                map.moveMap(speed, lastManStanding, gameSizeX);
+                getMap().moveMap(getSpeed(), isLastManStanding(), getGameSizeX());
                 //we still need to move the powerups.
                 MovePowerups();
                 //we need to control the player to the nest
@@ -468,13 +457,13 @@ public class Game extends Thread {
                 sleepTick();
 
                 //kills the server if no one is left
-                if (players.size() == 0) {
-                    lastManStanding = false;
+                if (getPlayers().size() == 0) {
+                    setLastManStanding(false);
                 }
             }
 
-            if (players.size() == 0) {
-                paused = true;
+            if (getPlayers().size() == 0) {
+                setPaused(true);
             }
 
         }
@@ -482,4 +471,224 @@ public class Game extends Thread {
         System.out.println("Shutting down server");
 
     }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<Player> players) {
+        this.players = players;
+    }
+
+    public List<Fugl> getFugles() {
+        return fugles;
+    }
+
+    public void setFugles(List<Fugl> fugles) {
+        this.fugles = fugles;
+    }
+
+    public Thread getGame() {
+        return game;
+    }
+
+    public void setGame(Thread game) {
+        this.game = game;
+    }
+
+    public Map getMap() {
+        return map;
+    }
+
+    public void setMap(Map map) {
+        this.map = map;
+    }
+
+    public double getTimeStart() {
+        return timeStart;
+    }
+
+    public void setTimeStart(double timeStart) {
+        this.timeStart = timeStart;
+    }
+
+    public double getTimeSinceLastPowerUp() {
+        return timeSinceLastPowerUp;
+    }
+
+    public void setTimeSinceLastPowerUp(double timeSinceLastPowerUp) {
+        this.timeSinceLastPowerUp = timeSinceLastPowerUp;
+    }
+
+    public double getTimeForNewPowerUp() {
+        return timeForNewPowerUp;
+    }
+
+    public void setTimeForNewPowerUp(double timeForNewPowerUp) {
+        this.timeForNewPowerUp = timeForNewPowerUp;
+    }
+
+    public String getTextOnPlayerScreen() {
+        return textOnPlayerScreen;
+    }
+
+    public void setTextOnPlayerScreen(String textOnPlayerScreen) {
+        this.textOnPlayerScreen = textOnPlayerScreen;
+    }
+
+    public int getSecoundsUntilStart() {
+        return secoundsUntilStart;
+    }
+
+    public void setSecoundsUntilStart(int secoundsUntilStart) {
+        this.secoundsUntilStart = secoundsUntilStart;
+    }
+
+    public int getNumberOfPowerUps() {
+        return numberOfPowerUps;
+    }
+
+    public void setNumberOfPowerUps(int numberOfPowerUps) {
+        this.numberOfPowerUps = numberOfPowerUps;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public Random getRand() {
+        return rand;
+    }
+
+    public void setRand(Random rand) {
+        this.rand = rand;
+    }
+
+    public int getLastManStandingX() {
+        return lastManStandingX;
+    }
+
+    public void setLastManStandingX(int lastManStandingX) {
+        this.lastManStandingX = lastManStandingX;
+    }
+
+    public int getGetLastManStandingY() {
+        return getLastManStandingY;
+    }
+
+    public void setGetLastManStandingY(int getLastManStandingY) {
+        this.getLastManStandingY = getLastManStandingY;
+    }
+
+    public Player getLastPlayer() {
+        return lastPlayer;
+    }
+
+    public void setLastPlayer(Player lastPlayer) {
+        this.lastPlayer = lastPlayer;
+    }
+
+    public int getGameSizeX() {
+        return gameSizeX;
+    }
+
+    public void setGameSizeX(int gameSizeX) {
+        this.gameSizeX = gameSizeX;
+    }
+
+    public int getGameSizeY() {
+        return gameSizeY;
+    }
+
+    public void setGameSizeY(int gameSizeY) {
+        this.gameSizeY = gameSizeY;
+    }
+
+    public int getFugl_height() {
+        return fugl_height;
+    }
+
+    public void setFugl_height(int fugl_height) {
+        this.fugl_height = fugl_height;
+    }
+
+    public int getFugl_width() {
+        return fugl_width;
+    }
+
+    public void setFugl_width(int fugl_width) {
+        this.fugl_width = fugl_width;
+    }
+
+    public BufferedImage getFugl_image() {
+        return fugl_image;
+    }
+
+    public void setFugl_image(BufferedImage fugl_image) {
+        this.fugl_image = fugl_image;
+    }
+
+    public List<Powerup> getPowerupsOnMap() {
+        return powerupsOnMap;
+    }
+
+    public void setPowerupsOnMap(List<Powerup> powerupsOnMap) {
+        this.powerupsOnMap = powerupsOnMap;
+    }
+
+    public Timer getTimer() {
+        return timer;
+    }
+
+    public void setTimer(Timer timer) {
+        this.timer = timer;
+    }
+
+    public TimerTask getCountDown() {
+        return countDown;
+    }
+
+    public void setCountDown(TimerTask countDown) {
+        this.countDown = countDown;
+    }
+
+    public void setPaused(boolean paused) {
+        this.paused = paused;
+    }
+    /**
+     * how many times a secound the game should update
+     * 1000 / tick = time between updates
+     */
+    public int getSleepTime() {
+        return sleepTime;
+    }
+
+    public void setSleepTime(int sleepTime) {
+        this.sleepTime = sleepTime;
+    }
+
+    public void setLastManStanding(boolean lastManStanding) {
+        this.lastManStanding = lastManStanding;
+    }
+
+
+    /**
+     * used to make sure everyone has loaded the game and is ready to start
+     */
+    public boolean isPaused() {
+        return paused;
+    }
+
+    /**
+     * used to check if there is a winner of the game
+     */
+    public boolean isLastManStanding() {
+        return lastManStanding;
+    }
+
+
 }
