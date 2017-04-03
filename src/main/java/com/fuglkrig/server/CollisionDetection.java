@@ -30,6 +30,16 @@ public class CollisionDetection {
      */
 
     public static boolean PlayerCollision(Player p1, Player p2){
+        System.out.println("Player1 X: " + p1.getCoordX());
+        System.out.println("Player1 Y: " + p1.getCoordY());
+        System.out.println("Player1 Width: " + p1.getWidth());
+        System.out.println("Player1 Height: " + p1.getHeight());
+        System.out.println("Player2 X: " + p2.getCoordX());
+        System.out.println("Player2 Y: " + p2.getCoordY());
+        System.out.println("Player2 Width: " + p2.getWidth());
+        System.out.println("Player2 Height: " + p2.getHeight());
+
+
         return p1.getRectangle().intersects(p2.getRectangle()) || p1.getRectangle().contains(p2.getRectangle());
     }
 
