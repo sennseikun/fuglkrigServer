@@ -291,7 +291,7 @@ public class Game extends Thread {
 
         List<Powerup> toDelete = new ArrayList<>();
         for (Powerup powerup : getPowerupsOnMap()) {
-            if (powerup.getX() < 0) {
+            if (powerup.getX() < 0-powerup.getWidth()) {
                 toDelete.add(powerup);
             } else {
                 powerup.tick(getSpeed());
