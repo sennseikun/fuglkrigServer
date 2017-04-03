@@ -163,9 +163,7 @@ public class Game extends Thread {
                     }
                     catch (Exception e){
                         System.out.println(e);
-                        System.out.println("adding powerup to player does not work");
                     }
-                    System.out.println("lol!!");
                 }
             }
         }

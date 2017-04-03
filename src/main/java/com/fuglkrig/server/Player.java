@@ -34,7 +34,7 @@ public class Player {
 
     private Socket playerSocket;
 
-    private ArrayList<Integer> powerups;
+    private ArrayList<Integer> powerups = new ArrayList<>();
     private Game currentGame;
     private double dx;
     private double dy;
@@ -309,7 +309,6 @@ public class Player {
             this.powerups.add(powerUp);
         }catch (Exception e) {
             System.out.println(e);
-            System.out.println("ka fan?");
         }
     }
 
