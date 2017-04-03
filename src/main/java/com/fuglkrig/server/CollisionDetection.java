@@ -30,37 +30,7 @@ public class CollisionDetection {
      */
 
     public static boolean PlayerCollision(Player p1, Player p2){
-
-        System.out.println("P1 X: " + p1.getCoordX());
-        System.out.println("P1 Y: " + p1.getCoordY());
-        System.out.println("P2 X: " + p2.getCoordX());
-        System.out.println("P2 Y: " + p2.getCoordY());
-
-        double x1 = p1.getCoordX();
-        double y1 = p1.getCoordY() + p1.getWidth();
-        double x2 = p1.getCoordX() + p1.getWidth();
-        double y2 = p1.getCoordY();
-
-        double x3 = p2.getCoordX();
-        double y3 = p2.getCoordY() + p2.getHeight();
-        double x4 = p2.getCoordX() + p2.getWidth();
-        double y4 = p2.getCoordY();
-
-        if(x3 > x2){
-            return false;
-        }
-        else if(y2 > y3){
-            return false;
-        }
-        else if(x1 > x4){
-            return false;
-        }
-        else if(y4 > y1){
-            return false;
-        }
-        else{
-            return true;
-        }
+        return p1.getRectangle().intersects(p2.getRectangle());
     }
 
     /**
