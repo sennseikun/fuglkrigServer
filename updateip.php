@@ -1,4 +1,10 @@
 <?php
+/*
+*   This file is used on a webserver to get dynamic ip address for the game.
+*/
+
+
+
 
 function getUserIP()
 {
@@ -23,10 +29,15 @@ function getUserIP()
 }
 
 if($_GET["code"]) {
-    if ($_GET["code"] == "fuGlKrig") {
+    if ($_GET["code"] == "fuGlKrig03042017") {
         $user_ip = getUserIP();
         file_put_contents("ip.txt", $user_ip);
+        
+        echo("updated ip address");
     }
+}
+else {
+    echo("didnt update");
 }
 
 
