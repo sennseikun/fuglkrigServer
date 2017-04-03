@@ -305,6 +305,7 @@ public class Player {
      * @param powerUp
      */
     public void addPowerUp(int powerUp){
+        System.out.println("lol test");
         this.powerups.add(powerUp);
     }
 
