@@ -23,6 +23,7 @@ public class Game extends Thread {
     private Map map;
     private double timeStart = System.currentTimeMillis();
     private double timeSinceLastPowerUp;
+    private Lobby lobby;
     //in millisecounds
     private double timeForNewPowerUp;
     private String textOnPlayerScreen;
@@ -48,9 +49,10 @@ public class Game extends Thread {
     private double birdpoopScale = 1.5;
     private double wallScale = 1.5;
 
+    private List<Player> kickPlayer = new ArrayList<>();
+
     //powerups on map
     private List<Powerup> powerupsOnMap;
-
 
     //this is a count down used to(Start?)
     private Timer timer = new Timer();
@@ -83,7 +85,7 @@ public class Game extends Thread {
      *
      * @param players
      */
-    public Game(List<Player> players) {
+    public Game(List<Player> players, Lobby lobby) {
         this.setPlayers(players);
         this.setSleepTime(1000 / 60);
         this.setLastManStanding(false);
@@ -92,6 +94,7 @@ public class Game extends Thread {
         this.setPowerupsOnMap(new ArrayList());
         this.setSpeed(10);
         this.setTimeForNewPowerUp(5000);
+        this.lobby = lobby;
 
         //creating map
         Random rand = new Random();
@@ -183,6 +186,7 @@ public class Game extends Thread {
         dataToPlayers.put("MapXPos", this.getMap().getMapXPos());
         dataToPlayers.put("NextMapXPos", this.getMap().getNextMapXPos());
         dataToPlayers.put("WinMapXPos", this.getMap().getWinMapXPos());
+        dataToPlayers.put("PrintToPlayer", "test");
 
         //liste over powerups på kart
         JSONArray powerupData = new JSONArray();
@@ -321,7 +325,6 @@ public class Game extends Thread {
         }
     }
 
-
     /**
      * sleeps a game for tick time. Used to avoid a billion try/catch in the code.
      */
@@ -403,6 +406,16 @@ public class Game extends Thread {
                 }
             }
             setLastManStanding(true);
+        }
+    }
+
+    public void kickPlayer(Player player) {
+        kickPlayer.add(player);
+    }
+
+    private void actualKickPlayer() {
+        for (Player player: kickPlayer) {
+            kickPlayer.remove(player);
         }
     }
 
