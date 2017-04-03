@@ -9,7 +9,7 @@ package com.fuglkrig.server.classes;
  */
 public interface EntityPowerUp {
     public void tick(int speed);
-    public Rectangle getBounds();
+    public Rectangle getBounds(double scale);
 
     public int getX();
     public int getY();

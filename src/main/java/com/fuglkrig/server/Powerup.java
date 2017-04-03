@@ -76,8 +76,8 @@ public class Powerup extends GameObject implements EntityPowerUp {
      * Creates an rectangle around the powerup
      * @return the rectangle
      */
-    public Rectangle getBounds() {
-        return super.getBounds();
+    public Rectangle getBounds(double scale) {
+        return super.getBounds(scale);
     }
 
     /**

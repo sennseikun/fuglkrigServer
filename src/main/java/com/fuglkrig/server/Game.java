@@ -148,6 +148,17 @@ public class Game extends Thread {
             }
         }
     }
+    
+    public void checkForPowerupCollisions(){
+        for (Powerup pUp: powerupsOnMap) {
+            for (Player p: players){
+                if(CollisionDetection.playerPowerupCollision(p,pUp, fuglScale,powerupBoxScale)){
+                    powerupsOnMap.remove(pUp);
+                    System.out.println("lol!!");
+                }
+            }
+        }
+    }
 
 
     /**

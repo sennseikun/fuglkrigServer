@@ -41,8 +41,8 @@ public class GameObject {
      * Used for collisiondetection
      * @return a rectangle that surrounds the the game object
      */
-    public Rectangle getBounds(){
-        return new Rectangle((int) getX(), (int) getY(), (int) getWidth(),(int) getHeight());
+    public Rectangle getBounds(double scale){
+        return new Rectangle((int)this.getX(),(int)this.getY(),(int)(this.getWidth()*scale),(int)(this.getHeight()*scale));
     }
 
 
