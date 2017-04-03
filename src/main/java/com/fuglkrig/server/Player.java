@@ -1,5 +1,6 @@
 package com.fuglkrig.server;
 
+import com.fuglkrig.server.classes.EntityBird;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
