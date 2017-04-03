@@ -43,10 +43,10 @@ public class Game extends Thread {
     private int fugl_width = 0;
     private BufferedImage fugl_image = null;
 
-    private double fuglScale = 1.5;
-    private double powerupBoxScale = 1.5;
+    private double fuglScale = 3;
+    private double powerupBoxScale = 2;
     private double birdpoopScale = 1.5;
-    private double wallScale = 3;
+    private double wallScale = 1.5;
 
     //powerups on map
     private List<Powerup> powerupsOnMap;
