@@ -265,7 +265,7 @@ public class Game extends Thread {
 
         //loads powerup image
         try {
-            InputStream is = this.getClass().getClassLoader().getResourceAsStream("powerup.png");
+            InputStream is = this.getClass().getClassLoader().getResourceAsStream("brickwall.png");
             img = ImageIO.read(is);
         } catch (IOException e) {
             System.out.println("Cant find powerup.bmp");
