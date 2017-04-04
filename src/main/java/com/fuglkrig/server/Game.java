@@ -117,7 +117,6 @@ public class Game extends Thread {
                 if(CollisionDetection.playerPowerupCollision(p,pUp, fuglScale,powerupBoxScale)){
                     powerup=pUp;
                     try{
-                        System.out.println(pUp.getType());
                         if(pUp.getType() == 0) {
                             p.addPowerUp(rand.nextInt(2)+1);
                             break;
