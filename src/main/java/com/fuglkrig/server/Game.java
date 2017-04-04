@@ -50,6 +50,7 @@ public class Game extends Thread {
 
     long updateGameCurrentMillis;
     int updatesEachSecound;
+    int updatesEachSecoundToClient;
 
     private List<Player> kickPlayer = new ArrayList<>();
 
@@ -178,6 +179,7 @@ public class Game extends Thread {
         if (System.currentTimeMillis() > updateGameCurrentMillis + 1000) {
             System.out.println("update game each secound: " + updatesEachSecound);
             updateGameCurrentMillis = System.currentTimeMillis();
+            updatesEachSecoundToClient = updatesEachSecound;
             updatesEachSecound = 0;
 
         }
@@ -201,7 +203,7 @@ public class Game extends Thread {
         dataToPlayers.put("NextMapXPos", this.getMap().getNextMapXPos());
         dataToPlayers.put("WinMapXPos", this.getMap().getWinMapXPos());
         dataToPlayers.put("PrintToPlayer", textOnPlayerScreen);
-        dataToPlayers.put("ServerSendPackets", updatesEachSecound);
+        dataToPlayers.put("ServerSendPackets", updatesEachSecoundToClient);
 
         //liste over powerups på kart
         JSONArray powerupData = new JSONArray();
