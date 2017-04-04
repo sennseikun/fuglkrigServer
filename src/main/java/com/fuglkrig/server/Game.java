@@ -1,14 +1,11 @@
 package com.fuglkrig.server;
 
-
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
-
 import com.fuglkrig.server.classes.EntityBird;
 import org.json.*;
-
 import javax.imageio.ImageIO;
 
 /**
@@ -36,8 +33,6 @@ public class Game extends Thread {
     private int wallSpeed = 10;
     private int spawn = 0;
 
-
-
     private Random rand = new Random();
     private int lastManStandingX = 0;
     private int getLastManStandingY = 0;
@@ -52,6 +47,9 @@ public class Game extends Thread {
     private double powerupBoxScale = 3;
     private double birdpoopScale = 1.5;
     private double wallScale = 1.5;
+
+    int updateGameCurrentMillis;
+    int updatesEachSecound;
 
     private List<Player> kickPlayer = new ArrayList<>();
 
@@ -261,6 +259,14 @@ public class Game extends Thread {
 
         if(shouldKickPlayers){
             actualKickPlayer();
+        }
+
+        updatesEachSecound++;
+        if (System.currentTimeMillis() < updateGameCurrentMillis + 1000) {
+            System.out.println("update game each secound: " + updatesEachSecound);
+            updateGameCurrentMillis = (int) System.currentTimeMillis();
+            updatesEachSecound = 0;
+
         }
     }
 
