@@ -108,7 +108,6 @@ public class Game extends Thread {
         }
     }
 
-    
     public void checkForPowerupCollisions(){
         Powerup powerup = null;
         Random rand = new Random();
@@ -135,7 +134,6 @@ public class Game extends Thread {
             powerupsOnMap.remove(powerup);
         }
     }
-
 
     /**
      * updates all clients in the game
@@ -296,11 +294,8 @@ public class Game extends Thread {
         }
         //loads powerup image
 
-
         Powerup pu = new Powerup(x, y, img.getHeight(), img.getWidth(), type, img);
-
-
-
+        powerupsOnMap.add(pu);
     }
 
     public void MovePowerups() {
@@ -423,6 +418,7 @@ public class Game extends Thread {
         JSONObject endGame = new JSONObject();
         endGame.put("Datatype", 16);
         endGame.put("PrintToPlayer", "Game Over");
+        endGame.put("Victory", true);
 
         for (Player player: players) {
             player.UpdateClient(endGame);
