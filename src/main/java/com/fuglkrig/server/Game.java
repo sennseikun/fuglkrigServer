@@ -117,15 +117,33 @@ public class Game extends Thread {
         Random rand = new Random();
         for (Powerup pUp: powerupsOnMap) {
             for (Player p: players){
-                if(CollisionDetection.playerPowerupCollision(p,pUp, fuglScale,powerupBoxScale)){
+
+                double scale = 1;
+
+                if(pUp.getType() == 0){
+                    scale = powerupBoxScale;
+                }
+
+                else if(pUp.getType() == 1 || pUp.getType() == 2){
+                    scale = wallScale;
+                }
+
+                else if(pUp.getType() == 3){
+                    scale = birdpoopScale;
+                }
+
+
+                if(CollisionDetection.playerPowerupCollision(p,pUp, fuglScale,scale)){
                     powerup=pUp;
                     try{
                         if(pUp.getType() == 0) {
                             p.addPowerUp(rand.nextInt(2)+1);
+                            System.out.println("Player " + p.getNick() + " got powerup" + pUp.getType());
                             break;
                         }
                         else{
                             p.setAlive(false);
+                            System.out.println("Player " + p.getNick() + " was hit by powerup");
                         }
                     }
                     catch (Exception e){
