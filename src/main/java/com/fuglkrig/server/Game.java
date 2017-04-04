@@ -135,6 +135,7 @@ public class Game extends Thread {
     
     public void checkForPowerupCollisions(){
         Powerup powerup = null;
+        Random rand = new Random();
         for (Powerup pUp: powerupsOnMap) {
             for (Player p: players){
                 if(CollisionDetection.playerPowerupCollision(p,pUp, fuglScale,powerupBoxScale)){
@@ -143,7 +144,8 @@ public class Game extends Thread {
                     try{
                         System.out.println(pUp.getType());
                         if(pUp.getType() == 0) {
-                            p.addPowerUp(pUp.getType());
+                            p.addPowerUp(rand.nextInt(2)+1);
+                            System.out.println(p.getPowerups().get(p.getPowerups().size()));
                             break;
                         }
                         else{
@@ -401,10 +403,11 @@ public class Game extends Thread {
             for (Player player : getPlayers()) {
                 if(player.getAlive()) {
                     setLastPlayer(player);
+                    moveLastManStanding(player);
                 }
             }
             setLastManStanding(true);
-            moveLastManStanding(lastPlayer);
+
         }
     }
 
