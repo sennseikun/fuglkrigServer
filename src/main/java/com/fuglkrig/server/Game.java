@@ -268,6 +268,8 @@ public class Game extends Thread {
     }
 
     public void addPowerup(int type, int x, int y) {
+        System.out.println("shot powerup of type " + type);
+
         BufferedImage img = null;
         //todo make sure the right image is loaded for the right powerup.
 
