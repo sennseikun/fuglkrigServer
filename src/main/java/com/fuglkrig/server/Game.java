@@ -232,6 +232,8 @@ public class Game extends Thread {
             playerData.put("Speed", player.getSpeed());
             playerData.put("Alive", player.getAlive());
 
+            System.out.println("Player is alive " + player.getNick()+ ": " + player.getAlive());
+
 
             //powerups in inventory
             JSONArray powerupList = new JSONArray(player.getPowerups());
