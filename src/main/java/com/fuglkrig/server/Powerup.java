@@ -3,6 +3,7 @@ package com.fuglkrig.server;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.HashSet;
 
 import com.fuglkrig.server.classes.EntityPowerUp;
 
@@ -14,6 +15,8 @@ public class Powerup extends GameObject implements EntityPowerUp {
     private int type;
     private String powerUpName;
     private int damage;
+
+    private HashSet<String> mask = new HashSet<>();
 
     private BufferedImage img = null;
 
@@ -48,6 +51,7 @@ public class Powerup extends GameObject implements EntityPowerUp {
             default:
                 System.out.println("\n\n\nWARNING!\nThe randint in Powerup doesnt match the cases in the other Powerup constructor in the powerup file.\n\n\n ");
         }
+        makeHashSet();
     }
 
     /**
@@ -112,5 +116,31 @@ public class Powerup extends GameObject implements EntityPowerUp {
 
     public void setImg(BufferedImage img) {
         this.img = img;
+    }
+
+    private void makeHashSet(){
+        BufferedImage image = null;
+        try {
+
+            image = getImg();
+            int pixel, a;
+            for(int i = 0; i < image.getWidth(); i++){ // for every (x,y) component in the given box,
+                for( int j = 0; j < image.getHeight(); j++){
+
+                    pixel = image.getRGB(i, j); // get the RGB value of the pixel
+                    a= (pixel >> 24) & 0xff;
+
+                    if(a != 0){  // if the alpha is not 0, it must be something other than transparent
+                        mask.add((getX()+i)+","+(getY()- j)); // add the absolute x and absolute y coordinates to our set
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("error");
+        }
+    }
+
+    public HashSet<String> getMask(){
+        return mask;  //return our set
     }
 }

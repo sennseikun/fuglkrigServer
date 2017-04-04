@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -41,6 +42,10 @@ public class Player {
     private BufferedImage fugl_image;
     private int width = 0;
     private int height = 0;
+    private HashSet<String> mask = new HashSet<String>();
+
+
+
 
     /**
      * Changes the toString to return the name of the player.
@@ -79,6 +84,7 @@ public class Player {
         }
         this.width = fugl_image.getWidth();
         this.height = fugl_image.getHeight();
+        createHash();
     }
 
     public Rectangle getRectangle(double scale){
@@ -96,6 +102,29 @@ public class Player {
         Player p = (Player)o;
 
         return getNick().equals(p.getNick());
+    }
+
+    private void createHash(){
+
+        BufferedImage image = null;
+        try {
+
+            image = getFugl_image();
+            int pixel, a;
+            for(int i = 0; i < image.getWidth(); i++){ // for every (x,y) component in the given box,
+                for( int j = 0; j < image.getHeight(); j++){
+
+                    pixel = image.getRGB(i, j); // get the RGB value of the pixel
+                    a= (pixel >> 24) & 0xff;
+
+                    if(a != 0){  // if the alpha is not 0, it must be something other than transparent
+                        mask.add((getCoordX()+i)+","+(getCoordY()- j)); // add the absolute x and absolute y coordinates to our set
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     /**
@@ -496,6 +525,11 @@ public class Player {
 
     public BufferedImage getFugl_image(){
         return fugl_image;
+    }
+
+    public HashSet<String> getMask(){
+        return mask;  //return our set
+
     }
 
 }

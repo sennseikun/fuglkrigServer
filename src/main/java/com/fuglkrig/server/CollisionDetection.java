@@ -23,7 +23,15 @@ public class CollisionDetection {
      */
     public static boolean playerPowerupCollision(Player p1, Powerup pUp, double scaleP, double scalePUp){
         if(p1.getRectangle(scaleP).intersects(pUp.getBounds(scalePUp)) || p1.getRectangle(scaleP).contains(pUp.getBounds(scalePUp))){
-            return true;
+            HashSet<String> maskPlayer1 = p1.getMask();
+            HashSet<String> maskPlayer2 = pUp.getMask();
+
+            maskPlayer1.retainAll(maskPlayer2);  // Check to see if any pixels in maskPlayer2 are the same as those in maskPlayer1
+
+            if(maskPlayer1.size() > 0){  // if so, than there exists at least one pixel that is the same in both images, thus
+                System.out.println("Bit perfect collision occured");//  collision has occurred.
+                return true;
+            }
         }
         return false;
     }
@@ -90,11 +98,11 @@ public class CollisionDetection {
         {
             return false; // Collision is impossible.
         }
-        else // Collision is possible.
+        /*else // Collision is possible.
         {
             /**
              * get the masks for both images
-             */
+
             HashSet<String> maskPlayer1 = getMask(a);
             HashSet<String> maskPlayer2 = getMask(b);
 
@@ -104,10 +112,10 @@ public class CollisionDetection {
                     /**
                      * System.out.println("Collision" + count);//  collision has occurred.
                      * count++;
-                     */
+                     *
                 return true;
             }
-        }
+        }*/
         return false;
     }
 
@@ -117,6 +125,7 @@ public class CollisionDetection {
      * x,y where x is the absolute x position of the pixel and y is the absolute y position of the pixel
      */
 
+    /*
     public static HashSet<String> getMask(Player player){
 
         HashSet<String> mask = new HashSet<String>();
@@ -143,5 +152,5 @@ public class CollisionDetection {
 
         return mask;  //return our set
 
-    }
+    }*/
 }
