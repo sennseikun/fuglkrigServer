@@ -60,7 +60,7 @@ public class Powerup extends GameObject implements EntityPowerUp {
      * update function for the powerup
      */
     public void tick() {
-        setX(super.getX() - (this.speed * -1));
+        setX(super.getX() - (this.speed * 1));
     }
 
     /**
