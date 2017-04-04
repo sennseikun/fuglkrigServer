@@ -96,6 +96,14 @@ public class Game extends Thread {
         this.setTimeForNewPowerUp(5000);
         this.paused = false;
 
+
+        InputStream is = this.getClass().getClassLoader().getResourceAsStream("bird.png");
+        try {
+            fugl_image = ImageIO.read(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         //creating map
         Random rand = new Random();
         //TODO NEEDS TO BE CHANGED TO 3 WHEN LAST MAP IS ADDED
