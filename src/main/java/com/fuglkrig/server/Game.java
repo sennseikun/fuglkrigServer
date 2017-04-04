@@ -423,7 +423,9 @@ public class Game extends Thread {
         //give random coordinates to the players
         for (Player player: players) {
             player.setCoordX(rand.nextInt(gameSizeX - 50));
+            player.setTargetPosX(rand.nextInt(gameSizeX - 50));
             player.setCoordY(rand.nextInt(gameSizeY - 50));
+            player.setTargetPosY(rand.nextInt(gameSizeY - 50));
         }
 
 
