@@ -15,12 +15,13 @@ public class Powerup extends GameObject implements EntityPowerUp {
     private int type;
     private String powerUpName;
     private int damage;
+    private int speed;
 
     private HashSet<String> mask = new HashSet<>();
 
     private BufferedImage img = null;
 
-    public Powerup(int x, int y, int height, int width, int type, BufferedImage img){
+    public Powerup(int x, int y, int height, int width, int type, BufferedImage img, int speed){
         super(x, y, width, height);
         this.setType(type);
         this.setImg(img);
@@ -57,8 +58,8 @@ public class Powerup extends GameObject implements EntityPowerUp {
     /**
      * update function for the powerup
      */
-    public void tick(int speed) {
-        setX(super.getX() - speed);
+    public void tick() {
+        setX(super.getX() - (this.speed * -1));
     }
 
     /**

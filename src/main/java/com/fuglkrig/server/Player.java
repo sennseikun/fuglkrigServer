@@ -334,6 +334,7 @@ public class Player {
      * @param powerUp
      */
     public void addPowerUp(int powerUp){
+        System.out.println("player got powerup of type " + powerUp);
         try {
             this.powerups.add(powerUp);
         }catch (Exception e) {
