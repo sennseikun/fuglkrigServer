@@ -314,19 +314,20 @@ public class Game extends Thread {
             case 2:
                 try {
                     wallSpeed = this.wallSpeed * -1;
-                    spawn = 10;
                     InputStream is = this.getClass().getClassLoader().getResourceAsStream("brickwall.png");
                     img = ImageIO.read(is);
+                    spawn = img.getWidth();
                 } catch (IOException e) {
                     System.out.println(e);
                 }
             break;
             case 3:
                 try {
-                    spawn = 10;
+
                     wallSpeed = this.wallSpeed* -1;
                     InputStream is = this.getClass().getClassLoader().getResourceAsStream("birdpoop.png");
                     img = ImageIO.read(is);
+                    spawn = img.getWidth();
                 } catch (IOException e) {
                     System.out.println(e);
                 }
