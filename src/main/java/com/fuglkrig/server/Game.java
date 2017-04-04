@@ -384,6 +384,8 @@ public class Game extends Thread {
 
         System.out.println("\n\n\n\n" + startGame + "\n\n\n\n\n");
 
+        System.out.println(startGame);
+
         //sends it to players
         for (Player player : getPlayers()) {
             player.UpdateClient(startGame);
