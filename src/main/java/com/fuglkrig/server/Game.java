@@ -343,7 +343,9 @@ public class Game extends Thread {
                 break;
 
         }
-        //loads powerup image
+        /**
+         * loads powerup image and adds powerups on the map
+         */
         Powerup pu = new Powerup(x, y, img.getHeight(), img.getWidth(), type, img, wallSpeed, spawn);
         powerupsOnMap.add(pu);
     }
