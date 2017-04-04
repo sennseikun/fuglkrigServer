@@ -8,7 +8,7 @@ package com.fuglkrig.server.classes;
  * Created by Tore on 24.03.2017.
  */
 public interface EntityPowerUp {
-    public void tick(int speed);
+    public void tick();
     public Rectangle getBounds(double scale);
 
     public int getX();

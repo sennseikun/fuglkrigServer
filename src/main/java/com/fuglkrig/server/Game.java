@@ -32,7 +32,11 @@ public class Game extends Thread {
 
     private int numberOfPowerUps = 2;
     //used to move map and powerups. in px
-    private int speed;
+    private int mapSpeed;
+    private int wallSpeed = 10;
+
+
+
     private Random rand = new Random();
     private int lastManStandingX = 0;
     private int getLastManStandingY = 0;
@@ -260,7 +264,7 @@ public class Game extends Thread {
             height = img.getHeight();
             width = img.getWidth();
 
-            Powerup pu = new Powerup(x, y, height, width, type, img);
+            Powerup pu = new Powerup(x, y, height, width, type, img, wallSpeed);
             pu.setType(0);
             this.getPowerupsOnMap().add(pu);
             setTimeStart(System.currentTimeMillis());
@@ -270,33 +274,43 @@ public class Game extends Thread {
     public void addPowerup(int type, int x, int y) {
         System.out.println("shot powerup of type " + type);
 
+        int wallSpeed = this.wallSpeed;
+
         BufferedImage img = null;
         //todo make sure the right image is loaded for the right powerup.
 
         switch (type){
             case 1:
                 try {
+                    wallSpeed = this.wallSpeed;
                 InputStream is = this.getClass().getClassLoader().getResourceAsStream("brickwall.png");
                 img = ImageIO.read(is);
             } catch (IOException e) {
-                System.out.println("Cant find brickwall.bmp");
                 System.out.println(e);
             }
             break;
             case 2:
                 try {
-                    InputStream is = this.getClass().getClassLoader().getResourceAsStream("birdpoop.png");
+                    wallSpeed = this.wallSpeed * -1;
+                    InputStream is = this.getClass().getClassLoader().getResourceAsStream("brickwall.png");
                     img = ImageIO.read(is);
                 } catch (IOException e) {
-                    System.out.println("Cant find birdpoop.bmp");
                     System.out.println(e);
                 }
             break;
+            case 3:
+                try {
+                    InputStream is = this.getClass().getClassLoader().getResourceAsStream("birdpoop.png");
+                    img = ImageIO.read(is);
+                } catch (IOException e) {
+                    System.out.println(e);
+                }
+                break;
 
         }
         //loads powerup image
 
-        Powerup pu = new Powerup(x, y, img.getHeight(), img.getWidth(), type, img);
+        Powerup pu = new Powerup(x, y, img.getHeight(), img.getWidth(), type, img, wallSpeed);
         powerupsOnMap.add(pu);
     }
 
@@ -307,7 +321,7 @@ public class Game extends Thread {
             if (powerup.getX() < 0-(powerup.getWidth() * powerupBoxScale)) {
                 toDelete.add(powerup);
             } else {
-                powerup.tick(getSpeed());
+                powerup.tick();
             }
         }
 
@@ -651,11 +665,11 @@ public class Game extends Thread {
     }
 
     public int getSpeed() {
-        return speed;
+        return mapSpeed;
     }
 
     public void setSpeed(int speed) {
-        this.speed = speed;
+        this.mapSpeed = speed;
     }
 
 
