@@ -23,7 +23,8 @@ public class CollisionDetection {
      */
     public static boolean playerPowerupCollision(Player p1, Powerup pUp, double scaleP, double scalePUp){
         if(p1.getRectangle(scaleP).intersects(pUp.getBounds(scalePUp)) || p1.getRectangle(scaleP).contains(pUp.getBounds(scalePUp))){
-
+            System.out.println(scaleP);
+            System.out.println(scalePUp);
             /*
             HashSet<String> maskPlayer1 = p1.getMask();
             HashSet<String> maskPlayer2 = pUp.getMask();
