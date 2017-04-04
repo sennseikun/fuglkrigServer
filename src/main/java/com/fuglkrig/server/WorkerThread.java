@@ -395,19 +395,21 @@ public class WorkerThread implements Runnable {
                 int type = jsonData.getInt("Type");
                 Player player = receiveThread.getPlayer();
 
+                System.out.println("type: " + type);
+                System.out.println(player.getPowerups());
+                System.out.println(player.getPowerups().contains(Integer.valueOf(type)));
+
                 //checks if the user actually got the powerup he wants to use
-                if (player.getPowerups().contains(type)) {
+                if (player.getPowerups().contains(Integer.valueOf(type))) {
                     System.out.println("spawning powerup");
                     //removes the powerup from the user
                     player.getPowerups().remove(Integer.valueOf(type));
                     //spawn the powerup
                     player.getCurrentGame().addPowerup(type, (int) player.getCoordX() - 50, (int) player.getCoordY());
-
                 }
                 else {
                     System.out.println("user cheating? tried using a powerup he doesnt have");
                 }
-
             }
 
             else{
