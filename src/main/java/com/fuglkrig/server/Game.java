@@ -61,7 +61,6 @@ public class Game extends Thread {
         public void run() {
             if (getSecoundsUntilStart() == 0) {
                 setTextOnPlayerScreen("");
-                setPaused(false);
                 getCountDown().cancel();
             } else {
                 setTextOnPlayerScreen(Integer.toString(getSecoundsUntilStart() - 1));
@@ -97,7 +96,6 @@ public class Game extends Thread {
         //TODO NEEDS TO BE CHANGED TO 3 WHEN LAST MAP IS ADDED
         this.setMap(new Map(rand.nextInt(3) + 1));
         System.out.println("New game created. Map: " + getMap().getMapName());
-        setPaused(true);
     }
 
     public void moveLastManStanding(Player player) {
