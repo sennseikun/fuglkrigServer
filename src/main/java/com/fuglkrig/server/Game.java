@@ -537,7 +537,6 @@ public class Game extends Thread {
             System.out.println("LAST MAN STANDING");
 
             System.out.println("Sending game over");
-            gameOver();
 
             //this is used between playing the game and lobby
             while (isLastManStanding()) {
@@ -545,7 +544,7 @@ public class Game extends Thread {
                 getLastPlayer().setTargetPosY(getMap().getWinPosY());
 
                 //moves the map
-                getMap().moveMap(getSpeed(), isLastManStanding(), getGameSizeX());
+                map.moveMap(getSpeed(), isLastManStanding(), getGameSizeX());
                 //we still need to move the powerups.
                 MovePowerups();
                 //we need to control the player to the nest
@@ -569,7 +568,7 @@ public class Game extends Thread {
             }
 
         }
-
+        gameOver();
         System.out.println("Shutting down server");
 
     }
