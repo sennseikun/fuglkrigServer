@@ -287,6 +287,8 @@ public class Game extends Thread {
             pu.setType(0);
             this.getPowerupsOnMap().add(pu);
             setTimeStart(System.currentTimeMillis());
+            System.out.println(getPowerupsOnMap());
+            System.out.println("Powerup was added");
         }
     }
 
@@ -348,10 +350,7 @@ public class Game extends Thread {
         }
 
         if (toDelete.size() > 0) {
-
-            for (Powerup powerup : toDelete) {
-                getPowerupsOnMap().remove(powerup);
-            }
+            getPowerupsOnMap().removeAll(toDelete);
         }
     }
 
