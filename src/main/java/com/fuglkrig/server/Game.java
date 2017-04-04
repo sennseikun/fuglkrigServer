@@ -75,7 +75,6 @@ public class Game extends Thread {
 
     private boolean lastManStanding;
 
-
     /**
      * Create a game with the list of players.
      *
@@ -169,7 +168,7 @@ public class Game extends Thread {
         dataToPlayers.put("MapXPos", this.getMap().getMapXPos());
         dataToPlayers.put("NextMapXPos", this.getMap().getNextMapXPos());
         dataToPlayers.put("WinMapXPos", this.getMap().getWinMapXPos());
-        dataToPlayers.put("PrintToPlayer", secoundsUntilStart+"");
+        dataToPlayers.put("PrintToPlayer", textOnPlayerScreen);
 
         //liste over powerups på kart
         JSONArray powerupData = new JSONArray();
@@ -434,13 +433,16 @@ public class Game extends Thread {
          */
         setTextOnPlayerScreen("Waiting for players");
         boolean readyToStart = true;
+        double getStartMilis = System.currentTimeMillis();
         while (readyToStart == false) {
 
-            boolean everyoneReady = true;
-            for (Player player : getPlayers()) {
-                if (player.readyToStart() == false) {
-                    everyoneReady = false;
-                }
+            if (System.currentTimeMillis() > getStartMilis + 1000) {
+                secoundsUntilStart--;
+            }
+            textOnPlayerScreen = Integer.toString(secoundsUntilStart);
+            if (secoundsUntilStart == 0) {
+                textOnPlayerScreen = "";
+                readyToStart = true;
             }
 
             /**
@@ -457,7 +459,7 @@ public class Game extends Thread {
          * counts down the game before its starts
          */
         startGame();
-        getTimer().schedule(getCountDown(), 1000, 5000);
+        //getTimer().schedule(getCountDown(), 1000, 5000);
 
         /**
          * start updating players
