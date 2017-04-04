@@ -453,10 +453,12 @@ public class Game extends Thread {
         setTextOnPlayerScreen("Waiting for players");
         boolean readyToStart = false;
         double getStartMilis = System.currentTimeMillis();
-        while (readyToStart == false) {
+        while (!readyToStart) {
 
             if (System.currentTimeMillis() > getStartMilis + 1000) {
                 secoundsUntilStart--;
+                System.out.println("decreasing timer");
+                getStartMilis = System.currentTimeMillis();
             }
             textOnPlayerScreen = Integer.toString(secoundsUntilStart);
             if (secoundsUntilStart == 0) {
@@ -474,11 +476,13 @@ public class Game extends Thread {
             sleepTick();
         }
 
+        System.out.println("exited timer");
+
         /**
          * counts down the game before its starts
          */
         startGame();
-        //getTimer().schedule(getCountDown(), 1000, 5000);
+        System.out.println("running startgame");
 
 
         /**
@@ -487,6 +491,7 @@ public class Game extends Thread {
         System.out.println("\n");
         System.out.println(paused);
         System.out.println(lastManStanding);
+        System.out.println(players);
         while (!isPaused()) {
             System.out.println("running tick");
 
