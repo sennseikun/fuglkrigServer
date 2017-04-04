@@ -18,32 +18,12 @@ import java.util.HashSet;
  */
 public class CollisionDetection {
 
-    public static boolean dummyCollides(GameObject g1, GameObject g2, double scale1, double scale2) {
-        if (g1.getBounds(scale1).intersects(g2.getBounds(scale2))) {
-            return true;
-        }
-        return false;
-    }
-
     /**
      *  Checking if the rectangle of the bird are colliding with the powerup button
      */
     public static boolean playerPowerupCollision(Player p1, Powerup pUp, double scaleP, double scalePUp){
         if(p1.getRectangle(scaleP).intersects(pUp.getBounds(scalePUp)) || p1.getRectangle(scaleP).contains(pUp.getBounds(scalePUp))){
             return true;
-        }
-        return false;
-    }
-
-    /**
-     *  Checking if the rectangle of a bird collides with the rectangle of a powerUp and calling pixel perfect collision detection
-     */
-    public static boolean collisionPowerup(EntityBird b, ArrayList<EntityPowerUp> powerUps, double scale){
-        for (EntityPowerUp powerUp: powerUps) {
-            if(b.getBounds().intersects(powerUp.getBounds(scale))){
-                return true;
-                //return checkCollision((GameObject)b, (GameObject)powerUp);
-            }
         }
         return false;
     }

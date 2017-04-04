@@ -61,6 +61,7 @@ public class Game extends Thread {
         public void run() {
             if (getSecoundsUntilStart() == 0) {
                 setTextOnPlayerScreen("");
+                setPaused(false);
                 getCountDown().cancel();
             } else {
                 setTextOnPlayerScreen(Integer.toString(getSecoundsUntilStart() - 1));
@@ -116,7 +117,6 @@ public class Game extends Thread {
             for (Player p: players){
                 if(CollisionDetection.playerPowerupCollision(p,pUp, fuglScale,powerupBoxScale)){
                     powerup=pUp;
-                    System.out.println(pUp.getType());
                     try{
                         System.out.println(pUp.getType());
                         if(pUp.getType() == 0) {
@@ -277,14 +277,29 @@ public class Game extends Thread {
         BufferedImage img = null;
         //todo make sure the right image is loaded for the right powerup.
 
-        //loads powerup image
-        try {
-            InputStream is = this.getClass().getClassLoader().getResourceAsStream("brickwall.png");
-            img = ImageIO.read(is);
-        } catch (IOException e) {
-            System.out.println("Cant find powerup.bmp");
-            System.out.println(e);
+        switch (type){
+            case 1:
+                try {
+                InputStream is = this.getClass().getClassLoader().getResourceAsStream("brickwall.png");
+                img = ImageIO.read(is);
+            } catch (IOException e) {
+                System.out.println("Cant find brickwall.bmp");
+                System.out.println(e);
+            }
+            break;
+            case 2:
+                try {
+                    InputStream is = this.getClass().getClassLoader().getResourceAsStream("birdpoop.png");
+                    img = ImageIO.read(is);
+                } catch (IOException e) {
+                    System.out.println("Cant find birdpoop.bmp");
+                    System.out.println(e);
+                }
+            break;
+
         }
+        //loads powerup image
+
 
         Powerup pu = new Powerup(x, y, img.getHeight(), img.getWidth(), type, img);
 
@@ -306,7 +321,6 @@ public class Game extends Thread {
         if (toDelete.size() > 0) {
 
             for (Powerup powerup : toDelete) {
-                System.out.println("removing powerup");
                 getPowerupsOnMap().remove(powerup);
             }
         }
