@@ -26,7 +26,7 @@ public class Game extends Thread {
     //in millisecounds
     private double timeForNewPowerUp;
     private String textOnPlayerScreen;
-    private int secoundsUntilStart = 6;
+    private int secoundsUntilStart = 5;
 
     //Changed nr of powerups to support current count
 
@@ -61,6 +61,7 @@ public class Game extends Thread {
         public void run() {
             if (getSecoundsUntilStart() == 0) {
                 setTextOnPlayerScreen("");
+                setPaused(false);
                 getCountDown().cancel();
             } else {
                 setTextOnPlayerScreen(Integer.toString(getSecoundsUntilStart() - 1));
@@ -96,7 +97,7 @@ public class Game extends Thread {
         //TODO NEEDS TO BE CHANGED TO 3 WHEN LAST MAP IS ADDED
         this.setMap(new Map(rand.nextInt(3) + 1));
         System.out.println("New game created. Map: " + getMap().getMapName());
-
+        setPaused(true);
     }
 
     public void moveLastManStanding(Player player) {
@@ -168,7 +169,7 @@ public class Game extends Thread {
         dataToPlayers.put("MapXPos", this.getMap().getMapXPos());
         dataToPlayers.put("NextMapXPos", this.getMap().getNextMapXPos());
         dataToPlayers.put("WinMapXPos", this.getMap().getWinMapXPos());
-        dataToPlayers.put("PrintToPlayer", "test");
+        dataToPlayers.put("PrintToPlayer", secoundsUntilStart+"");
 
         //liste over powerups på kart
         JSONArray powerupData = new JSONArray();
@@ -208,8 +209,6 @@ public class Game extends Thread {
             playerData.put("Speed", player.getSpeed());
             playerData.put("Alive", player.getAlive());
 
-            System.out.println("Player is alive " + player.getNick()+ ": " + player.getAlive());
-
 
             //powerups in inventory
             JSONArray powerupList = new JSONArray(player.getPowerups());
@@ -246,7 +245,6 @@ public class Game extends Thread {
      * Adds a powerup to the powerupsOnMap list
      */
     public void SpawnPowerups() {
-
 
         setTimeSinceLastPowerUp(System.currentTimeMillis() - getTimeStart());
         if (getTimeSinceLastPowerUp() > getTimeForNewPowerUp()) {
@@ -438,7 +436,9 @@ public class Game extends Thread {
         //give random coordinates to the players
         for (Player player: players) {
             player.setCoordX(rand.nextInt(gameSizeX - 50));
+            player.setTargetPosX(rand.nextInt(gameSizeX - 50));
             player.setCoordY(rand.nextInt(gameSizeY - 50));
+            player.setTargetPosY(rand.nextInt(gameSizeY - 50));
         }
 
 
@@ -470,7 +470,7 @@ public class Game extends Thread {
          * counts down the game before its starts
          */
         startGame();
-        getTimer().schedule(getCountDown(), 1000, 1000);
+        getTimer().schedule(getCountDown(), 500, 3000);
 
         /**
          * start updating players
