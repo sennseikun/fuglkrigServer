@@ -316,7 +316,7 @@ public class Game extends Thread {
                     wallSpeed = this.wallSpeed * -1;
                     InputStream is = this.getClass().getClassLoader().getResourceAsStream("brickwall.png");
                     img = ImageIO.read(is);
-                    spawn = getFugl_image().getWidth()+50;
+                    spawn = getFugl_width() + 50;
                 } catch (IOException e) {
                     System.out.println(e);
                 }
@@ -327,7 +327,7 @@ public class Game extends Thread {
                     wallSpeed = this.wallSpeed* -1;
                     InputStream is = this.getClass().getClassLoader().getResourceAsStream("birdpoop.png");
                     img = ImageIO.read(is);
-                    spawn = getFugl_image().getWidth()+50;
+                    spawn = 200;
                 } catch (IOException e) {
                     System.out.println(e);
                 }
