@@ -120,7 +120,6 @@ public class Game extends Thread {
                         System.out.println(pUp.getType());
                         if(pUp.getType() == 0) {
                             p.addPowerUp(rand.nextInt(2)+1);
-                            System.out.println(p.getPowerups().get(p.getPowerups().size()-1));
                             break;
                         }
                         else{
