@@ -26,6 +26,7 @@ public class Powerup extends GameObject implements EntityPowerUp {
         this.setType(type);
         this.setImg(img);
         this.damage = 1;
+        this.speed = speed;
 
         //TODO fix this to give powers!. MATCH THIS WITH CLIENT
         //remember to fix Powerup! It has a randint that needs to be changed
