@@ -262,7 +262,7 @@ public class Game extends Thread {
         }
 
         updatesEachSecound++;
-        if (System.currentTimeMillis() < updateGameCurrentMillis + 1000) {
+        if (System.currentTimeMillis() > updateGameCurrentMillis + 1000) {
             System.out.println("update game each secound: " + updatesEachSecound);
             updateGameCurrentMillis = (int) System.currentTimeMillis();
             updatesEachSecound = 0;
