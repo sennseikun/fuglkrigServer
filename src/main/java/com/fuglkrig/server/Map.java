@@ -118,10 +118,13 @@ public class Map {
         boolean winMapDone = false;
 
         if (lastManStanding) {
+
             if (gameSizeX - winMapXPos <= winMapWidth) {
+                System.out.println("moving winscreen");
                 winMapXPos -= speed;
             }
             else {
+                System.out.println("stopped moving winscreen");
                 winMapDone = true;
             }
 
