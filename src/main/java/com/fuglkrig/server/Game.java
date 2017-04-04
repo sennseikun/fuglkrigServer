@@ -61,7 +61,6 @@ public class Game extends Thread {
         public void run() {
             if (getSecoundsUntilStart() == 0) {
                 setTextOnPlayerScreen("");
-                setPaused(false);
                 getCountDown().cancel();
             } else {
                 setTextOnPlayerScreen(Integer.toString(getSecoundsUntilStart() - 1));
