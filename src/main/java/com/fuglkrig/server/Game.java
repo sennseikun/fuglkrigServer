@@ -528,8 +528,8 @@ public class Game extends Thread {
 
             System.out.println("LAST MAN STANDING");
 
-            System.out.println("Sending game over");
 
+            getStartMilis = System.currentTimeMillis();
             //this is used between playing the game and lobby
             while (isLastManStanding()) {
                 getLastPlayer().setTargetPosX(getMap().getWinPosX());
@@ -550,17 +550,24 @@ public class Game extends Thread {
                 actualKickPlayer();
 
                 //kills the server if no one is left
-                if (getPlayers().size() == 0) {
+                if (players.size() == 0) {
                     setLastManStanding(false);
                 }
+
+                if (getStartMilis < System.currentTimeMillis() + 5000) {
+                    lastManStanding = false;
+                }
+
             }
+            
+            System.out.println("Sending game over");
+            gameOver();
 
             if (getPlayers().size() == 0) {
                 setPaused(true);
             }
         }
 
-        gameOver();
         System.out.println("Shutting down server");
 
     }
