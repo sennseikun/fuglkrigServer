@@ -100,8 +100,14 @@ public class Game extends Thread {
     }
 
     public void moveLastManStanding(Player player) {
-        player.setTargetPosX(500);
-        player.setTargetPosY(500);
+        try {
+            System.out.println("it works");
+            player.setTargetPosX(500);
+            player.setTargetPosY(500);
+        }
+        catch(Exception e){
+            System.out.println("e");
+        }
     }
 
     public void initFugles(){
@@ -145,7 +151,7 @@ public class Game extends Thread {
                         System.out.println(pUp.getType());
                         if(pUp.getType() == 0) {
                             p.addPowerUp(rand.nextInt(2)+1);
-                            System.out.println(p.getPowerups().get(p.getPowerups().size()));
+                            System.out.println(p.getPowerups().get(p.getPowerups().size()-1));
                             break;
                         }
                         else{
