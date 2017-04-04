@@ -223,7 +223,6 @@ public class Game extends Thread {
          */
         dataToPlayers.put("Players", playersData);
 
-        System.out.println(dataToPlayers);
         /**
          * pushes the data to the clients.
          */
@@ -427,12 +426,6 @@ public class Game extends Thread {
      */
     @Override
     public void run() {
-        //todo add logic that kills the server if there isnt any players in game.
-
-        System.out.println("\n");
-        System.out.println(paused);
-        System.out.println(lastManStanding);
-
         System.out.println("gameloop started");
 
         //todo Should probably make a timeout when we stop waiting for players to connect.
@@ -452,12 +445,8 @@ public class Game extends Thread {
         /**
          * Checks if all users are ready to start before moving on to other tasks.
          */
-        System.out.println("\n");
-        System.out.println(paused);
-        System.out.println(lastManStanding);
+
         setTextOnPlayerScreen("Waiting for players");
-
-
 
         boolean readyToStart = false;
         double getStartMilis = System.currentTimeMillis();
@@ -495,10 +484,6 @@ public class Game extends Thread {
         /**
          * start updating players
          */
-        System.out.println("\n");
-        System.out.println(paused);
-        System.out.println(lastManStanding);
-        System.out.println(players);
         while (paused) {
             System.out.println("running tick");
 
