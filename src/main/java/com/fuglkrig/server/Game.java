@@ -484,31 +484,35 @@ public class Game extends Thread {
         /**
          * start updating players
          */
-        while (paused) {
+        while (!paused) {
             System.out.println("running tick");
-
             System.out.println("serverloop started");
 
             /*
-            This is the game loop. When the game is started this updates all the clients untill someone won
-
-
+             * This is the game loop. When the game is started this updates all the clients until someone won
              */
             while (!isLastManStanding()) {
                 //moves the map
                 getMap().moveMap(getSpeed(), isLastManStanding(), getGameSizeX());
+
                 //spawns new powerups
                 SpawnPowerups();
+
                 //moves powerups
                 MovePowerups();
+
                 //moves players
                 playerTick();
+
                 //send new data to players
                 UpdateGame();
+
                 //sleeps for a tick
                 sleepTick();
+
                 //if wincondition is met, cancel the while loop
                 lastManStanding();
+
                 //Updates the fugles representations on server
                 //Check for collisions between fugles
                 checkForPowerupCollisions();
@@ -520,6 +524,7 @@ public class Game extends Thread {
                     setLastManStanding(true);
                 }
             }
+
 
             System.out.println("LAST MAN STANDING");
 
