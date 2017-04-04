@@ -18,6 +18,7 @@ public class Map {
     private int winMapXPos;
     private int winPosX;
     private int winPosY;
+    boolean stopmovingscr = false;
 
 
     //maptype is 1, 2 or 3.
@@ -117,7 +118,7 @@ public class Map {
 
         boolean winMapDone = false;
 
-        boolean stopmovingscr = false;
+
 
         if (lastManStanding) {
 
