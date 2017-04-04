@@ -475,7 +475,7 @@ public class Game extends Thread {
          * counts down the game before its starts
          */
         startGame();
-        getTimer().schedule(getCountDown(), 1000, 1000);
+        getTimer().schedule(getCountDown(), 500, 3000);
 
         /**
          * start updating players
