@@ -424,6 +424,7 @@ public class Game extends Thread {
     private void gameOver() {
         JSONObject endGame = new JSONObject();
         endGame.put("Datatype", 16);
+        endGame.put("PrintToPlayer", "Game Over");
 
         for (Player player: players) {
             player.UpdateClient(endGame);
@@ -566,8 +567,8 @@ public class Game extends Thread {
             if (getPlayers().size() == 0) {
                 setPaused(true);
             }
-
         }
+
         gameOver();
         System.out.println("Shutting down server");
 
