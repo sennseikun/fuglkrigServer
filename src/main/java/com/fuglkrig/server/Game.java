@@ -34,6 +34,7 @@ public class Game extends Thread {
     //used to move map and powerups. in px
     private int mapSpeed;
     private int wallSpeed = 10;
+    private int spawn = 0;
 
 
 
@@ -282,7 +283,7 @@ public class Game extends Thread {
             height = img.getHeight();
             width = img.getWidth();
 
-            Powerup pu = new Powerup(x, y, height, width, type, img, wallSpeed);
+            Powerup pu = new Powerup(x, y, height, width, type, img, wallSpeed ,spawn);
             pu.setType(0);
             this.getPowerupsOnMap().add(pu);
             setTimeStart(System.currentTimeMillis());
@@ -293,6 +294,7 @@ public class Game extends Thread {
         System.out.println("shot powerup of type " + type);
 
         int wallSpeed = this.wallSpeed;
+        int spawn = this.spawn;
 
         BufferedImage img = null;
         //todo make sure the right image is loaded for the right powerup.
@@ -310,6 +312,7 @@ public class Game extends Thread {
             case 2:
                 try {
                     wallSpeed = this.wallSpeed * -1;
+                    spawn = 10;
                     InputStream is = this.getClass().getClassLoader().getResourceAsStream("brickwall.png");
                     img = ImageIO.read(is);
                 } catch (IOException e) {
@@ -318,6 +321,8 @@ public class Game extends Thread {
             break;
             case 3:
                 try {
+                    spawn = 10;
+                    wallSpeed = this.wallSpeed* -1;
                     InputStream is = this.getClass().getClassLoader().getResourceAsStream("birdpoop.png");
                     img = ImageIO.read(is);
                 } catch (IOException e) {
@@ -327,7 +332,7 @@ public class Game extends Thread {
 
         }
         //loads powerup image
-        Powerup pu = new Powerup(x, y, img.getHeight(), img.getWidth(), type, img, wallSpeed);
+        Powerup pu = new Powerup(x, y, img.getHeight(), img.getWidth(), type, img, wallSpeed, spawn);
         powerupsOnMap.add(pu);
     }
 

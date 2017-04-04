@@ -16,17 +16,19 @@ public class Powerup extends GameObject implements EntityPowerUp {
     private String powerUpName;
     private int damage;
     private int speed;
+    private int spawn;
 
     private HashSet<String> mask = new HashSet<>();
 
     private BufferedImage img = null;
 
-    public Powerup(int x, int y, int height, int width, int type, BufferedImage img, int speed){
-        super(x, y, width, height);
+    public Powerup(int x, int y, int height, int width, int type, BufferedImage img, int speed, int spawn){
+        super((x + spawn), y, width, height);
         this.setType(type);
         this.setImg(img);
         this.damage = 1;
         this.speed = speed;
+        this.spawn = spawn;
 
         //TODO fix this to give powers!. MATCH THIS WITH CLIENT
         //remember to fix Powerup! It has a randint that needs to be changed
