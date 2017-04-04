@@ -44,7 +44,7 @@ public class Game extends Thread {
     private BufferedImage fugl_image = null;
 
     private double fuglScale = 3;
-    private double powerupBoxScale = 2;
+    private double powerupBoxScale = 0.7;
     private double birdpoopScale = 1.5;
     private double wallScale = 1.5;
 
@@ -421,6 +421,15 @@ public class Game extends Thread {
         players.removeAll(kickPlayer);
     }
 
+    private void gameOver() {
+        JSONObject endGame = new JSONObject();
+        endGame.put("Datatype", 16);
+
+        for (Player player: players) {
+            player.UpdateClient(endGame);
+        }
+    }
+
     /**
      * logic for the game thread. Do not run this method. run the start() even tho it is not specified here
      */
@@ -525,8 +534,10 @@ public class Game extends Thread {
                 }
             }
 
-
             System.out.println("LAST MAN STANDING");
+
+            System.out.println("Sending game over");
+            gameOver();
 
             //this is used between playing the game and lobby
             while (isLastManStanding()) {
