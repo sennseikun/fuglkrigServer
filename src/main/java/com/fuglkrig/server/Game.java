@@ -315,7 +315,7 @@ public class Game extends Thread {
                     wallSpeed = this.wallSpeed;
                 InputStream is = this.getClass().getClassLoader().getResourceAsStream("brickwall.png");
                 img = ImageIO.read(is);
-                spawn = -(int)(fugl_image.getWidth()*fuglScale + 50);
+                spawn = -(int)(fugl_image.getWidth()*fuglScale);
                 } catch (IOException e) {
                 System.out.println(e);
             }
@@ -564,6 +564,7 @@ public class Game extends Thread {
 
                 //kills the server if no one is left
                 if (getPlayers().size() == 0) {
+                    System.out.println("Setting last man standing true");
                     setLastManStanding(true);
                 }
             }
