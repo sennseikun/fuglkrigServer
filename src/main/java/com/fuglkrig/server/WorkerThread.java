@@ -400,9 +400,8 @@ public class WorkerThread implements Runnable {
                     System.out.println("spawning powerup");
                     //removes the powerup from the user
                     player.getPowerups().remove(type);
-
                     //spawn the powerup
-                    player.getCurrentGame().addPowerup(type, (int) player.getCoordX(), (int) player.getCoordY());
+                    player.getCurrentGame().addPowerup(type, (int) player.getCoordX() - 50, (int) player.getCoordY());
 
                 }
                 else {
