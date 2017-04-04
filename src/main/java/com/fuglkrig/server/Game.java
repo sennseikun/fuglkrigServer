@@ -492,7 +492,7 @@ public class Game extends Thread {
         System.out.println(paused);
         System.out.println(lastManStanding);
         System.out.println(players);
-        while (!isPaused()) {
+        while (paused) {
             System.out.println("running tick");
 
             System.out.println("serverloop started");
