@@ -283,9 +283,10 @@ public class Game extends Thread {
             width = img.getWidth();
 
             Powerup pu = new Powerup(x, y, height, width, type, img, wallSpeed);
-            pu.setType(0);
             this.getPowerupsOnMap().add(pu);
             setTimeStart(System.currentTimeMillis());
+            System.out.println(getPowerupsOnMap());
+            System.out.println("Powerup was added");
         }
     }
 
