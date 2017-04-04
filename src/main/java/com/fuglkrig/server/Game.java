@@ -49,7 +49,7 @@ public class Game extends Thread {
     private BufferedImage fugl_image = null;
 
     private double fuglScale = 3;
-    private double powerupBoxScale = 0.7;
+    private double powerupBoxScale = 5;
     private double birdpoopScale = 1.5;
     private double wallScale = 1.5;
 
