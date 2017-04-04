@@ -101,7 +101,6 @@ public class Game extends Thread {
 
     public void moveLastManStanding(Player player) {
         try {
-            System.out.println("it works");
             player.setTargetPosX(500);
             player.setTargetPosY(500);
         }
@@ -110,34 +109,6 @@ public class Game extends Thread {
         }
     }
 
-    public void initFugles(){
-        try {
-            InputStream is = this.getClass().getClassLoader().getResourceAsStream("bird.png");
-            fugl_image = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        updateFugles();
-    }
-
-    public void updateFugles(){
-
-        fugles.clear();
-
-        fugl_height = fugl_image.getHeight();
-        fugl_width = fugl_image.getWidth();
-
-        //System.out.println(fugl_image.toString());
-
-        for(Player p: players){
-            int x = (int)p.getCoordX();
-            int y = (int)p.getCoordY();
-
-            //System.out.println(f.toString());
-
-        }
-    }
     
     public void checkForPowerupCollisions(){
         Powerup powerup = null;
