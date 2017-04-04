@@ -42,7 +42,7 @@ public class GameObject {
      * @return a rectangle that surrounds the the game object
      */
     public Rectangle getBounds(double scale){
-        return new Rectangle((int)this.getX(),(int)this.getY(),(int)(this.getWidth()*scale),(int)(this.getHeight()*scale));
+        return new Rectangle(this.getX(),this.getY(),(int)(this.getWidth()*scale),(int)(this.getHeight()*scale));
     }
 
 

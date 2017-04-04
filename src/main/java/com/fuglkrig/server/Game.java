@@ -295,12 +295,7 @@ public class Game extends Thread {
 
         }
         //loads powerup image
-
-
         Powerup pu = new Powerup(x, y, img.getHeight(), img.getWidth(), type, img);
-
-
-
     }
 
     public void MovePowerups() {
