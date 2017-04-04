@@ -61,6 +61,7 @@ public class Game extends Thread {
         public void run() {
             if (getSecoundsUntilStart() == 0) {
                 setTextOnPlayerScreen("");
+                setPaused(false);
                 getCountDown().cancel();
             } else {
                 setTextOnPlayerScreen(Integer.toString(getSecoundsUntilStart() - 1));
@@ -96,7 +97,7 @@ public class Game extends Thread {
         //TODO NEEDS TO BE CHANGED TO 3 WHEN LAST MAP IS ADDED
         this.setMap(new Map(rand.nextInt(3) + 1));
         System.out.println("New game created. Map: " + getMap().getMapName());
-
+        setPaused(true);
     }
 
     public void moveLastManStanding(Player player) {
@@ -266,7 +267,6 @@ public class Game extends Thread {
      * Adds a powerup to the powerupsOnMap list
      */
     public void SpawnPowerups() {
-
 
         setTimeSinceLastPowerUp(System.currentTimeMillis() - getTimeStart());
         if (getTimeSinceLastPowerUp() > getTimeForNewPowerUp()) {
@@ -475,7 +475,7 @@ public class Game extends Thread {
          * counts down the game before its starts
          */
         startGame();
-        getTimer().schedule(getCountDown(), 1000, 5000);
+        getTimer().schedule(getCountDown(), 1000, 1000);
 
         /**
          * start updating players
