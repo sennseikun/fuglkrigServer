@@ -84,7 +84,7 @@ public class Player {
         }
         this.width = fugl_image.getWidth();
         this.height = fugl_image.getHeight();
-        createHash();
+        //makeHashSet();
     }
 
     public Rectangle getRectangle(double scale){
@@ -104,7 +104,7 @@ public class Player {
         return getNick().equals(p.getNick());
     }
 
-    private void createHash(){
+    private void makeHashSet(){
 
         BufferedImage image = null;
         try {
