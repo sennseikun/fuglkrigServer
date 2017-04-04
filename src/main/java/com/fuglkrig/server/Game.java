@@ -223,7 +223,7 @@ public class Game extends Thread {
          */
         dataToPlayers.put("Players", playersData);
 
-
+        System.out.println(dataToPlayers);
         /**
          * pushes the data to the clients.
          */
