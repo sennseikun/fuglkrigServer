@@ -564,6 +564,7 @@ public class Game extends Thread {
 
                 //kills the server if no one is left
                 if (getPlayers().size() == 0) {
+                    System.out.println("Setting last man standing true");
                     setLastManStanding(true);
                 }
             }
