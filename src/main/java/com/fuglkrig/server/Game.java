@@ -446,6 +446,9 @@ public class Game extends Thread {
         }
 
 
+        startGame();
+        System.out.println("running startgame");
+
         /**
          * Checks if all users are ready to start before moving on to other tasks.
          */
@@ -453,6 +456,9 @@ public class Game extends Thread {
         System.out.println(paused);
         System.out.println(lastManStanding);
         setTextOnPlayerScreen("Waiting for players");
+
+
+
         boolean readyToStart = false;
         double getStartMilis = System.currentTimeMillis();
         while (!readyToStart) {
@@ -483,8 +489,7 @@ public class Game extends Thread {
         /**
          * counts down the game before its starts
          */
-        startGame();
-        System.out.println("running startgame");
+
 
 
         /**
