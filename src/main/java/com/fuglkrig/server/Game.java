@@ -223,7 +223,6 @@ public class Game extends Thread {
          */
         dataToPlayers.put("Players", playersData);
 
-
         /**
          * pushes the data to the clients.
          */
@@ -384,6 +383,8 @@ public class Game extends Thread {
 
         System.out.println("\n\n\n\n" + startGame + "\n\n\n\n\n");
 
+        System.out.println(startGame);
+
         //sends it to players
         for (Player player : getPlayers()) {
             player.UpdateClient(startGame);
@@ -425,8 +426,6 @@ public class Game extends Thread {
      */
     @Override
     public void run() {
-        //todo add logic that kills the server if there isnt any players in game.
-
         System.out.println("gameloop started");
 
         //todo Should probably make a timeout when we stop waiting for players to connect.
@@ -440,16 +439,23 @@ public class Game extends Thread {
         }
 
 
+        startGame();
+        System.out.println("running startgame");
+
         /**
          * Checks if all users are ready to start before moving on to other tasks.
          */
+
         setTextOnPlayerScreen("Waiting for players");
+
         boolean readyToStart = false;
         double getStartMilis = System.currentTimeMillis();
-        while (readyToStart == false) {
+        while (!readyToStart) {
 
             if (System.currentTimeMillis() > getStartMilis + 1000) {
                 secoundsUntilStart--;
+                System.out.println("decreasing timer");
+                getStartMilis = System.currentTimeMillis();
             }
             textOnPlayerScreen = Integer.toString(secoundsUntilStart);
             if (secoundsUntilStart == 0) {
@@ -467,17 +473,18 @@ public class Game extends Thread {
             sleepTick();
         }
 
+        System.out.println("exited timer");
+
         /**
          * counts down the game before its starts
          */
-        startGame();
-        //getTimer().schedule(getCountDown(), 1000, 5000);
+
 
 
         /**
          * start updating players
          */
-        while (!isPaused()) {
+        while (paused) {
             System.out.println("running tick");
 
             System.out.println("serverloop started");

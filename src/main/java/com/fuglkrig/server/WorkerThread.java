@@ -370,7 +370,6 @@ public class WorkerThread implements Runnable {
                     }
                     l.setStarted(true);
 
-                    l.removePlayers();
                     LobbyList.removeLobby(l);
                     game.start();
                 }
