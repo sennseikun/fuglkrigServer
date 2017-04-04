@@ -34,6 +34,10 @@ public class Lobby {
         this.name = name;
     }
 
+    public void removePlayers(){
+        players.clear();
+    }
+
     /**
      * @return the host of the lobby
      */
