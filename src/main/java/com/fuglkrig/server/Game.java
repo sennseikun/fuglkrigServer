@@ -48,7 +48,7 @@ public class Game extends Thread {
     private double birdpoopScale = 1.5;
     private double wallScale = 1.5;
 
-    int updateGameCurrentMillis;
+    long updateGameCurrentMillis;
     int updatesEachSecound;
 
     private List<Player> kickPlayer = new ArrayList<>();
@@ -174,6 +174,14 @@ public class Game extends Thread {
          * datatype 15
          */
 
+        updatesEachSecound++;
+        if (System.currentTimeMillis() > updateGameCurrentMillis + 1000) {
+            System.out.println("update game each secound: " + updatesEachSecound);
+            updateGameCurrentMillis = System.currentTimeMillis();
+            updatesEachSecound = 0;
+
+        }
+
         boolean shouldKickPlayers = false;
 
         if(!kickPlayer.isEmpty()){
@@ -261,13 +269,7 @@ public class Game extends Thread {
             actualKickPlayer();
         }
 
-        updatesEachSecound++;
-        if (System.currentTimeMillis() > updateGameCurrentMillis + 1000) {
-            System.out.println("update game each secound: " + updatesEachSecound);
-            updateGameCurrentMillis = (int) System.currentTimeMillis();
-            updatesEachSecound = 0;
 
-        }
     }
 
     /**
