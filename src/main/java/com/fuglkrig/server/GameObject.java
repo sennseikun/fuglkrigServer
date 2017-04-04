@@ -42,6 +42,9 @@ public class GameObject {
      * @return a rectangle that surrounds the the game object
      */
     public Rectangle getBounds(double scale){
+        System.out.println("Powerup width: " + this.getWidth());
+        System.out.println("Powerup height: " + this.getHeight());
+        System.out.println("Powerup scale: " + scale);
         return new Rectangle(this.getX(),this.getY(),(int)(this.getWidth()*scale),(int)(this.getHeight()*scale));
     }
 
