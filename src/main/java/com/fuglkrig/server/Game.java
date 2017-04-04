@@ -438,8 +438,6 @@ public class Game extends Thread {
     public void run() {
         System.out.println("gameloop started");
 
-        //todo Should probably make a timeout when we stop waiting for players to connect.
-
         //give random coordinates to the players
         for (Player player: players) {
             player.setCoordX(rand.nextInt(gameSizeX - 50));
@@ -448,25 +446,23 @@ public class Game extends Thread {
             player.setTargetPosY(rand.nextInt(gameSizeY - 50));
         }
 
-
         startGame();
         System.out.println("running startgame");
 
         /**
-         * Checks if all users are ready to start before moving on to other tasks.
+         * counts down the game before its starts
          */
-
-        setTextOnPlayerScreen("Waiting for players");
-
         boolean readyToStart = false;
         double getStartMilis = System.currentTimeMillis();
         while (!readyToStart) {
-
+            //checks if we should decrease the timer and prints new timer to player
             if (System.currentTimeMillis() > getStartMilis + 1000) {
                 secoundsUntilStart--;
                 System.out.println("decreasing timer");
                 getStartMilis = System.currentTimeMillis();
             }
+
+            //breaks the timer and starts the next phase
             textOnPlayerScreen = Integer.toString(secoundsUntilStart);
             if (secoundsUntilStart == 0) {
                 textOnPlayerScreen = "";
@@ -477,6 +473,7 @@ public class Game extends Thread {
              * updates the players of the current state.
              */
             UpdateGame();
+
             /**
              * reduces the amount of time this runs.
              */
@@ -484,11 +481,6 @@ public class Game extends Thread {
         }
 
         System.out.println("exited timer");
-
-        /**
-         * counts down the game before its starts
-         */
-
 
 
         /**
