@@ -26,7 +26,7 @@ public class Game extends Thread {
     //in millisecounds
     private double timeForNewPowerUp;
     private String textOnPlayerScreen;
-    private int secoundsUntilStart = 6;
+    private int secoundsUntilStart = 5;
 
     //Changed nr of powerups to support current count
 
@@ -169,7 +169,7 @@ public class Game extends Thread {
         dataToPlayers.put("MapXPos", this.getMap().getMapXPos());
         dataToPlayers.put("NextMapXPos", this.getMap().getNextMapXPos());
         dataToPlayers.put("WinMapXPos", this.getMap().getWinMapXPos());
-        dataToPlayers.put("PrintToPlayer", "test");
+        dataToPlayers.put("PrintToPlayer", secoundsUntilStart+"");
 
         //liste over powerups på kart
         JSONArray powerupData = new JSONArray();
@@ -208,8 +208,6 @@ public class Game extends Thread {
             playerData.put("Direction", player.getDirection());
             playerData.put("Speed", player.getSpeed());
             playerData.put("Alive", player.getAlive());
-
-            System.out.println("Player is alive " + player.getNick()+ ": " + player.getAlive());
 
 
             //powerups in inventory
@@ -457,7 +455,7 @@ public class Game extends Thread {
          * counts down the game before its starts
          */
         startGame();
-        getTimer().schedule(getCountDown(), 1000, 1000);
+        getTimer().schedule(getCountDown(), 1000, 5000);
 
         /**
          * start updating players
