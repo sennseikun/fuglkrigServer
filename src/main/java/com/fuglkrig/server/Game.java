@@ -554,6 +554,7 @@ public class Game extends Thread {
                 }
 
             }
+            paused = true;
             
             System.out.println("Sending game over");
             gameOver();
