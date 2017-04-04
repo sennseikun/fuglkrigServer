@@ -424,6 +424,7 @@ public class Game extends Thread {
     private void gameOver() {
         JSONObject endGame = new JSONObject();
         endGame.put("Datatype", 16);
+        endGame.put("PrintToPlayer", "Game Over");
 
         for (Player player: players) {
             player.UpdateClient(endGame);
@@ -537,7 +538,6 @@ public class Game extends Thread {
             System.out.println("LAST MAN STANDING");
 
             System.out.println("Sending game over");
-            gameOver();
 
             //this is used between playing the game and lobby
             while (isLastManStanding()) {
@@ -545,7 +545,7 @@ public class Game extends Thread {
                 getLastPlayer().setTargetPosY(getMap().getWinPosY());
 
                 //moves the map
-                getMap().moveMap(getSpeed(), isLastManStanding(), getGameSizeX());
+                map.moveMap(getSpeed(), isLastManStanding(), getGameSizeX());
                 //we still need to move the powerups.
                 MovePowerups();
                 //we need to control the player to the nest
@@ -567,9 +567,9 @@ public class Game extends Thread {
             if (getPlayers().size() == 0) {
                 setPaused(true);
             }
-
         }
 
+        gameOver();
         System.out.println("Shutting down server");
 
     }

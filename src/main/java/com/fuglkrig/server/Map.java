@@ -127,7 +127,6 @@ public class Map {
                 System.out.println("stopped moving winscreen");
                 winMapDone = true;
             }
-
         }
 
         //hvis mapXPos er "ferdig" og vi winmap ikke er på rett posisjon
