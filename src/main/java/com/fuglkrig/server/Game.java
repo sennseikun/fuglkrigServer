@@ -556,7 +556,7 @@ public class Game extends Thread {
                 }
 
                 if (getStartMilis < System.currentTimeMillis() + 5000) {
-                    break;
+                    lastManStanding = false;
                 }
 
             }
