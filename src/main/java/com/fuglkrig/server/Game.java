@@ -101,41 +101,19 @@ public class Game extends Thread {
     }
 
     public void moveLastManStanding(Player player) {
-        player.setTargetPosX(500);
-        player.setTargetPosY(500);
-    }
-
-    public void initFugles(){
         try {
-            InputStream is = this.getClass().getClassLoader().getResourceAsStream("bird.png");
-            fugl_image = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
+            player.setTargetPosX(500);
+            player.setTargetPosY(500);
         }
-
-        updateFugles();
-    }
-
-    public void updateFugles(){
-
-        fugles.clear();
-
-        fugl_height = fugl_image.getHeight();
-        fugl_width = fugl_image.getWidth();
-
-        //System.out.println(fugl_image.toString());
-
-        for(Player p: players){
-            int x = (int)p.getCoordX();
-            int y = (int)p.getCoordY();
-
-            //System.out.println(f.toString());
-
+        catch(Exception e){
+            System.out.println("e");
         }
     }
+
     
     public void checkForPowerupCollisions(){
         Powerup powerup = null;
+        Random rand = new Random();
         for (Powerup pUp: powerupsOnMap) {
             for (Player p: players){
                 if(CollisionDetection.playerPowerupCollision(p,pUp, fuglScale,powerupBoxScale)){
@@ -144,7 +122,8 @@ public class Game extends Thread {
                     try{
                         System.out.println(pUp.getType());
                         if(pUp.getType() == 0) {
-                            p.addPowerUp(pUp.getType());
+                            p.addPowerUp(rand.nextInt(2)+1);
+                            System.out.println(p.getPowerups().get(p.getPowerups().size()-1));
                             break;
                         }
                         else{
@@ -413,10 +392,11 @@ public class Game extends Thread {
             for (Player player : getPlayers()) {
                 if(player.getAlive()) {
                     setLastPlayer(player);
+                    moveLastManStanding(player);
                 }
             }
             setLastManStanding(true);
-            moveLastManStanding(lastPlayer);
+
         }
     }
 
@@ -443,7 +423,9 @@ public class Game extends Thread {
         //give random coordinates to the players
         for (Player player: players) {
             player.setCoordX(rand.nextInt(gameSizeX - 50));
+            player.setTargetPosX(rand.nextInt(gameSizeX - 50));
             player.setCoordY(rand.nextInt(gameSizeY - 50));
+            player.setTargetPosY(rand.nextInt(gameSizeY - 50));
         }
 
 
