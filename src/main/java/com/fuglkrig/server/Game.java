@@ -89,6 +89,7 @@ public class Game extends Thread {
         this.setPowerupsOnMap(new ArrayList());
         this.setSpeed(10);
         this.setTimeForNewPowerUp(5000);
+        this.paused = false;
 
         //creating map
         Random rand = new Random();
@@ -443,7 +444,7 @@ public class Game extends Thread {
          * Checks if all users are ready to start before moving on to other tasks.
          */
         setTextOnPlayerScreen("Waiting for players");
-        boolean readyToStart = true;
+        boolean readyToStart = false;
         double getStartMilis = System.currentTimeMillis();
         while (readyToStart == false) {
 
