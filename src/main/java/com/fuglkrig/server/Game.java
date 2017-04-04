@@ -315,7 +315,8 @@ public class Game extends Thread {
                     wallSpeed = this.wallSpeed;
                 InputStream is = this.getClass().getClassLoader().getResourceAsStream("brickwall.png");
                 img = ImageIO.read(is);
-            } catch (IOException e) {
+                spawn = -(int)(fugl_image.getWidth()*fuglScale + 50);
+                } catch (IOException e) {
                 System.out.println(e);
             }
             break;
