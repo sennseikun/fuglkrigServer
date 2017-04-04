@@ -201,6 +201,7 @@ public class Game extends Thread {
         dataToPlayers.put("NextMapXPos", this.getMap().getNextMapXPos());
         dataToPlayers.put("WinMapXPos", this.getMap().getWinMapXPos());
         dataToPlayers.put("PrintToPlayer", textOnPlayerScreen);
+        dataToPlayers.put("ServerSendPackets", updatesEachSecound);
 
         //liste over powerups på kart
         JSONArray powerupData = new JSONArray();
