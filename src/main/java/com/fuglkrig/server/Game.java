@@ -151,6 +151,12 @@ public class Game extends Thread {
          * datatype 15
          */
 
+        boolean shouldKickPlayers = false;
+
+        if(!kickPlayer.isEmpty()){
+            shouldKickPlayers = true;
+        }
+
         JSONObject dataToPlayers = new JSONObject();
         dataToPlayers.put("Datatype", 15);
 
@@ -203,6 +209,8 @@ public class Game extends Thread {
             playerData.put("Speed", player.getSpeed());
             playerData.put("Alive", player.getAlive());
 
+            System.out.println("Player is alive " + player.getNick()+ ": " + player.getAlive());
+
 
             //powerups in inventory
             JSONArray powerupList = new JSONArray(player.getPowerups());
@@ -225,6 +233,12 @@ public class Game extends Thread {
          */
         for (Player player : getPlayers()) {
             player.UpdateClient(dataToPlayers);
+        }
+
+        //This logic is to ensure players are notified about other platers death before removing them
+
+        if(shouldKickPlayers){
+            actualKickPlayer();
         }
     }
 
@@ -478,7 +492,6 @@ public class Game extends Thread {
                 checkForPowerupCollisions();
 
                 //kick players waiting to be kicked
-                actualKickPlayer();
 
                 //kills the server if no one is left
                 if (getPlayers().size() == 0) {
