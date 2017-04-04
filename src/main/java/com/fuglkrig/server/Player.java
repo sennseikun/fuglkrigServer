@@ -42,7 +42,7 @@ public class Player {
     private BufferedImage fugl_image;
     private int width = 0;
     private int height = 0;
-    private HashSet<String> mask = new HashSet<String>();
+    private HashSet<String> mask = new HashSet<>();
 
 
 
@@ -108,7 +108,6 @@ public class Player {
 
         BufferedImage image = null;
         try {
-
             image = getFugl_image();
             int pixel, a;
             for(int i = 0; i < image.getWidth(); i++){ // for every (x,y) component in the given box,
