@@ -200,6 +200,11 @@ public class ReceiveThread extends Thread {
                     getExecutor().execute(worker);
                 }
 
+                else if(datatype == 14){
+                    Runnable worker = new WorkerThread(this, getReceiveThreadId(),"14", getInputSocket(),message);
+                    getExecutor().execute(worker);
+                }
+
                 else{
                     break;
                 }
