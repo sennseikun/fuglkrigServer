@@ -470,9 +470,9 @@ public class Game extends Thread {
         JSONArray listOfPlayers = new JSONArray();
 
         for (Player player : getPlayers()) {
+            System.out.println("Player: " + player.getNick());
             JSONObject playerData = new JSONObject();
             playerData.put("PlayerID", player.getPlayerID());
-
             listOfPlayers.put(playerData);
         }
 
@@ -620,10 +620,10 @@ public class Game extends Thread {
                 //kick players waiting to be kicked
 
                 //kills the server if no one is left
-                if (getPlayers().size() == 0) {
+                /*if (getPlayers().size() == 0) {
                     System.out.println("Setting last man standing true");
                     setLastManStanding(true);
-                }
+                }*/
             }
 
             System.out.println("LAST MAN STANDING");
