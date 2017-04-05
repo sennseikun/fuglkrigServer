@@ -608,10 +608,12 @@ public class Game extends Thread {
                 //kills the server if no one is left
                 if (players.size() == 0) {
                     setLastManStanding(false);
+                    System.out.println("Last man standing false");
                 }
 
                 if (getStartMilis < System.currentTimeMillis() + 5000) {
                     lastManStanding = false;
+                    System.out.println("Last man standing false");
                 }
 
             }

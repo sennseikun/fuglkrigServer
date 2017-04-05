@@ -23,17 +23,17 @@ public class CollisionDetection {
      */
     public static boolean playerPowerupCollision(Player p1, Powerup pUp, double scaleP, double scalePUp){
         if(p1.getRectangle(scaleP).intersects(pUp.getBounds(scalePUp)) || p1.getRectangle(scaleP).contains(pUp.getBounds(scalePUp))){
-            HashSet<String> maskPlayer1 = p1.getMask();
-            HashSet<String> maskPlayer2 = pUp.getMask();
+            //HashSet<String> maskPlayer1 = p1.getMask();
+            //HashSet<String> maskPlayer2 = pUp.getMask();
 
 
-            maskPlayer1.retainAll(maskPlayer2);  // Check to see if any pixels in maskPlayer2 are the same as those in maskPlayer1
+            /*maskPlayer1.retainAll(maskPlayer2);  // Check to see if any pixels in maskPlayer2 are the same as those in maskPlayer1
             System.out.println(maskPlayer1);
             if(maskPlayer1.size() > 0){  // if so, than there exists at least one pixel that is the same in both images, thus
                 System.out.println("Bit perfect collision occured");//  collision has occurred.
                 return true;
-            }
-            //return true;
+            }*/
+            return true;
         }
         return false;
     }
