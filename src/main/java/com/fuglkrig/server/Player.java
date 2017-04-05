@@ -87,8 +87,10 @@ public class Player {
         makeHashSet();
     }
 
+    //Change to try and better collision detection
+
     public Rectangle getRectangle(double scale){
-        return new Rectangle((int)this.getCoordX(),(int)this.getCoordY(),(int)(this.getWidth()*scale),(int)(this.getHeight()*scale));
+        return new Rectangle((int)this.getCoordX(),(int)this.getCoordY(),(int)(45*scale),(int)(this.getHeight()*scale));
     }
 
     /**

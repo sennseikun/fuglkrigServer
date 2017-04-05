@@ -42,6 +42,10 @@ public class Game extends Thread {
     private int fugl_height = 0;
     private int fugl_width = 0;
     private BufferedImage fugl_image = null;
+    private BufferedImage pu0img = null;
+    private BufferedImage pu1img = null;
+    private BufferedImage pu2img = null;
+    private BufferedImage pu3img = null;
 
     private double fuglScale = 3;
     private double powerupBoxScale = 3;
@@ -102,6 +106,31 @@ public class Game extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        InputStream is0 = this.getClass().getClassLoader().getResourceAsStream("powerup.png");
+        try {
+            pu0img = ImageIO.read(is0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        InputStream is1 = this.getClass().getClassLoader().getResourceAsStream("brickwall.png");
+        try {
+            pu1img = ImageIO.read(is1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        InputStream is2 = this.getClass().getClassLoader().getResourceAsStream("brickwall.png");
+        try {
+            pu2img = ImageIO.read(is2);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        InputStream is3 = this.getClass().getClassLoader().getResourceAsStream("birdpoop.png");
+        try {
+            pu3img = ImageIO.read(is3);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         //creating map
         Random rand = new Random();
@@ -117,6 +146,21 @@ public class Game extends Thread {
         }
         catch(Exception e){
             System.out.println("e");
+        }
+    }
+
+    public BufferedImage getPowerupImg(int type){
+        switch(type){
+            case 0:
+                return pu0img;
+            case 1:
+                return pu1img;
+            case 2:
+                return pu2img;
+            case 3:
+                return pu3img;
+            default:
+                return null;
         }
     }
 
@@ -141,7 +185,7 @@ public class Game extends Thread {
                 }
 
 
-                if(CollisionDetection.playerPowerupCollision(p,pUp, fuglScale,scale)){
+                if(CollisionDetection.playerPowerupCollision(p,pUp, fuglScale,scale, getFugl_image(),getPowerupImg(pUp.getType()))){
                     powerup=pUp;
                     try{
                         if(pUp.getType() == 0) {
