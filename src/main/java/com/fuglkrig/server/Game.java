@@ -90,6 +90,11 @@ public class Game extends Thread {
      */
     public Game(List<Player> players) {
         this.setPlayers(players);
+
+        for(Player p: this.players){
+            System.out.println("Player in game: " + p.getNick());
+        }
+
         this.setSleepTime(1000 / 60);
         this.setLastManStanding(false);
         this.setGame(new Thread(this));
