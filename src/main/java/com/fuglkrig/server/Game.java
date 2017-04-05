@@ -185,7 +185,7 @@ public class Game extends Thread {
                 }
 
 
-                if(CollisionDetection.playerPowerupCollision(p,pUp, fuglScale,scale, getFugl_image(),getPowerupImg(pUp.getType()))){
+                if(CollisionDetection.playerPowerupCollision(p,pUp, fuglScale,scale)){
                     powerup=pUp;
                     try{
                         if(pUp.getType() == 0) {

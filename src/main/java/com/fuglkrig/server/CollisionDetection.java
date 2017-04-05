@@ -21,7 +21,7 @@ public class CollisionDetection {
     /**
      *  Checking if the rectangle of the bird are colliding with the powerup button
      */
-    public static boolean playerPowerupCollision(Player p1, Powerup pUp, double scaleP, double scalePUp, BufferedImage img1, BufferedImage img2){
+    public static boolean playerPowerupCollision(Player p1, Powerup pUp, double scaleP, double scalePUp){
         if(p1.getRectangle(scaleP).intersects(pUp.getBounds(scalePUp)) || p1.getRectangle(scaleP).contains(pUp.getBounds(scalePUp))){
 
             /*HashSet<String> maskPlayer1 = p1.getMask();
