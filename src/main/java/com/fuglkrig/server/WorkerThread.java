@@ -371,6 +371,7 @@ public class WorkerThread implements Runnable {
 
                 for(Player p: players){
                     System.out.println("All players in lobby: " + p.getNick());
+                    p.setAlive(true);
                 }
 
                 if (playerList != null && players.size() > 1) {
