@@ -429,7 +429,27 @@ public class WorkerThread implements Runnable {
             //Clean up after a game, while not ending connection?
 
             else if(command.equals("14")){
-                // do something when game ends here?
+                Lobby removeLobby = LobbyList.getLobbyWithPlayer(receiveThread.getPlayer());
+
+
+                if(removeLobby != null){
+
+                    System.out.println("Found removelobby" + removeLobby.getName());
+
+                    for(Player p : removeLobby.getPlayers()){
+                        if(!p.getNick().equals(receiveThread.getPlayer().getNick())){
+                            System.out.println("Sending remove request to " + p.getNick());
+                            p.removeFromGameLobby(receiveThread.getPlayer().getNick(),removeLobby.getName(),removeLobby.getPlayers());
+                        }
+                    }
+                }
+                System.out.println("Removed player: " + receiveThread.getPlayer().getNick());
+                //cleans up the game
+                if (receiveThread.getPlayer().getCurrentGame() != null) {
+                    receiveThread.getPlayer().getCurrentGame().kickPlayer(receiveThread.getPlayer());
+                }
+                LobbyList.updateLobbies();
+                LobbyList.remove_empty_lists();
             }
 
             else{
