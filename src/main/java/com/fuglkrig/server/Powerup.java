@@ -55,7 +55,7 @@ public class Powerup extends GameObject implements EntityPowerUp {
             default:
                 System.out.println("\n\n\nWARNING!\nThe randint in Powerup doesnt match the cases in the other Powerup constructor in the powerup file.\n\n\n ");
         }
-        //makeHashSet();
+        makeHashSet();
     }
 
     /**
@@ -123,7 +123,7 @@ public class Powerup extends GameObject implements EntityPowerUp {
     }
 
     private void makeHashSet(){
-        BufferedImage image = null;
+        BufferedImage image;
         try {
 
             image = getImg();

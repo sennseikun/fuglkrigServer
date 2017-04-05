@@ -84,7 +84,7 @@ public class Player {
         }
         this.width = fugl_image.getWidth();
         this.height = fugl_image.getHeight();
-        //makeHashSet();
+        makeHashSet();
     }
 
     public Rectangle getRectangle(double scale){
@@ -106,7 +106,7 @@ public class Player {
 
     private void makeHashSet(){
 
-        BufferedImage image = null;
+        BufferedImage image;
         try {
             image = getFugl_image();
             int pixel, a;
@@ -117,7 +117,7 @@ public class Player {
                     a= (pixel >> 24) & 0xff;
 
                     if(a != 0){  // if the alpha is not 0, it must be something other than transparent
-                        mask.add((getCoordX()+i)+","+(getCoordY()- j)); // add the absolute x and absolute y coordinates to our set
+                        mask.add(((int)getCoordX()+i)+","+((int)getCoordY()- j)); // add the absolute x and absolute y coordinates to our set
                     }
                 }
             }
