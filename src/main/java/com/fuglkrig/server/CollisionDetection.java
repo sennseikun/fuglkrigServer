@@ -23,7 +23,6 @@ public class CollisionDetection {
      */
     public static boolean playerPowerupCollision(Player p1, Powerup pUp, double scaleP, double scalePUp){
         if(p1.getRectangle(scaleP).intersects(pUp.getBounds(scalePUp)) || p1.getRectangle(scaleP).contains(pUp.getBounds(scalePUp))){
-            /*
             HashSet<String> maskPlayer1 = p1.getMask();
             HashSet<String> maskPlayer2 = pUp.getMask();
 
@@ -34,8 +33,7 @@ public class CollisionDetection {
                 System.out.println("Bit perfect collision occured");//  collision has occurred.
                 return true;
             }
-            */
-            return true;
+            //return true;
         }
         return false;
     }
