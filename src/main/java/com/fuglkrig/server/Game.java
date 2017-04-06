@@ -532,9 +532,16 @@ public class Game extends Thread {
         JSONObject endGame = new JSONObject();
         endGame.put("Datatype", 16);
         endGame.put("PrintToPlayer", "Game Over");
-        endGame.put("Victory", true);
 
         for (Player player: players) {
+
+            boolean won = false;
+
+            if(player.getPlacement() == 1){
+                won = true;
+            }
+
+            endGame.put("Victory", won);
             endGame.put("Placement",player.getPlacement());
             player.UpdateClient(endGame);
         }
