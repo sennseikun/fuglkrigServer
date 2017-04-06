@@ -32,6 +32,7 @@ public class Player {
     private double direction;
     private double speed;
     private boolean alive;
+    private int placement = -1;
 
     private Socket playerSocket;
 
@@ -535,4 +536,11 @@ public class Player {
 
     }
 
+    public int getPlacement() {
+        return placement;
+    }
+
+    public void setPlacement(int placement) {
+        this.placement = placement;
+    }
 }

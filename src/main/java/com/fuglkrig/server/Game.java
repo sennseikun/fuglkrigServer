@@ -51,6 +51,7 @@ public class Game extends Thread {
     private double powerupBoxScale = 3;
     private double birdpoopScale = 1.5;
     private double wallScale = 1.5;
+    private int placement;
 
     long updateGameCurrentMillis;
     int updatesEachSecound;
@@ -90,6 +91,7 @@ public class Game extends Thread {
      */
     public Game(List<Player> players) {
         this.setPlayers(players);
+        placement = players.size();
 
         for(Player p: this.players){
             System.out.println("Player in game: " + p.getNick());
@@ -200,6 +202,8 @@ public class Game extends Thread {
                         }
                         else{
                             p.setAlive(false);
+                            p.setPlacement(placement);
+                            placement--;
                             System.out.println("Player " + p.getNick() + " was hit by powerup");
                         }
                     }
@@ -515,6 +519,7 @@ public class Game extends Thread {
     }
 
     public void kickPlayer(Player player) {
+        placement--;
         player.setAlive(false);
         kickPlayer.add(player);
     }
@@ -530,6 +535,7 @@ public class Game extends Thread {
         endGame.put("Victory", true);
 
         for (Player player: players) {
+            endGame.put("Placement",player.getPlacement());
             player.UpdateClient(endGame);
         }
     }
