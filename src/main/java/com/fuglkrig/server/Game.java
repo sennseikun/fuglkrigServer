@@ -509,6 +509,7 @@ public class Game extends Thread {
         if (playersAlive <= 1) {
             for (Player player : getPlayers()) {
                 if(player.getAlive()) {
+                    player.setPlacement(1);
                     setLastPlayer(player);
                     moveLastManStanding(player);
                 }
