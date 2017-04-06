@@ -373,6 +373,7 @@ public class WorkerThread implements Runnable {
                     System.out.println("All players in lobby: " + p.getNick());
                     p.setAlive(true);
                     p.getPowerups().clear();
+                    p.setPlacement(-1);
                 }
 
                 if (playerList != null && players.size() > 1) {
