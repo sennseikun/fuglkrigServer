@@ -27,7 +27,7 @@ public class Game extends Thread {
 
     //Changed nr of powerups to support current count
 
-    private int numberOfPowerUps = 2;
+    private int numberOfPowerUps = 3;
     //used to move map and powerups. in px
     private int mapSpeed;
     private int wallSpeed = 10;
