@@ -196,7 +196,7 @@ public class Game extends Thread {
                     powerup=pUp;
                     try{
                         if(pUp.getType() == 0) {
-                            p.addPowerUp(rand.nextInt(2)+1);
+                            p.addPowerUp(rand.nextInt(numberOfPowerUps)+1);
                             System.out.println("Player " + p.getNick() + " got powerup" + pUp.getType());
                             break;
                         }

@@ -441,6 +441,9 @@ public class WorkerThread implements Runnable {
                         if(!p.getNick().equals(receiveThread.getPlayer().getNick())){
                             System.out.println("Sending remove request to " + p.getNick());
                             p.removeFromGameLobby(receiveThread.getPlayer().getNick(),removeLobby.getName(),removeLobby.getPlayers());
+                            p.setAlive(false);
+                            p.setPlacement(-1);
+                            p.setPowerups(null);
                         }
                     }
                 }
@@ -448,6 +451,7 @@ public class WorkerThread implements Runnable {
                 //cleans up the game
                 if (receiveThread.getPlayer().getCurrentGame() != null) {
                     receiveThread.getPlayer().getCurrentGame().kickPlayer(receiveThread.getPlayer());
+                    receiveThread.getPlayer().setAlive(false);
                 }
                 LobbyList.updateLobbies();
                 LobbyList.remove_empty_lists();
