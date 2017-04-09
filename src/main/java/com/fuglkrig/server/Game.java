@@ -201,6 +201,7 @@ public class Game extends Thread {
                 scale2 = getScale(p2);
 
                 if(CollisionDetection.powerupPowerupCollision(p1,p2,scale1,scale2) && p1 != p2){
+                if(CollisionDetection.powerupPowerupCollision(p1,p2,scale1,scale2) && p1 != p2){
                     System.out.println("Powerup collision occured");
                     if(p1.getType() == 3 && p2.getType() == 3){
                         removeList.add(p1);
@@ -467,7 +468,7 @@ public class Game extends Thread {
          * loads powerup image and adds powerups on the map
          */
         Powerup pu = new Powerup(x, y, img.getHeight(), img.getWidth(), type, img, wallSpeed, spawn);
-        powerupsOnMap.clear();
+        powerupsOnMap.remove(Integer.valueOf(type));
         powerupsOnMap.add(pu);
     }
 
