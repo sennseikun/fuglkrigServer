@@ -377,11 +377,11 @@ public class Game extends Thread {
             case 1:
                 try {
                     wallSpeed = this.wallSpeed;
-                InputStream is = this.getClass().getClassLoader().getResourceAsStream("brickwall.png");
-                img = ImageIO.read(is);
-                spawn = -(int)(fugl_image.getWidth()*fuglScale);
+                    InputStream is = this.getClass().getClassLoader().getResourceAsStream("brickwall.png");
+                    img = ImageIO.read(is);
+                    spawn = -(int)(fugl_image.getWidth()*fuglScale);
                 } catch (IOException e) {
-                System.out.println(e);
+                    System.out.println(e);
             }
             break;
             case 2:
@@ -411,7 +411,8 @@ public class Game extends Thread {
          * loads powerup image and adds powerups on the map
          */
         Powerup pu = new Powerup(x, y, img.getHeight(), img.getWidth(), type, img, wallSpeed, spawn);
-        powerupsOnMap.set(0,pu);
+        powerupsOnMap.clear();
+        powerupsOnMap.add(pu);
     }
 
     public void MovePowerups() {

@@ -339,6 +339,7 @@ public class Player {
     public void addPowerUp(int powerUp){
         System.out.println("player got powerup of type " + powerUp);
         try {
+            this.powerups.clear();
             this.powerups.add(powerUp);
         }catch (Exception e) {
             System.out.println(e);
