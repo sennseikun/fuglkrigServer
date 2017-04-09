@@ -201,6 +201,7 @@ public class Game extends Thread {
                 scale2 = getScale(p2);
 
                 if(CollisionDetection.powerupPowerupCollision(p1,p2,scale1,scale2)){
+                    System.out.println("Powerup collision occured");
                     if(p1.getType() == 3 && p2.getType() == 3){
                         removeList.add(p1);
                         removeList.add(p2);
@@ -693,7 +694,7 @@ public class Game extends Thread {
                 checkForPowerupCollisions();
 
                 //Checks for collision between powerups
-                //powerupCollision();
+                powerupCollision();
 
                 //kick players waiting to be kicked
 
