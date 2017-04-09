@@ -44,6 +44,7 @@ public class Player {
     private int width = 0;
     private int height = 0;
     private HashSet<String> mask = new HashSet<>();
+    private String unique_id;
 
 
 
@@ -64,7 +65,7 @@ public class Player {
      * @param skin
      * @param connection
      */
-    public Player(String nick, int playerID, int skin, Socket connection) {
+    public Player(String nick, int playerID,String unique_id, int skin, Socket connection) {
         this.setNick(nick);
         this.setPlayerID(playerID);
         this.setSkin(skin);
@@ -76,6 +77,7 @@ public class Player {
         this.coordY = 5;
         this.setxSpeed(5);
         this.setySpeed(5);
+        this.unique_id = unique_id;
 
         try {
             InputStream is = this.getClass().getClassLoader().getResourceAsStream("bird.png");
@@ -543,5 +545,13 @@ public class Player {
 
     public void setPlacement(int placement) {
         this.placement = placement;
+    }
+
+    public String getUnique_id() {
+        return unique_id;
+    }
+
+    public void setUnique_id(String unique_id) {
+        this.unique_id = unique_id;
     }
 }

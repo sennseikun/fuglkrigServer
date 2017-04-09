@@ -53,14 +53,17 @@ public class WorkerThread implements Runnable {
 
             if (command.equals("0")) {
                 String name;
+                String unique_id;
+
                 JSONObject json = new JSONObject(message);
                 name = json.getString("nick");
+                unique_id = json.getString("UniqueID");
                 String value = "1";
                 ArrayList<Player> op = OnlinePlayers.getPlayers();
 
                 //Checks if name is empty
 
-                if (name.equals("")) {
+                if (name.equals("") || (unique_id.equals(""))) {
                     value = "0";
                 }
 
@@ -70,6 +73,10 @@ public class WorkerThread implements Runnable {
                     for (int i = 0; op.size() < i; i++) {
                         if (op.get(i).getNick().equals(name)) {
                             value = "0";
+                        }
+                        else if(op.get(i).getUnique_id().equals(unique_id)){
+                            op.remove(i);
+                            System.out.println("Removed already exsistent player from the same device");
                         }
                     }
                 }
@@ -84,7 +91,7 @@ public class WorkerThread implements Runnable {
 
                 if (value.equals("1")) {
 
-                    Player player = new Player(name, id, 0, socket);
+                    Player player = new Player(name, id, unique_id ,0, socket);
                     receiveThread.setPlayer(player);
                     OnlinePlayers.newPlayer(player);
 
