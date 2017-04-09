@@ -42,6 +42,13 @@ public class CollisionDetection {
         return false;
     }
 
+    public static boolean powerupPowerupCollision(Powerup p1, Powerup p2, double scale1, double scale2){
+        if((p1.getBounds(scale1).intersects(p2.getBounds(scale2)) || p1.getBounds(scale1).contains(p2.getBounds(scale2)))){
+            return true;
+        }
+        return false;
+    }
+
     /**
      *  Checking if the rectangle of a bird collides with the rectangle of a wall and calling pixel perfect collision detection
      *  #deadBird

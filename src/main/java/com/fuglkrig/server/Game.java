@@ -171,6 +171,61 @@ public class Game extends Thread {
         }
     }
 
+    public double getScale(Powerup p){
+        switch(p.getType()){
+            case 0:
+                return powerupBoxScale;
+            case 1:
+                return wallScale;
+            case 2:
+                return wallScale;
+            case 3:
+                return birdpoopScale;
+        }
+        return 1;
+    }
+
+    //Remove powerups on collision
+
+    public void powerupCollision(){
+
+        List<Powerup> removeList = new ArrayList<>();
+
+        for (Powerup p1: powerupsOnMap){
+            for(Powerup p2: powerupsOnMap){
+
+                double scale1 = 1;
+                double scale2 = 1;
+
+                scale1 = getScale(p1);
+                scale2 = getScale(p2);
+
+                if(CollisionDetection.powerupPowerupCollision(p1,p2,scale1,scale2)){
+                    if(p1.getType() == 3 && p2.getType() == 3){
+                        removeList.add(p1);
+                        removeList.add(p2);
+                    }
+                    else if(p1.getType() == 3){
+                        removeList.add(p2);
+                    }
+                    else if(p2.getType() == 3){
+                        removeList.add(p1);
+                    }
+
+                    else if(p1.getType() == 0 || p2.getType() == 0){
+                        //Do nothing
+                    }
+
+                    else{
+                        removeList.add(p1);
+                        removeList.add(p2);
+                    }
+                }
+            }
+        }
+        getPowerupsOnMap().removeAll(removeList);
+    }
+
     public void checkForPowerupCollisions(){
         Powerup powerup = null;
         Random rand = new Random();
@@ -636,6 +691,9 @@ public class Game extends Thread {
                 //Updates the fugles representations on server
                 //Check for collisions between fugles
                 checkForPowerupCollisions();
+
+                //Checks for collision between powerups
+                powerupCollision();
 
                 //kick players waiting to be kicked
 
