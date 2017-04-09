@@ -58,6 +58,7 @@ public class WorkerThread implements Runnable {
                 JSONObject json = new JSONObject(message);
                 name = json.getString("nick");
                 unique_id = json.getString("UniqueID");
+                System.out.println("Unique ID: " + unique_id);
                 String value = "1";
                 ArrayList<Player> op = OnlinePlayers.getPlayers();
 
