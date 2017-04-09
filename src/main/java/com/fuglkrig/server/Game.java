@@ -187,12 +187,12 @@ public class Game extends Thread {
 
     //Remove powerups on collision
 
-    public void powerupCollision(){
+    public void powerupCollision() {
 
         List<Powerup> removeList = new ArrayList<>();
 
-        for (Powerup p1: powerupsOnMap){
-            for(Powerup p2: powerupsOnMap){
+        for (Powerup p1 : powerupsOnMap) {
+            for (Powerup p2 : powerupsOnMap) {
 
                 double scale1 = 1;
                 double scale2 = 1;
@@ -200,27 +200,22 @@ public class Game extends Thread {
                 scale1 = getScale(p1);
                 scale2 = getScale(p2);
 
-                if(CollisionDetection.powerupPowerupCollision(p1,p2,scale1,scale2) && p1 != p2){
-                if(CollisionDetection.powerupPowerupCollision(p1,p2,scale1,scale2) && p1 != p2){
-                    System.out.println("Powerup collision occured");
-                    if(p1.getType() == 3 && p2.getType() == 3){
-                        removeList.add(p1);
-                        removeList.add(p2);
-                    }
-                    else if(p1.getType() == 3){
-                        removeList.add(p2);
-                    }
-                    else if(p2.getType() == 3){
-                        removeList.add(p1);
-                    }
-
-                    else if(p1.getType() == 0 || p2.getType() == 0){
-                        //Do nothing
-                    }
-
-                    else{
-                        removeList.add(p1);
-                        removeList.add(p2);
+                if (CollisionDetection.powerupPowerupCollision(p1, p2, scale1, scale2) && p1 != p2) {
+                    if (CollisionDetection.powerupPowerupCollision(p1, p2, scale1, scale2) && p1 != p2) {
+                        System.out.println("Powerup collision occured");
+                        if (p1.getType() == 3 && p2.getType() == 3) {
+                            removeList.add(p1);
+                            removeList.add(p2);
+                        } else if (p1.getType() == 3) {
+                            removeList.add(p2);
+                        } else if (p2.getType() == 3) {
+                            removeList.add(p1);
+                        } else if (p1.getType() == 0 || p2.getType() == 0) {
+                            //Do nothing
+                        } else {
+                            removeList.add(p1);
+                            removeList.add(p2);
+                        }
                     }
                 }
             }
