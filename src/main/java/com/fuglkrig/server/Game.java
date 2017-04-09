@@ -30,7 +30,9 @@ public class Game extends Thread {
     private int numberOfPowerUps = 3;
     //used to move map and powerups. in px
     private int mapSpeed;
-    private int wallSpeed = 10;
+    private int wallSpeed = 8;
+    private int birdpoopSpeed = 20;
+    private int powerupSpeed = 10;
     private int spawn = 0;
 
     private Random rand = new Random();
@@ -47,9 +49,9 @@ public class Game extends Thread {
     private BufferedImage pu2img = null;
     private BufferedImage pu3img = null;
 
-    private double fuglScale = 3;
-    private double powerupBoxScale = 3;
-    private double birdpoopScale = 1.5;
+    private double fuglScale = 2;
+    private double powerupBoxScale = 2;
+    private double birdpoopScale = 1.2;
     private double wallScale = 1.5;
     private int placement;
 
@@ -405,7 +407,24 @@ public class Game extends Thread {
             height = img.getHeight();
             width = img.getWidth();
 
-            Powerup pu = new Powerup(x, y, height, width, type, img, wallSpeed ,spawn);
+            //int speed = 10;
+
+            /*switch(type){
+                case 0:
+                    speed = powerupSpeed;
+                    break;
+                case 1:
+                    speed = wallSpeed;
+                    break;
+                case 2:
+                    speed = wallSpeed;
+                    break;
+                case 3:
+                    speed = birdpoopSpeed;
+                    break;
+            }*/
+
+            Powerup pu = new Powerup(x, y, height, width, type, img, powerupSpeed ,spawn);
             pu.setType(0);
             this.getPowerupsOnMap().add(pu);
             setTimeStart(System.currentTimeMillis());
@@ -418,6 +437,8 @@ public class Game extends Thread {
         System.out.println("shot powerup of type " + type);
 
         int wallSpeed = this.wallSpeed;
+        int powerupSpeed = this.powerupSpeed;
+        int birdpoopSpeed = this.birdpoopSpeed;
         int spawn = this.spawn;
 
         BufferedImage img = null;
@@ -447,7 +468,7 @@ public class Game extends Thread {
             case 3:
                 try {
 
-                    wallSpeed = this.wallSpeed* -1;
+                    wallSpeed = this.birdpoopSpeed* -1;
                     InputStream is = this.getClass().getClassLoader().getResourceAsStream("birdpoop.png");
                     img = ImageIO.read(is);
                     spawn = (int)(fugl_image.getWidth()*fuglScale + 50);
