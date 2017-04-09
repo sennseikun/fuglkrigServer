@@ -466,7 +466,7 @@ public class Game extends Thread {
          * loads powerup image and adds powerups on the map
          */
         Powerup pu = new Powerup(x, y, img.getHeight(), img.getWidth(), type, img, wallSpeed, spawn);
-        //powerupsOnMap.clear();
+        powerupsOnMap.clear();
         powerupsOnMap.add(pu);
     }
 
@@ -693,7 +693,7 @@ public class Game extends Thread {
                 checkForPowerupCollisions();
 
                 //Checks for collision between powerups
-                powerupCollision();
+                //powerupCollision();
 
                 //kick players waiting to be kicked
 
