@@ -86,7 +86,7 @@ public class WorkerThread implements Runnable {
 
                 //If this device already has a registered player, remove the old player to prevent multi logging
 
-                players.removeAll(players);
+                OnlinePlayers.getPlayers().removeAll(players);
 
                 //Create and send answer to send back to client
 
