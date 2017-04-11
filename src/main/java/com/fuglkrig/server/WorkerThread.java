@@ -61,6 +61,7 @@ public class WorkerThread implements Runnable {
                 System.out.println("Unique ID: " + unique_id);
                 String value = "1";
                 ArrayList<Player> op = OnlinePlayers.getPlayers();
+                List<Player> players = new ArrayList<>();
 
                 //Checks if name is empty
 
@@ -70,17 +71,22 @@ public class WorkerThread implements Runnable {
 
                 //Checks if other users already has this username
 
+
                 else if (op != null) {
                     for (int i = 0; op.size() < i; i++) {
                         if (op.get(i).getNick().equals(name)) {
                             value = "0";
                         }
                         else if(op.get(i).getUnique_id().equals(unique_id)){
-                            op.remove(i);
+                            players.add(op.get(i));
                             System.out.println("Removed already exsistent player from the same device");
                         }
                     }
                 }
+
+                //If this device already has a registered player, remove the old player to prevent multi logging
+
+                players.removeAll(players);
 
                 //Create and send answer to send back to client
 

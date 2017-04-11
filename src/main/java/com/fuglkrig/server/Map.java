@@ -18,7 +18,7 @@ public class Map {
     private int winMapXPos;
     private int winPosX;
     private int winPosY;
-    boolean stopmovingscr = false;
+    private boolean stopmovingscr;
 
 
     //maptype is 1, 2 or 3.
@@ -57,10 +57,13 @@ public class Map {
             this.currentMap = "forrest1";
             this.nextMap = "forrest2";
             this.winMap = "forrest3";
+            this.mapWidth = 1652;
+            this.winMapWidth = 550;
         }
         else {
             System.out.println("\n\n\nWARNING: TRIED TO START A MAP THAT DOESNT EXIST, number: " + mapType + "\n\n\n");
         }
+        stopmovingscr = false;
     }
 
     public String getMapName() {
