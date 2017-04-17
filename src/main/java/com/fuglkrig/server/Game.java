@@ -709,7 +709,7 @@ public class Game extends Thread {
                 checkForPowerupCollisions();
 
                 //Checks for collision between powerups
-                powerupCollision();
+                //powerupCollision();
 
                 //kick players waiting to be kicked
 
