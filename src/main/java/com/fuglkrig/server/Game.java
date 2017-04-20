@@ -244,7 +244,7 @@ public class Game extends Thread {
                 }
 
 
-                if(CollisionDetection.playerPowerupCollision(p,pUp, fuglScale,scale)){
+                if(CollisionDetection.playerPowerupCollision(p,pUp, fuglScale,scale) && p.isAlive()){
                     powerup=pUp;
                     try{
                         if(pUp.getType() == 0) {
