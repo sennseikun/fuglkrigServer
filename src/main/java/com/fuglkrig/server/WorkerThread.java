@@ -73,7 +73,7 @@ public class WorkerThread implements Runnable {
 
 
                 else if (op != null) {
-                    for (int i = 0; op.size() < i; i++) {
+                    for (int i = 0;  i < op.size(); i++) {
                         if (op.get(i).getNick().equals(name)) {
                             value = "0";
                         }
