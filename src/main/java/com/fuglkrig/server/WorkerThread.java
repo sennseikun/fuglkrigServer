@@ -78,7 +78,6 @@ public class WorkerThread implements Runnable {
                             value = "0";
                         }
                         else if(op.get(i).getUnique_id().equals(unique_id)){
-                            value = "0";
                             players.add(op.get(i));
                             System.out.println("Removed already exsistent player from the same device");
                         }
@@ -241,6 +240,7 @@ public class WorkerThread implements Runnable {
                     int maxPlayerCount = LobbyList.getLobby(lobbyID).getMax_player_count();
 
                     for (Player p : LobbyList.getLobby(lobbyID).getPlayers()) {
+                        System.out.println("In current lobby: " + p.getNick());
                     }
 
 
