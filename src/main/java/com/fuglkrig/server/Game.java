@@ -207,9 +207,9 @@ public class Game extends Thread {
                         if (p1.getType() == 3 && p2.getType() == 3) {
                             removeList.add(p1);
                             removeList.add(p2);
-                        } else if (p1.getType() == 3) {
+                        } else if (p1.getType() == 3 && p2.getType() != 0) {
                             removeList.add(p2);
-                        } else if (p2.getType() == 3) {
+                        } else if (p2.getType() == 3 && p2.getType() != 0) {
                             removeList.add(p1);
                         } else if (p1.getType() == 0 || p2.getType() == 0) {
                             //Do nothing
