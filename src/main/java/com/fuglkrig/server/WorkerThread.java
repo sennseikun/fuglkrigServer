@@ -372,6 +372,8 @@ public class WorkerThread implements Runnable {
                  *  hvis nei, break.
                  */
 
+                System.out.println("Current player: " + receiveThread.getPlayer());
+
                 List<Player> playerList = LobbyList.getPlayersFromLobby(receiveThread.getPlayer());
                 List<Player> players = LobbyList.getLobbyWithPlayer(receiveThread.getPlayer()).getPlayers();
                 Lobby l = LobbyList.getLobbyWithPlayer(receiveThread.getPlayer());
