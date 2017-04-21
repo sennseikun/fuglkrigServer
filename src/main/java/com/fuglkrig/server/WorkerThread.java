@@ -48,9 +48,9 @@ public class WorkerThread implements Runnable {
     public void run() {
 
         try {
-
-            //CHECK if player can be made
-
+            /**
+             * CHECK if player can be made
+             */
             if (command.equals("0")) {
                 String name;
                 String unique_id;
@@ -63,15 +63,16 @@ public class WorkerThread implements Runnable {
                 ArrayList<Player> op = OnlinePlayers.getPlayers();
                 List<Player> players = new ArrayList<>();
 
-                //Checks if name is empty
-
+                /**
+                 * Checks if name is empty
+                 */
                 if (name.equals("") || (unique_id.equals(""))) {
                     value = "0";
                 }
 
-                //Checks if other users already has this username
-
-
+                /**
+                 * Checks if other users already has this username
+                 */
                 else if (op != null) {
                     for (int i = 0;  i < op.size(); i++) {
                         if (op.get(i).getNick().equals(name)) {
@@ -84,12 +85,14 @@ public class WorkerThread implements Runnable {
                     }
                 }
 
-                //If this device already has a registered player, remove the old player to prevent multi logging
-
+                /**
+                 * If this device already has a registered player, remove the old player to prevent multi logging
+                 */
                 OnlinePlayers.getPlayers().removeAll(players);
 
-                //Create and send answer to send back to client
-
+                /**
+                 * Create and send answer to send back to client
+                 */
                 JSONObject retur = new JSONObject();
                 retur.put("Datatype", "0");
                 retur.put("userValid", value);
@@ -112,21 +115,25 @@ public class WorkerThread implements Runnable {
 
             }
 
-            //Return all lobbies
-
+            /**
+             * Return all lobbies
+             */
             else if (command.equals("1")) {
                 try {
 
                     int count = 0;
 
-                    //Lobby logic here
+                    /**
+                     * Lobby logic here
+                     */
                     JSONObject json = new JSONObject();
                     json.put("Datatype", "1");
 
                     List<Lobby> lobbys = LobbyList.getLobbys();
 
-                    //Return all the lobbies with lobby name, player count, max player count and password
-
+                    /**
+                     * Return all the lobbies with lobby name, player count, max player count and password
+                     */
                     for (int i = 1; i < lobbys.size() + 1; i++) {
 
                         Lobby l = lobbys.get(i - 1);
@@ -165,12 +172,14 @@ public class WorkerThread implements Runnable {
                 System.out.println("ReceiveThread: Sent lobbylist");
             }
 
-            //Create new lobby
-
+            /**
+             * Create new lobby
+             */
             else if (command.equals("2")) {
 
-                //Setup a new lobby and put the creating player in it
-
+                /**
+                 * Setup a new lobby and put the creating player in it
+                 */
                 JSONObject jsonObject = new JSONObject(message);
                 String name = jsonObject.getString("Name");
                 String playerName = jsonObject.getString("PlayerName");
@@ -197,8 +206,9 @@ public class WorkerThread implements Runnable {
 
             }
 
-            //Withdraw from lobby
-
+            /**
+             * Withdraw from lobby
+             */
             else if (command.equals("3")) {
 
                 JSONObject jsonObject = new JSONObject(message);
@@ -227,8 +237,9 @@ public class WorkerThread implements Runnable {
 
             }
 
-            //Join a new lobby
-
+            /**
+             * Join a new lobby
+             */
             else if(command.equals("4")){
                 JSONObject jsonObject = new JSONObject(message);
                 String name = jsonObject.getString("Name");
@@ -296,8 +307,9 @@ public class WorkerThread implements Runnable {
                 }
             }
 
-            //Remove player
-
+            /**
+             * Remove player
+             */
             else if(command.equals("5")){
                 JSONObject json = new JSONObject(message);
                 String name = json.getString("nick");
@@ -341,8 +353,9 @@ public class WorkerThread implements Runnable {
 
             }
 
-            //Password check
-
+            /**
+             * Password check
+             */
             else if(command.equals("7")){
 
                 JSONObject receivedJson = new JSONObject(message);
@@ -431,12 +444,18 @@ public class WorkerThread implements Runnable {
                 System.out.println(player.getPowerups());
                 System.out.println(player.getPowerups().contains(Integer.valueOf(type)));
 
-                //checks if the user actually got the powerup he wants to use
+                /**
+                 * checks if the user actually got the powerup he wants to use
+                 */
                 if (player.getPowerups().contains(Integer.valueOf(type))) {
                     System.out.println("spawning powerup");
-                    //removes the powerup from the user
+                    /**
+                     * removes the powerup from the user
+                     */
                     player.getPowerups().clear();
-                    //spawn the powerup
+                    /**
+                     * spawn the powerup
+                     */
                     player.getCurrentGame().addPowerup(type, (int) player.getCoordX() - 50, (int) player.getCoordY());
                 }
                 else {
@@ -444,8 +463,9 @@ public class WorkerThread implements Runnable {
                 }
             }
 
-            //Clean up after a game, while not ending connection?
-
+            /**
+             * Clean up after a game, while not ending connection?
+             */
             else if(command.equals("14")){
                 Lobby removeLobby = LobbyList.getLobbyWithPlayer(receiveThread.getPlayer());
 
@@ -465,7 +485,9 @@ public class WorkerThread implements Runnable {
                     }
                 }
                 System.out.println("Removed player: " + receiveThread.getPlayer().getNick());
-                //cleans up the game
+                /**
+                 * cleans up the game
+                 */
                 if (receiveThread.getPlayer().getCurrentGame() != null) {
                     receiveThread.getPlayer().getCurrentGame().kickPlayer(receiveThread.getPlayer());
                     receiveThread.getPlayer().setAlive(false);

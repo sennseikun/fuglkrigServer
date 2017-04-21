@@ -211,7 +211,9 @@ public class ReceiveThread extends Thread {
 
             } catch (IOException e) {
                 System.out.println(player.getNick() + " closed connection");
-                //kills the player so he isnt drawed on screen anymore.
+                /**
+                 * kills the player so he isnt drawed on screen anymore.
+                 */
                 /*if (player.getCurrentGame() != null) {
                     player.setAlive(false);
                 }*/

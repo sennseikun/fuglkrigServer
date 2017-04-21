@@ -30,8 +30,10 @@ public class Powerup extends GameObject implements EntityPowerUp {
         this.speed = speed;
         this.spawn = spawn;
 
-        //TODO fix this to give powers!. MATCH THIS WITH CLIENT
-        //remember to fix Powerup! It has a randint that needs to be changed
+        /**
+         * TODO fix this to give powers!. MATCH THIS WITH CLIENT
+         * remember to fix Powerup! It has a randint that needs to be changed
+         */
         switch (this.getType()) {
 
             case 0: setPowerUpName("Undeployed");
@@ -122,6 +124,9 @@ public class Powerup extends GameObject implements EntityPowerUp {
         this.img = img;
     }
 
+    /**
+     * Create a hashSet of the image of the powerup
+     */
     private void makeHashSet(){
         BufferedImage image;
         try {

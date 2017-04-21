@@ -165,10 +165,18 @@ public class Lobby {
         return lobbyData;
     }
 
+    /**
+     * Used to check if you can join the lobby
+     * @return boolean value if the game is started.
+     */
     public boolean isStarted() {
         return isStarted;
     }
 
+    /**
+     * Setting the isStarted value
+     * @param started
+     */
     public void setStarted(boolean started) {
         isStarted = started;
     }

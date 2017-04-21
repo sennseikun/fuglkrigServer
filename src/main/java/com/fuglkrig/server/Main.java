@@ -7,7 +7,6 @@ import java.net.URLEncoder;
 import java.util.Scanner;
 
 public class Main {
-
     public static void main(String[] args) {
         System.out.println("FUGLKRIG server starting...");
         int port = 5555;
@@ -25,7 +24,9 @@ public class Main {
 
         URL url = null;
 
-        //gets ip address to server
+        /**
+         * gets ip address to server
+         */
         try {
             String code = "fuGlKrig03042017";
             url = new URL("http://guttormsen.io/fuglkrig/updateip.php?code=" + URLEncoder.encode(code, "UTF-8"));

@@ -21,18 +21,25 @@ public class Map {
     private boolean stopmovingscr;
 
 
-    //maptype is 1, 2 or 3.
+    /**
+     * maptype is 1, 2 or 3.
+     * @param mapType
+     */
     public Map(int mapType) {
 
         this.mapType = mapType;
         this.mapXPos = 0;
 
-        //the position you go to when you are the last man standing. this should be the nest
+        /**
+         * the position you go to when you are the last man standing. this should be the nest
+         */
         this.winPosX = 1700;
         this.winPosY = 500;
 
 
-        //this sets the map name
+        /**
+         * this sets the map name
+         */
         if (mapType == 1) {
             this.mapName = "egypt";
             this.currentMap = "egypt1";
@@ -114,17 +121,17 @@ public class Map {
         return this.winPosY;
     }
 
-    //moves the map. one map is 1652px wide
+    /**
+     * moves the map. one map is 1652px wide
+     * @param speed
+     * @param lastManStanding
+     * @param gameSizeX
+     */
     public void moveMap(int speed, boolean lastManStanding, int gameSizeX) {
         mapXPos -= speed;
         nextMapXPos = mapXPos + mapWidth;
-
         boolean winMapDone = false;
-
-
-
         if (lastManStanding) {
-
             if (gameSizeX - winMapXPos <= winMapWidth) {
                 System.out.println("moving winscreen");
                 winMapXPos -= speed;
@@ -137,10 +144,13 @@ public class Map {
                 winMapDone = true;
             }
         }
-
-        //hvis mapXPos er "ferdig" og vi winmap ikke er på rett posisjon
+        /**
+         * hvis mapXPos er "ferdig" og vi winmap ikke er på rett posisjon
+         */
         if ((mapXPos <= mapWidth * -1) && !winMapDone) {
-            //mapxpos får nextmap sin posisjon. nextmap får ny posisjon bortenfor
+            /**
+             * mapxpos får nextmap sin posisjon. nextmap får ny posisjon bortenfor
+             */
             mapXPos = nextMapXPos;
             nextMapXPos = mapXPos + mapWidth;
         }
