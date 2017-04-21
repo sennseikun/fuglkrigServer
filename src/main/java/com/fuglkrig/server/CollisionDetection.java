@@ -29,6 +29,14 @@ public class CollisionDetection {
         return false;
     }
 
+    /**
+     * Checking if the rectangle of the 2 powerups crashes.
+     * @param p1 powerup1
+     * @param p2 powerup2
+     * @param scale1 screenscale of powerup1
+     * @param scale2 screenscale of powerup2
+     * @return boolean value if there is a crash between powerups
+     */
     public static boolean powerupPowerupCollision(Powerup p1, Powerup p2, double scale1, double scale2){
         if((p1.getBounds(scale1).intersects(p2.getBounds(scale2)) || p1.getBounds(scale1).contains(p2.getBounds(scale2)))){
             return true;

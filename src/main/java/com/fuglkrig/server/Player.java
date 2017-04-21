@@ -88,7 +88,11 @@ public class Player {
         makeHashSet();
     }
 
-    //Change to try and better collision detection
+    /**
+     * Change to try and better collision detection
+     * @param scale
+     * @return rectangle of the players
+     */
 
     public Rectangle getRectangle(double scale){
         return new Rectangle((int)this.getCoordX(),(int)this.getCoordY(),(int)(45*scale),(int)(this.getHeight()*scale));
@@ -107,6 +111,9 @@ public class Player {
         return getNick().equals(p.getNick());
     }
 
+    /**
+     * Create a hashSet of the image of the player
+     */
     private void makeHashSet(){
 
         BufferedImage image;
@@ -286,6 +293,9 @@ public class Player {
         targetPosX = x;
     }
 
+    /**
+     * Updates the direction in the x and y axis
+     */
     public void UpdateDxDy(){
         setDx(getTargetPosX() - getCoordX());
         setDy(getTargetPosY() - getCoordY());
@@ -363,7 +373,7 @@ public class Player {
     }
 
     /**
-     * todo fix this comment!
+     * todo fix this comment
      * Update function for the changing of direction of the player.
      */
     public void nextTick() {

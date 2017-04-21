@@ -310,7 +310,9 @@ public class Game extends Thread {
         dataToPlayers.put("PrintToPlayer", textOnPlayerScreen);
         dataToPlayers.put("ServerSendPackets", updatesEachSecoundToClient);
 
-        //liste over powerups på kart
+        /**
+         * liste over powerups på kart
+         */
         JSONArray powerupData = new JSONArray();
         for (Powerup powerup : getPowerupsOnMap()) {
 
@@ -325,7 +327,9 @@ public class Game extends Thread {
             powerupData.put(powerupObject);
         }
 
-        //adds the powerupdata to the json that is sent to the players
+        /**
+         * adds the powerupdata to the json that is sent to the players
+         */
         dataToPlayers.put("PowerupData", powerupData);
 
 
@@ -371,7 +375,9 @@ public class Game extends Thread {
             player.UpdateClient(dataToPlayers);
         }
 
-        //This logic is to ensure players are notified about other platers death before removing them
+        /**
+         * This logic is to ensure players are notified about other platers death before removing them
+         */
 
         if(shouldKickPlayers){
             actualKickPlayer();
@@ -433,16 +439,17 @@ public class Game extends Thread {
         }
     }
 
+    /**
+     * Deploying a powerup to the game
+     * @param type of powerup
+     * @param x value where it is deployed
+     * @param y value where it is deployed
+     */
     public void addPowerup(int type, int x, int y) {
-        System.out.println("shot powerup of type " + type);
-
         int wallSpeed = this.wallSpeed;
-        int powerupSpeed = this.powerupSpeed;
-        int birdpoopSpeed = this.birdpoopSpeed;
         int spawn = this.spawn;
 
         BufferedImage img = null;
-        //todo make sure the right image is loaded for the right powerup.
 
         switch (type){
             case 1:
@@ -467,7 +474,6 @@ public class Game extends Thread {
             break;
             case 3:
                 try {
-
                     wallSpeed = this.birdpoopSpeed* -1;
                     InputStream is = this.getClass().getClassLoader().getResourceAsStream("birdpoop.png");
                     img = ImageIO.read(is);
@@ -486,6 +492,9 @@ public class Game extends Thread {
         powerupsOnMap.add(pu);
     }
 
+    /**
+     * Moving the powerup and removing them if they go of the screen
+     */
     public void MovePowerups() {
 
         List<Powerup> toDelete = new ArrayList<>();
@@ -570,6 +579,9 @@ public class Game extends Thread {
 
     }
 
+    /**
+     * Checking if there is a win-condition
+     */
     public void lastManStanding() {
         int playersAlive = 0;
         for (Player player : getPlayers()) {
@@ -591,16 +603,26 @@ public class Game extends Thread {
         }
     }
 
+    /**
+     * Adding player to the kickPlayer list.
+     * @param player
+     */
     public void kickPlayer(Player player) {
         placement--;
         player.setAlive(false);
         kickPlayer.add(player);
     }
 
+    /**
+     * Remoing all the players thats in kickPlayer list from the game
+     */
     private void actualKickPlayer() {
         players.removeAll(kickPlayer);
     }
 
+    /**
+     * Returning information to the client when the game is over.
+     */
     private void gameOver() {
         JSONObject endGame = new JSONObject();
         endGame.put("Datatype", 16);
@@ -676,10 +698,7 @@ public class Game extends Thread {
          * start updating players
          */
         while (!paused) {
-            System.out.println("running tick");
-            System.out.println("serverloop started");
-
-            /*
+            /**
              * This is the game loop. When the game is started this updates all the clients until someone won
              */
             while (!isLastManStanding()) {
@@ -768,6 +787,10 @@ public class Game extends Thread {
         System.out.println("Shutting down server");
 
     }
+
+    /**
+     * Getters and setters list for the game.
+     */
 
     public List<Player> getPlayers() {
         return players;
