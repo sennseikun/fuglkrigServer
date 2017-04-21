@@ -195,7 +195,7 @@ public class Player {
             sendJson.put("Datatype","3");
             sendJson.put("LobbyID",lobbyID);
             sendJson.put("Error","0");
-            if(LobbyList.getLobby(lobbyID).getPlayers().size() > 1){
+            if(LobbyList.getLobby(lobbyID).getPlayers().size() > 1 && LobbyList.getLobby(lobbyID).getPlayers().get(0).getNick().equals(name)){
                 sendJson.put("hostPlayer",LobbyList.getLobby(lobbyID).getPlayers().get(1).getNick());
             }
             else{
