@@ -1,18 +1,5 @@
 package com.fuglkrig.server;
 
-import com.fuglkrig.server.classes.EntityBird;
-import com.fuglkrig.server.classes.EntityCanonBall;
-import com.fuglkrig.server.classes.EntityPowerUp;
-import com.fuglkrig.server.classes.EntityWall;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-
 /**
  * Created by Magnus on 03.03.2017.
  */
@@ -56,6 +43,4 @@ public class CollisionDetection {
         }
         return false;
     }
-
-
 }

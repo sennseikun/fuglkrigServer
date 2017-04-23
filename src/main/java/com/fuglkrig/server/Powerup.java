@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.HashSet;
 
-import com.fuglkrig.server.classes.EntityPowerUp;
+import com.fuglkrig.server.interfaces.EntityPowerUp;
 
 /**
  * Created by Tore on 20.03.2017.

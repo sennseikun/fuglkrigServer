@@ -1,4 +1,4 @@
-package com.fuglkrig.server.classes;
+package com.fuglkrig.server.interfaces;
 
 
 

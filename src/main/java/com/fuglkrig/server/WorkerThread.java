@@ -18,24 +18,24 @@ public class WorkerThread implements Runnable {
     private JSONObject json;
     private String message;
     private int id;
-    private ReceiveThread receiveThread;
+    private Connection connection;
 
     /**
      * Creating the thread that is running the game
-     * @param receiveThread
+     * @param connection
      * @param id
      * @param command
      * @param socket
      * @param message
      */
-    public WorkerThread(ReceiveThread receiveThread ,int id, String command, Socket socket, String message){
+    public WorkerThread(Connection connection, int id, String command, Socket socket, String message){
 
         this.command=command;
         this.socket = socket;
         this.json = json;
         this.message = message;
         this.id = id;
-        this.receiveThread = receiveThread;
+        this.connection = connection;
     }
 
     public WorkerThread(String command){
@@ -102,7 +102,7 @@ public class WorkerThread implements Runnable {
                 if (value.equals("1")) {
 
                     Player player = new Player(name, id, unique_id ,0, socket);
-                    receiveThread.setPlayer(player);
+                    connection.setPlayer(player);
                     OnlinePlayers.newPlayer(player);
 
                     System.out.println("WorkerThread 0: Players online: " + OnlinePlayers.getPlayers());
@@ -111,7 +111,7 @@ public class WorkerThread implements Runnable {
                 DataOutputStream out = new DataOutputStream(socket.getOutputStream());
                 out.writeUTF(retur.toString());
 
-                System.out.println("WorkerThread 0: ReceiveThread: Sent user verification");
+                System.out.println("WorkerThread 0: Connection: Sent user verification");
 
             }
 
@@ -169,7 +169,7 @@ public class WorkerThread implements Runnable {
                     e.printStackTrace();
                 }
 
-                System.out.println("ReceiveThread: Sent lobbylist");
+                System.out.println("Connection: Sent lobbylist");
             }
 
             /**
@@ -193,7 +193,7 @@ public class WorkerThread implements Runnable {
 
                 Lobby lobby = new Lobby(name,playerList,max_players,password);
 
-                System.out.println("WorkerThread 2: ReceiveThread: Creating a lobby and putting it in the list");
+                System.out.println("WorkerThread 2: Connection: Creating a lobby and putting it in the list");
                 LobbyList.addLobby(lobby);
 
                 JSONObject sendJson = new JSONObject();
@@ -356,7 +356,7 @@ public class WorkerThread implements Runnable {
             /**
              * Password check
              */
-            else if(command.equals("7")){
+            else if(command.equals("8")){
 
                 JSONObject receivedJson = new JSONObject(message);
 
@@ -385,11 +385,11 @@ public class WorkerThread implements Runnable {
                  *  hvis nei, break.
                  */
 
-                System.out.println("Current player: " + receiveThread.getPlayer());
+                System.out.println("Current player: " + connection.getPlayer());
 
-                List<Player> playerList = LobbyList.getPlayersFromLobby(receiveThread.getPlayer());
-                List<Player> players = LobbyList.getLobbyWithPlayer(receiveThread.getPlayer()).getPlayers();
-                Lobby l = LobbyList.getLobbyWithPlayer(receiveThread.getPlayer());
+                List<Player> playerList = LobbyList.getPlayersFromLobby(connection.getPlayer());
+                List<Player> players = LobbyList.getLobbyWithPlayer(connection.getPlayer()).getPlayers();
+                Lobby l = LobbyList.getLobbyWithPlayer(connection.getPlayer());
 
                 for(Player p: playerList){
                     System.out.println("Host player in current lobby: " + p.getNick());
@@ -427,18 +427,18 @@ public class WorkerThread implements Runnable {
                 double y = jsonData.getDouble("TargetY");
 
                 if (x >= 0) {
-                    this.receiveThread.getPlayer().setTargetPosX(x);
+                    this.connection.getPlayer().setTargetPosX(x);
                 }
                 if(y >= 0){
-                    this.receiveThread.getPlayer().setTargetPosY(y);
+                    this.connection.getPlayer().setTargetPosY(y);
                 }
-                this.receiveThread.getPlayer().UpdateDxDy();
+                this.connection.getPlayer().UpdateDxDy();
             }
 
             else if(command.equals("13")){
                 JSONObject jsonData = new JSONObject(message);
                 int type = jsonData.getInt("Type");
-                Player player = receiveThread.getPlayer();
+                Player player = connection.getPlayer();
 
                 System.out.println("type: " + type);
                 System.out.println(player.getPowerups());
@@ -467,7 +467,7 @@ public class WorkerThread implements Runnable {
              * Clean up after a game, while not ending connection?
              */
             else if(command.equals("14")){
-                Lobby removeLobby = LobbyList.getLobbyWithPlayer(receiveThread.getPlayer());
+                Lobby removeLobby = LobbyList.getLobbyWithPlayer(connection.getPlayer());
 
 
                 if(removeLobby != null){
@@ -475,46 +475,41 @@ public class WorkerThread implements Runnable {
                     System.out.println("Found removelobby" + removeLobby.getName());
 
                     for(Player p : removeLobby.getPlayers()){
-                        if(!p.getNick().equals(receiveThread.getPlayer().getNick())){
+                        if(!p.getNick().equals(connection.getPlayer().getNick())){
                             System.out.println("Sending remove request to " + p.getNick());
-                            p.removeFromGameLobby(receiveThread.getPlayer().getNick(),removeLobby.getName(),removeLobby.getPlayers());
+                            p.removeFromGameLobby(connection.getPlayer().getNick(),removeLobby.getName(),removeLobby.getPlayers());
                             p.setAlive(false);
                             p.setPlacement(-1);
                             p.setPowerups(null);
                         }
                     }
                 }
-                System.out.println("Removed player: " + receiveThread.getPlayer().getNick());
+                System.out.println("Removed player: " + connection.getPlayer().getNick());
                 /**
                  * cleans up the game
                  */
-                if (receiveThread.getPlayer().getCurrentGame() != null) {
-                    receiveThread.getPlayer().getCurrentGame().kickPlayer(receiveThread.getPlayer());
-                    receiveThread.getPlayer().setAlive(false);
+                if (connection.getPlayer().getCurrentGame() != null) {
+                    connection.getPlayer().getCurrentGame().kickPlayer(connection.getPlayer());
+                    connection.getPlayer().setAlive(false);
                 }
                 LobbyList.updateLobbies();
                 LobbyList.remove_empty_lists();
             }
 
-            else if (command.equals("66")){
-                JSONObject ping = new JSONObject();
-                ping.put("LifeSupport", 66);
-                DataOutputStream out = null;
-                try {
-                    out = new DataOutputStream(this.socket.getOutputStream());
-                    out.writeUTF(ping.toString());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            else if(command.equals("25")){
+                System.out.println("Received packet 25");
+                DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+                out.writeUTF("Server online");
+
             }
 
             else{
-                receiveThread.stopThread();
+                connection.stopThread();
             }
 
         } catch (IOException e) {
             e.printStackTrace();
-            receiveThread.stopThread();
+            connection.stopThread();
         }
     }
 

@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
-import com.fuglkrig.server.classes.EntityBird;
+
 import org.json.*;
 import javax.imageio.ImageIO;
 
@@ -15,7 +15,6 @@ import javax.imageio.ImageIO;
 
 public class Game extends Thread {
     private List<Player> players;
-    private ArrayList<EntityBird> fugles = new ArrayList<>();
     private Thread game;
     private Map map;
     private double timeStart = System.currentTimeMillis();
@@ -799,14 +798,6 @@ public class Game extends Thread {
 
     public void setPlayers(List<Player> players) {
         this.players = players;
-    }
-
-    public ArrayList<EntityBird> getFugles() {
-        return fugles;
-    }
-
-    public void setFugles(ArrayList<EntityBird> fugles) {
-        this.fugles = fugles;
     }
 
     public Thread getGame() {

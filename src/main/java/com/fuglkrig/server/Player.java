@@ -1,7 +1,5 @@
 package com.fuglkrig.server;
 
-import com.fuglkrig.server.classes.EntityBird;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.imageio.ImageIO;
@@ -18,7 +16,7 @@ import java.util.List;
 /**
  * Created by Magnus on 03.03.2017.
  */
-public class Player {
+public class Player extends CollisionDetection {
     private String nick;
     private int playerID;
     private int hp;

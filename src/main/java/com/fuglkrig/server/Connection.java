@@ -13,7 +13,7 @@ import org.json.JSONObject;
 /**
  * Created by thoma on 3/23/2017.
  */
-public class ReceiveThread extends Thread {
+public class Connection extends Thread {
 
     private Socket inputSocket;
     private int id;
@@ -26,7 +26,7 @@ public class ReceiveThread extends Thread {
      * @param inputSocket
      * @param id
      */
-    public ReceiveThread(Socket inputSocket, int id){
+    public Connection(Socket inputSocket, int id){
         this.inputSocket = inputSocket;
         this.id = id;
         this.setRunning(true);
@@ -205,12 +205,18 @@ public class ReceiveThread extends Thread {
                     getExecutor().execute(worker);
                 }
 
+                else if(datatype == 25){
+                    System.out.println("Gets into datatype 25");
+                    Runnable worker = new WorkerThread(this, getReceiveThreadId(),"25", getInputSocket(),message);
+                    getExecutor().execute(worker);
+                }
+
                 else{
                     break;
                 }
 
             } catch (IOException e) {
-                System.out.println(player.getNick() + " closed connection");
+                System.out.println("closed connection");
                 /**
                  * kills the player so he isnt drawed on screen anymore.
                  */
