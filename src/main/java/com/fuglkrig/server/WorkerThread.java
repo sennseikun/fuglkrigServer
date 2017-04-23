@@ -356,7 +356,7 @@ public class WorkerThread implements Runnable {
             /**
              * Password check
              */
-            else if(command.equals("7")){
+            else if(command.equals("8")){
 
                 JSONObject receivedJson = new JSONObject(message);
 
