@@ -498,6 +498,8 @@ public class WorkerThread implements Runnable {
 
             else if(command.equals("25")){
                 System.out.println("Received packet 25");
+                DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+                out.writeUTF("Server online");
             }
 
             else{
