@@ -206,6 +206,7 @@ public class Connection extends Thread {
                 }
 
                 else if(datatype == 25){
+                    System.out.println("Gets into datatype 25");
                     Runnable worker = new WorkerThread(this, getReceiveThreadId(),"25", getInputSocket(),message);
                     getExecutor().execute(worker);
                 }
