@@ -496,6 +496,11 @@ public class WorkerThread implements Runnable {
                 LobbyList.remove_empty_lists();
             }
 
+            else if(command.equals("25")){
+                DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+                out.writeUTF("Server is online");
+            }
+
             else{
                 connection.stopThread();
             }

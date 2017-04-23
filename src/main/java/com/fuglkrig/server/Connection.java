@@ -205,12 +205,17 @@ public class Connection extends Thread {
                     getExecutor().execute(worker);
                 }
 
+                else if(datatype == 25){
+                    Runnable worker = new WorkerThread(this, getReceiveThreadId(),"25", getInputSocket(),message);
+                    getExecutor().execute(worker);
+                }
+
                 else{
                     break;
                 }
 
             } catch (IOException e) {
-                System.out.println(player.getNick() + " closed connection");
+                System.out.println("closed connection");
                 /**
                  * kills the player so he isnt drawed on screen anymore.
                  */
