@@ -7,6 +7,11 @@ import java.net.URLEncoder;
 import java.util.Scanner;
 
 public class Main {
+
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         System.out.println("FUGLKRIG server starting...");
         int port = 5555;
@@ -38,8 +43,6 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
 
         try {
             Thread t = new RequestHandler(port);

@@ -496,6 +496,18 @@ public class WorkerThread implements Runnable {
                 LobbyList.remove_empty_lists();
             }
 
+            else if (command.equals("66")){
+                JSONObject ping = new JSONObject();
+                ping.put("LifeSupport", 66);
+                DataOutputStream out = null;
+                try {
+                    out = new DataOutputStream(this.socket.getOutputStream());
+                    out.writeUTF(ping.toString());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
             else{
                 receiveThread.stopThread();
             }
