@@ -23,6 +23,9 @@ public class RequestHandler extends Thread {
         id = 0;
     }
 
+    /**
+     * This is the method that is running the request handler.
+     */
     public void run() {
         while (true) {
             try {

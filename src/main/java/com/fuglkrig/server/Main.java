@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Main {
 
     /**
-     *
+     * This is the starting point of the server.
      * @param args
      */
     public static void main(String[] args) {

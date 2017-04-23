@@ -45,10 +45,18 @@ public class GameObject {
     }
 
 
+    /**
+     * Sets the height of the game object.
+     * @param height
+     */
     public void setHeight(int height){
         this.height = height;
     }
 
+    /**
+     * Sets the width of the game object.
+     * @param width
+     */
     public void setWidth(int width){
         this.width = width;
     }
@@ -85,34 +93,63 @@ public class GameObject {
         return height;
     }
 
+    /**
+     * @return the nick of the game object.
+     */
     public String getNick() {
         return nick;
     }
 
+    /**
+     * Sets the nick of the game object.
+     * @param nick
+     */
     public void setNick(String nick) {
         this.nick = nick;
     }
 
+    /**
+     * @return the id of the game object.
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Sets the id of the game object.
+     * @param id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * @return the code of the game object.
+     */
     public int getCode() {
         return code;
     }
 
+    /**
+     * Sets the code of the game object.
+     * @param code
+     */
     public void setCode(int code) {
         this.code = code;
     }
 
+    /**
+     * Sets the X on the game object.
+     * @param x
+     */
     public void setX(int x) {
         this.x = x;
     }
 
+    /**
+     * Sets the Y on the game object.
+     * @param y
+     */
     public void setY(int y) {
         this.y = y;
     }

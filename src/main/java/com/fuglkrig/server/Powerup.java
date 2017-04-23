@@ -104,22 +104,39 @@ public class Powerup extends GameObject implements EntityPowerUp {
         return super.getY();
     }
 
+    /**
+     * @return the type of the power up.
+     */
     public int getType() {
         return type;
     }
 
+    /**
+     * @return the name of the powerup.
+     */
     public String getPowerUpName() {
         return powerUpName;
     }
 
+    /**
+     * Sets the name of the powerup.
+     * @param powerUpName
+     */
     public void setPowerUpName(String powerUpName) {
         this.powerUpName = powerUpName;
     }
 
+    /**
+     * @return the image of the power up.
+     */
     public BufferedImage getImg() {
         return img;
     }
 
+    /**
+     * Sets the image of the powerup.
+     * @param img
+     */
     public void setImg(BufferedImage img) {
         this.img = img;
     }
@@ -149,6 +166,9 @@ public class Powerup extends GameObject implements EntityPowerUp {
         }
     }
 
+    /**
+     * @return the hashset of the image of the powerup.
+     */
     public HashSet<String> getMask(){
         return mask;  //return our set
     }

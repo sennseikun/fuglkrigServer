@@ -231,34 +231,61 @@ public class Connection extends Thread {
         stopThread();
     }
 
+    /**
+     * @return the inputSocket of the connection.
+     */
     public Socket getInputSocket() {
         return inputSocket;
     }
 
+    /**
+     * Sets the inputSocket of the connection.
+     * @param inputSocket
+     */
     public void setInputSocket(Socket inputSocket) {
         this.inputSocket = inputSocket;
     }
 
+    /**
+     * @return the id of the receive thread.
+     */
     public int getReceiveThreadId() {
         return this.id;
     }
 
+    /**
+     * @return all the players on this connection.
+     */
     public Player getPlayer() {
         return player;
     }
 
+    /**
+     * @return the boolean value if the connection is running
+     */
     public boolean isRunning() {
         return running;
     }
 
+    /**
+     * Sets the boolean value on if the connection is running of not.
+     * @param running
+     */
     public void setRunning(boolean running) {
         this.running = running;
     }
 
+    /**
+     * @return executor service from the connection.
+     */
     public ExecutorService getExecutor() {
         return executor;
     }
 
+    /**
+     * Sets the executor service for the connection.
+     * @param executor
+     */
     public void setExecutor(ExecutorService executor) {
         this.executor = executor;
     }

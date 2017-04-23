@@ -384,7 +384,6 @@ public class WorkerThread implements Runnable {
                  *   Sjekk om spilleren er først i lobby sin spiller liste, hvis ja, start spill
                  *  hvis nei, break.
                  */
-
                 System.out.println("Current player: " + connection.getPlayer());
 
                 List<Player> playerList = LobbyList.getPlayersFromLobby(connection.getPlayer());

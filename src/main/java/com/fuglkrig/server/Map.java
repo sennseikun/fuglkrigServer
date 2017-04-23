@@ -73,50 +73,86 @@ public class Map {
         stopmovingscr = false;
     }
 
+    /**
+     * @return the name of the maps.
+     */
     public String getMapName() {
         return this.mapName;
     }
 
+    /**
+     * @return the current map.
+     */
     public String getCurrentMap() {
         return this.currentMap;
     }
 
+    /**
+     * @return the next map.
+     */
     public String getNextMap() {
         return nextMap;
     }
 
+    /**
+     * @return the maps used to show the win screen.
+     */
     public String getWinMap() {
         return this.winMap;
     }
 
+    /**
+     * @return the width of the map
+     */
     public int getMapWidth() {
         return this.mapWidth;
     }
 
+    /**
+     * @return the width of the winmap
+     */
     public int getWinMapWidth() {
         return this.winMapWidth;
     }
 
+    /**
+     * @return the map type
+     */
     public int getMapType() {
         return this.mapType;
     }
 
+    /**
+     * @return the maps x position.
+     */
     public int getMapXPos() {
         return this.mapXPos;
     }
 
+    /**
+     * @return the next maps x position.
+     */
     public int getNextMapXPos() {
         return this.nextMapXPos;
     }
 
+    /**
+     * @return the winmaps next x position.
+     */
     public int getWinMapXPos() {
         return this.winMapXPos;
     }
 
+    /**
+     * @return the win positions x value.
+     */
     public int getWinPosX() {
         return this.winPosX;
     }
 
+    /**
+     * @return the win positions y walue.
+     */
     public int getWinPosY() {
         return this.winPosY;
     }

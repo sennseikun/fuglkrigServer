@@ -789,182 +789,332 @@ public class Game extends Thread {
     }
 
     /**
-     * Getters and setters list for the game.
+     * @return the list of players in the game.
      */
-
     public List<Player> getPlayers() {
         return players;
     }
 
+    /**
+     * Sets the players in the game from the given list.
+     * @param players
+     */
     public void setPlayers(List<Player> players) {
         this.players = players;
     }
 
+    /**
+     * @return the current game.
+     */
     public Thread getGame() {
         return game;
     }
 
+    /**
+     * Sets the game to the given in the param.
+     * @param game
+     */
     public void setGame(Thread game) {
         this.game = game;
     }
 
+    /**
+     * @return the map of the game.
+     */
     public Map getMap() {
         return map;
     }
 
+    /**
+     * Sets the map of the game to the given map.
+     * @param map
+     */
     public void setMap(Map map) {
         this.map = map;
     }
 
+    /**
+     * @return the time to start.
+     */
     public double getTimeStart() {
         return timeStart;
     }
 
+    /**
+     * Sets the time to start.
+     * @param timeStart
+     */
     public void setTimeStart(double timeStart) {
         this.timeStart = timeStart;
     }
 
+    /**
+     * @return the time since the last powerup spawned.
+     */
     public double getTimeSinceLastPowerUp() {
         return timeSinceLastPowerUp;
     }
 
+    /**
+     * Sets the time since the last powerup spawned.
+     * @param timeSinceLastPowerUp
+     */
     public void setTimeSinceLastPowerUp(double timeSinceLastPowerUp) {
         this.timeSinceLastPowerUp = timeSinceLastPowerUp;
     }
 
+    /**
+     * @return the time for new powerup.
+     */
     public double getTimeForNewPowerUp() {
         return timeForNewPowerUp;
     }
 
+    /**
+     * Set the time for a new powerup.
+     * @param timeForNewPowerUp
+     */
     public void setTimeForNewPowerUp(double timeForNewPowerUp) {
         this.timeForNewPowerUp = timeForNewPowerUp;
     }
 
+    /**
+     * @return the text on players screen.
+     */
     public String getTextOnPlayerScreen() {
         return textOnPlayerScreen;
     }
 
+    /**
+     * Sets the text on players screen.
+     * @param textOnPlayerScreen
+     */
     public void setTextOnPlayerScreen(String textOnPlayerScreen) {
         this.textOnPlayerScreen = textOnPlayerScreen;
     }
 
+    /**
+     * @return the seconds until the game starts.
+     */
     public int getSecoundsUntilStart() {
         return secoundsUntilStart;
     }
 
+    /**
+     * Sets the seconds until the game starts.
+     * @param secoundsUntilStart
+     */
     public void setSecoundsUntilStart(int secoundsUntilStart) {
         this.secoundsUntilStart = secoundsUntilStart;
     }
 
+    /**
+     * @return the number of powerups.
+     */
     public int getNumberOfPowerUps() {
         return numberOfPowerUps;
     }
 
+    /**
+     * Sets the number of powerups.
+     * @param numberOfPowerUps
+     */
     public void setNumberOfPowerUps(int numberOfPowerUps) {
         this.numberOfPowerUps = numberOfPowerUps;
     }
 
+    /**
+     * @return the map speed of the game.
+     */
     public int getSpeed() {
         return mapSpeed;
     }
 
+    /**
+     * Sets the maps speed of the game.
+     * @param speed
+     */
     public void setSpeed(int speed) {
         this.mapSpeed = speed;
     }
 
-
+    /**
+     * @return the last man standings x value.
+     */
     public int getLastManStandingX() {
         return lastManStandingX;
     }
 
+    /**
+     * Sets the last man standings x value.
+     * @param lastManStandingX
+     */
     public void setLastManStandingX(int lastManStandingX) {
         this.lastManStandingX = lastManStandingX;
     }
 
+    /**
+     * @return the last man standings y value.
+     */
     public int getGetLastManStandingY() {
         return getLastManStandingY;
     }
 
+    /**
+     * Sets the last man standings y value.
+     * @param getLastManStandingY
+     */
     public void setGetLastManStandingY(int getLastManStandingY) {
         this.getLastManStandingY = getLastManStandingY;
     }
 
+    /**
+     * @return the last player.
+     */
     public Player getLastPlayer() {
         return lastPlayer;
     }
 
+    /**
+     * Sets the last player.
+     * @param lastPlayer
+     */
     public void setLastPlayer(Player lastPlayer) {
         this.lastPlayer = lastPlayer;
     }
 
+    /**
+     * @return the games size x value
+     */
     public int getGameSizeX() {
         return gameSizeX;
     }
 
+    /**
+     * Sets the games size x value.
+     * @param gameSizeX
+     */
     public void setGameSizeX(int gameSizeX) {
         this.gameSizeX = gameSizeX;
     }
 
+    /**
+     * @return the games size y value.
+     */
     public int getGameSizeY() {
         return gameSizeY;
     }
 
+    /**
+     * Sets the games size y value.
+     * @param gameSizeY
+     */
     public void setGameSizeY(int gameSizeY) {
         this.gameSizeY = gameSizeY;
     }
 
+    /**
+     * @return the birds height.
+     */
     public int getFugl_height() {
         return fugl_height;
     }
 
+    /**
+     * Sets the birds height.
+     * @param fugl_height
+     */
     public void setFugl_height(int fugl_height) {
         this.fugl_height = fugl_height;
     }
 
+    /**
+     * @return the birds width.
+     */
     public int getFugl_width() {
         return fugl_width;
     }
 
+    /**
+     * Sets the birds width.
+     * @param fugl_width
+     */
     public void setFugl_width(int fugl_width) {
         this.fugl_width = fugl_width;
     }
 
+    /**
+     * @return the image of the bird.
+     */
     public BufferedImage getFugl_image() {
         return fugl_image;
     }
 
+    /**
+     * Sets the image of the bird.
+     * @param fugl_image
+     */
     public void setFugl_image(BufferedImage fugl_image) {
         this.fugl_image = fugl_image;
     }
 
+    /**
+     * @return the list of powerups on the map.
+     */
     public List<Powerup> getPowerupsOnMap() {
         return powerupsOnMap;
     }
 
+    /**
+     * Sets the powerups on the map.
+     * @param powerupsOnMap
+     */
     public void setPowerupsOnMap(List<Powerup> powerupsOnMap) {
         this.powerupsOnMap = powerupsOnMap;
     }
 
+    /**
+     * Removes the powerup on the map.
+     * @param powerup
+     */
     public void removePowerupOnMap(Powerup powerup){
         powerupsOnMap.remove(powerup);
     }
 
+    /**
+     * @return the timer of the game.
+     */
     public Timer getTimer() {
         return timer;
     }
 
+    /**
+     * Sets the timer of the game.
+     * @param timer
+     */
     public void setTimer(Timer timer) {
         this.timer = timer;
     }
 
+    /**
+     * @return get the countdown of the game.
+     */
     public TimerTask getCountDown() {
         return countDown;
     }
 
+    /**
+     * Sets the countdown for the game.
+     * @param countDown
+     */
     public void setCountDown(TimerTask countDown) {
         this.countDown = countDown;
     }
 
+    /**
+     * Sets the boolean value of the games paused to the param.
+     * @param paused
+     */
     public void setPaused(boolean paused) {
         this.paused = paused;
     }
@@ -976,10 +1126,18 @@ public class Game extends Thread {
         return sleepTime;
     }
 
+    /**
+     * Sets the sleep time of the game.
+     * @param sleepTime
+     */
     public void setSleepTime(int sleepTime) {
         this.sleepTime = sleepTime;
     }
 
+    /**
+     * Sets the boolean value if there is a last man standing.
+     * @param lastManStanding
+     */
     public void setLastManStanding(boolean lastManStanding) {
         this.lastManStanding = lastManStanding;
     }

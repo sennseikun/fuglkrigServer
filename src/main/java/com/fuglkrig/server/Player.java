@@ -439,126 +439,239 @@ public class Player extends CollisionDetection {
     	return true;
     }
 
+    /**
+     * @return the width of the player.
+     */
     public int getWidth() {
         return width;
     }
 
+    /**
+     * Sets the width of the player.
+     * @param width
+     */
     public void setWidth(int width) {
         this.width = width;
     }
 
+    /**
+     * @return the height of the player.
+     */
     public int getHeight() {
         return height;
     }
 
+    /**
+     * Sets the height of the player.
+     * @param height
+     */
     public void setHeight(int height) {
         this.height = height;
     }
+
+    /**
+     * Sets the nick of the player.
+     * @param nick
+     */
     public void setNick(String nick) {
         this.nick = nick;
     }
 
+    /**
+     * Sets the player ID
+     * @param playerID
+     */
     public void setPlayerID(int playerID) {
         this.playerID = playerID;
     }
 
+    /**
+     * Sets the HP of the player.
+     * @param hp
+     */
     public void setHp(int hp) {
         this.hp = hp;
     }
 
+    /**
+     * Sets the skin of the player.
+     * @param skin
+     */
     public void setSkin(int skin) {
         this.skin = skin;
     }
 
+    /**
+     * Sets the coordinate of the player in the x axis.
+     * @param coordX
+     */
     public void setCoordX(double coordX) {
         this.coordX = coordX;
     }
 
+    /**
+     * Sets the coordinate of the player in the y axis.
+     * @param coordY
+     */
     public void setCoordY(double coordY) {
         this.coordY = coordY;
     }
 
+    /**
+     * @return the speed in the x axis.
+     */
     public double getxSpeed() {
         return xSpeed;
     }
 
+    /**
+     * Sets the speed in the x axis.
+     * @param xSpeed
+     */
     public void setxSpeed(double xSpeed) {
         this.xSpeed = xSpeed;
     }
 
+    /**
+     * @return the speed in the y axis.
+     */
     public double getySpeed() {
         return ySpeed;
     }
 
+    /**
+     * Sets the speed in the y axis.
+     * @param ySpeed
+     */
     public void setySpeed(double ySpeed) {
         this.ySpeed = ySpeed;
     }
 
+    /**
+     * Sets the direction of the player.
+     * @param direction
+     */
     public void setDirection(double direction) {
         this.direction = direction;
     }
 
+    /**
+     * Sets the speed of the player.
+     * @param speed
+     */
     public void setSpeed(double speed) {
         this.speed = speed;
     }
 
+    /**
+     * @return the boolean value if the player is alive.
+     */
     public boolean isAlive() {
         return alive;
     }
 
+    /**
+     * Sets the socket of the player.
+     * @param playerSocket
+     */
     public void setPlayerSocket(Socket playerSocket) {
         this.playerSocket = playerSocket;
     }
 
+    /**
+     * Sets the powerups the player has.
+     * @param powerups
+     */
     public void setPowerups(ArrayList<Integer> powerups) {
         this.powerups = powerups;
     }
 
+    /**
+     * @return the current game of the player.
+     */
     public Game getCurrentGame() {
         return currentGame;
     }
 
+    /**
+     * Sets the current game of the player.
+     * @param currentGame
+     */
     public void setCurrentGame(Game currentGame) {
         this.currentGame = currentGame;
     }
 
+    /**
+     * @return the direction in the x axis.
+     */
     public double getDx() {
         return dx;
     }
 
+    /**
+     * Sets the direction in the x axis.
+     * @param dx
+     */
     public void setDx(double dx) {
         this.dx = dx;
     }
 
+    /**
+     * @return the direction in the y axis.
+     */
     public double getDy() {
         return dy;
     }
 
+    /**
+     * Sets the direction in the y axis.
+     * @param dy
+     */
     public void setDy(double dy) {
         this.dy = dy;
     }
 
+    /**
+     * @return the image of the bird.
+     */
     public BufferedImage getFugl_image(){
         return fugl_image;
     }
 
+    /**
+     * @return the hashSet of the image.
+     */
     public HashSet<String> getMask(){
         return mask;  //return our set
 
     }
 
+    /**
+     * @return the placement of the player.
+     */
     public int getPlacement() {
         return placement;
     }
 
+    /**
+     * Sets the placement of the player.
+     * @param placement
+     */
     public void setPlacement(int placement) {
         this.placement = placement;
     }
 
+    /**
+     * @return the unique id of the player.
+     */
     public String getUnique_id() {
         return unique_id;
     }
 
+    /**
+     * Sets the unique id of the player.
+     * @param unique_id
+     */
     public void setUnique_id(String unique_id) {
         this.unique_id = unique_id;
     }
