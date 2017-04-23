@@ -13,7 +13,7 @@ import org.json.JSONObject;
 /**
  * Created by thoma on 3/23/2017.
  */
-public class ReceiveThread extends Thread {
+public class Connection extends Thread {
 
     private Socket inputSocket;
     private int id;
@@ -26,7 +26,7 @@ public class ReceiveThread extends Thread {
      * @param inputSocket
      * @param id
      */
-    public ReceiveThread(Socket inputSocket, int id){
+    public Connection(Socket inputSocket, int id){
         this.inputSocket = inputSocket;
         this.id = id;
         this.setRunning(true);
